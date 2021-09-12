@@ -1,0 +1,101 @@
+site_name: The Internals of Apache Kafka
+site_url: https://books.japila.pl/kafka-internals
+site_author: Jacek Laskowski
+site_description: Demystifying inner-workings of Apache Kafka
+
+repo_name: kafka-internals
+repo_url: https://github.com/japila-books/kafka-internals
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2021 Jacek Laskowski
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/book-open-page-variant
+    repo: fontawesome/brands/github
+  features:
+    # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations
+    - content.code.annotate
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - awesome-pages
+  - macros
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+  # - tags:
+  #     tags_file: tags.md
+
+extra:
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  book:
+    title: Apache Kafka
+  kafka:
+    version: 2.8.0
+    github: https://github.com/apache/kafka/tree/2.8.0
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jaceklaskowski
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/jaceklaskowski
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/jaceklaskowski
+    - icon: fontawesome/brands/medium
+      link: https://jaceklaskowski.medium.com
+
+nav:
+  - Home: index.md
+  - Internals:
+    - Overview: overview.md
