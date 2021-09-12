@@ -6,6 +6,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/Producer/</loc>
+         <lastmod>2021-09-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/building-from-sources/</loc>
+         <lastmod>2021-09-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/overview/</loc>
          <lastmod>2021-09-12</lastmod>
          <changefreq>daily</changefreq>
