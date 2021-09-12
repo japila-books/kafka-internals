@@ -99,3 +99,6 @@ nav:
   - Home: index.md
   - Internals:
     - Overview: overview.md
+    - Building from Sources: building-from-sources.md
+  - Clients:
+    - Producer: Producer.md
