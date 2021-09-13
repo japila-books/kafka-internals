@@ -100,5 +100,12 @@ nav:
   - Internals:
     - Overview: overview.md
     - Building from Sources: building-from-sources.md
+    - AbstractConfig: AbstractConfig.md
+    - Logging: logging.md
   - Clients:
-    - Producer: Producer.md
+    - Producers:
+      - producer/index.md
+      - Producer: producer/Producer.md
+      - KafkaProducer: producer/KafkaProducer.md
+      - ProducerConfig: producer/ProducerConfig.md
+    - CommonClientConfigs: CommonClientConfigs.md

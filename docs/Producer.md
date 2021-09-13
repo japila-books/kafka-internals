@@ -1,3 +1,0 @@
-# Producer
-
-`Producer` is...FIXME
