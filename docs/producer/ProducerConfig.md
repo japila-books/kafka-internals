@@ -9,6 +9,26 @@ Used when:
 * `KafkaProducer` is requested to [configureTransactionState](KafkaProducer.md#configureTransactionState)
 * `ProducerConfig` is requested to [maybeOverrideEnableIdempotence](#maybeOverrideEnableIdempotence) and [idempotenceEnabled](#idempotenceEnabled)
 
+## <span id="max.in.flight.requests.per.connection"><span id="MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION"> max.in.flight.requests.per.connection
+
+The maximum number of unacknowledged requests the client will send on a single connection before blocking.
+Note that if this setting is set to be greater than 1 and there are failed sends, there is a risk of message re-ordering due to retries (i.e., if retries are enabled).
+
+Default: `5`
+
+Must be at least 1
+
+Related to:
+
+* [enable.idempotence](#enable.idempotence)
+* [retries](#retries)
+
+Used when:
+
+* `KafkaProducer` is requested to [configureInflightRequests](KafkaProducer.md#configureInflightRequests)
+
+## <span id="retries"><span id="RETRIES_CONFIG"> retries
+
 ## <span id="transactional.id"><span id="TRANSACTIONAL_ID_CONFIG"> transactional.id
 
 The `TransactionalId` to use for transactional delivery. This enables reliability semantics which span multiple producer sessions since it allows the client to guarantee that transactions using the same TransactionalId have been completed prior to starting any new transactions. If no TransactionalId is provided, then the producer is limited to idempotent delivery. If a TransactionalId is configured, [enable.idempotence](#enable.idempotence) is implied.
@@ -29,7 +49,7 @@ boolean idempotenceEnabled()
 
 `idempotenceEnabled` is used when:
 
-* `KafkaProducer` is requested to [configureTransactionState](KafkaProducer.md#configureTransactionState), [configureInflightRequests](KafkaProducer.md#configureInflightRequests), [configureAcks](KafkaProducer.md#configureAcks)
+* `KafkaProducer` is [created](KafkaProducer.md#creating-instance) (and requested to [configureTransactionState](KafkaProducer.md#configureTransactionState), [configureInflightRequests](KafkaProducer.md#configureInflightRequests), [configureAcks](KafkaProducer.md#configureAcks))
 * `ProducerConfig` is requested to [maybeOverrideAcksAndRetries](#maybeOverrideAcksAndRetries)
 
 ## <span id="postProcessParsedConfig"> postProcessParsedConfig

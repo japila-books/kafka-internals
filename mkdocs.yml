@@ -105,7 +105,7 @@ nav:
   - Clients:
     - Producers:
       - producer/index.md
-      - Producer: producer/Producer.md
       - KafkaProducer: producer/KafkaProducer.md
+      - Producer: producer/Producer.md
       - ProducerConfig: producer/ProducerConfig.md
     - CommonClientConfigs: CommonClientConfigs.md

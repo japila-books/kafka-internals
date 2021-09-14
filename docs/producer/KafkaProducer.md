@@ -18,6 +18,52 @@
 
 * FIXME
 
+### <span id="configureTransactionState"> configureTransactionState
+
+```java
+TransactionManager configureTransactionState(
+  ProducerConfig config,
+  LogContext logContext)
+```
+
+`configureTransactionState`...FIXME
+
+### <span id="newSender"> newSender
+
+```scala
+Sender newSender(
+  LogContext logContext,
+  KafkaClient kafkaClient,
+  ProducerMetadata metadata)
+```
+
+`newSender`...FIXME
+
+### <span id="configureInflightRequests"> configureInflightRequests
+
+```java
+int configureInflightRequests(
+  ProducerConfig config)
+```
+
+`configureInflightRequests` gives the value of the [max.in.flight.requests.per.connection](ProducerConfig.md#max.in.flight.requests.per.connection) (in the given `ProducerConfig`).
+
+`configureInflightRequests` throws a `ConfigException` when the [idempotence is enabled](ProducerConfig.md#idempotenceEnabled) and the value of the [max.in.flight.requests.per.connection](ProducerConfig.md#max.in.flight.requests.per.connection) is above 5:
+
+```text
+Must set max.in.flight.requests.per.connection to at most 5 to use the idempotent producer.
+```
+
+### <span id="configureAcks"> configureAcks
+
+```java
+short configureAcks(
+  ProducerConfig config,
+  Logger log)
+```
+
+`configureAcks`...FIXME
+
 ## <span id="abortTransaction"> abortTransaction
 
 ```scala
