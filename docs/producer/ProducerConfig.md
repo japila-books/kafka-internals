@@ -1,5 +1,23 @@
 # ProducerConfig
 
+## <span id="batch.size"><span id="BATCH_SIZE_CONFIG"> batch.size
+
+The buffer size allocated for a partition. When records are received (which are smaller than this size) [KafkaProducer](KafkaProducer.md) will attempt to optimistically group them together until this size is reached.
+
+Default: `16384`
+
+Must be at least 0
+
+Related to:
+
+* [linger.ms](#linger.ms)
+* `max-partition-memory-bytes` (`ConsoleProducer`)
+
+Used when:
+
+* `KafkaProducer` is [created](KafkaProducer.md#creating-instance) (to create a [RecordAccumulator](KafkaProducer.md#accumulator) and an accompanying [BufferPool](RecordAccumulator.md#bufferPool))
+* `KafkaLog4jAppender` is requested to `activateOptions`
+
 ## <span id="enable.idempotence"><span id="ENABLE_IDEMPOTENCE_CONFIG"> enable.idempotence
 
 Default: `false`
@@ -8,6 +26,8 @@ Used when:
 
 * `KafkaProducer` is requested to [configureTransactionState](KafkaProducer.md#configureTransactionState)
 * `ProducerConfig` is requested to [maybeOverrideEnableIdempotence](#maybeOverrideEnableIdempotence) and [idempotenceEnabled](#idempotenceEnabled)
+
+## <span id="linger.ms"><span id="LINGER_MS_CONFIG"> linger.ms
 
 ## <span id="max.in.flight.requests.per.connection"><span id="MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION"> max.in.flight.requests.per.connection
 

@@ -1,22 +1,18 @@
 # KafkaProducer
 
-`KafkaProducer<K, V>` is a [Producer](Producer.md).
+`KafkaProducer<K, V>` is a concrete [Producer](Producer.md).
 
 ## Creating Instance
 
 `KafkaProducer` takes the following to be created:
 
-* <span id="config"><span id="producerConfig"> ProducerConfig
+* <span id="config"><span id="producerConfig"> [ProducerConfig](ProducerConfig.md)
 * <span id="keySerializer"> Key `Serializer<K>`
 * <span id="valueSerializer"> Value `Serializer<V>`
 * <span id="metadata"> ProducerMetadata
 * <span id="kafkaClient"> KafkaClient
 * <span id="interceptors"> `ProducerInterceptor<K, V>`s
 * <span id="time"> Time
-
-`KafkaProducer` is created when:
-
-* FIXME
 
 ### <span id="configureTransactionState"> configureTransactionState
 
@@ -30,7 +26,7 @@ TransactionManager configureTransactionState(
 
 ### <span id="newSender"> newSender
 
-```scala
+```java
 Sender newSender(
   LogContext logContext,
   KafkaClient kafkaClient,
@@ -64,9 +60,19 @@ short configureAcks(
 
 `configureAcks`...FIXME
 
-## <span id="abortTransaction"> abortTransaction
+## <span id="accumulator"> RecordAccumulator
 
-```scala
+`KafkaProducer` creates a [RecordAccumulator](RecordAccumulator.md) when [created](#creating-instance).
+
+This `RecordAccumulator` is used for the following:
+
+* Create a [Sender](#newSender)
+* [append](RecordAccumulator.md#append) when [doSend](#doSend)
+* [beginFlush](RecordAccumulator.md#beginFlush) when [flush](#flush)
+
+## <span id="abortTransaction"> Aborting Incomplete Transaction
+
+```java
 void abortTransaction()
 ```
 
@@ -79,6 +85,42 @@ Aborting incomplete transaction
 `abortTransaction`...FIXME
 
 `abortTransaction` is part of the [Producer](Producer.md#abortTransaction) abstraction.
+
+## <span id="send"> Sending Record
+
+```java
+Future<RecordMetadata> send(
+  ProducerRecord<K, V> record,
+  Callback callback)
+```
+
+`send`...FIXME
+
+`send` is part of the [Producer](Producer.md#send) abstraction.
+
+### <span id="doSend"> doSend
+
+```java
+Future<RecordMetadata> doSend(
+  ProducerRecord<K, V> record,
+  Callback callback)
+```
+
+`doSend`...FIXME
+
+## <span id="flush"> Flushing
+
+```java
+void flush()
+```
+
+`flush` requests the [RecordAccumulator](#accumulator) to [beginFlush](RecordAccumulator.md#beginFlush).
+
+`flush` requests the [Sender](#sender) to [wakeup](Sender.md#wakeup).
+
+`flush` requests the [RecordAccumulator](#accumulator) to [awaitFlushCompletion](RecordAccumulator.md#awaitFlushCompletion).
+
+`flush` is part of the [Producer](Producer.md#flush) abstraction.
 
 ## Demo
 

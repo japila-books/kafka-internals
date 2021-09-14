@@ -82,6 +82,8 @@ extra:
     property: !ENV GOOGLE_ANALYTICS_KEY
   book:
     title: Apache Kafka
+  java:
+    api: https://docs.oracle.com/en/java/javase/11/docs/api/java.base
   kafka:
     version: 2.8.0
     github: https://github.com/apache/kafka/tree/2.8.0
@@ -105,7 +107,11 @@ nav:
   - Clients:
     - Producers:
       - producer/index.md
+      - BufferPool: producer/BufferPool.md
       - KafkaProducer: producer/KafkaProducer.md
       - Producer: producer/Producer.md
+      - ProducerBatch: producer/ProducerBatch.md
       - ProducerConfig: producer/ProducerConfig.md
+      - RecordAccumulator: producer/RecordAccumulator.md
+      - Sender: producer/Sender.md
     - CommonClientConfigs: CommonClientConfigs.md
