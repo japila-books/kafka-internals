@@ -2,72 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://books.japila.pl/kafka-internals/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/AbstractConfig/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/CommonClientConfigs/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/building-from-sources/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/logging/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/overview/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/BufferPool/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/KafkaProducer/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/producer/Partitioner/</loc>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/Producer/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/ProducerBatch/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/ProducerConfig/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/RecordAccumulator/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/producer/Sender/</loc>
-         <lastmod>2021-09-14</lastmod>
+         <lastmod>2021-09-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
