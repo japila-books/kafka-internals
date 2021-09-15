@@ -103,11 +103,14 @@ nav:
     - Overview: overview.md
     - Building from Sources: building-from-sources.md
     - AbstractConfig: AbstractConfig.md
+    - Configurable: Configurable.md
     - Logging: logging.md
+    - Utils: Utils.md
   - Clients:
     - Producers:
       - producer/index.md
       - BufferPool: producer/BufferPool.md
+      - DefaultPartitioner: producer/DefaultPartitioner.md
       - KafkaProducer: producer/KafkaProducer.md
       - Partitioner: producer/Partitioner.md
       - Producer: producer/Producer.md

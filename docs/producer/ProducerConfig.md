@@ -47,6 +47,12 @@ Used when:
 
 * `KafkaProducer` is requested to [configureInflightRequests](KafkaProducer.md#configureInflightRequests)
 
+## <span id="partitioner.class"><span id="PARTITIONER_CLASS_CONFIG"> partitioner.class
+
+The class of the [Partitioner](Partitioner.md) for a [KafkaProducer](KafkaProducer.md#partitioner)
+
+Default: [DefaultPartitioner](DefaultPartitioner.md)
+
 ## <span id="retries"><span id="RETRIES_CONFIG"> retries
 
 ## <span id="transactional.id"><span id="TRANSACTIONAL_ID_CONFIG"> transactional.id
