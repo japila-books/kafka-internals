@@ -108,6 +108,18 @@ Future<RecordMetadata> doSend(
 
 `doSend`...FIXME
 
+### <span id="partition"> partition
+
+```java
+int partition(
+  ProducerRecord<K, V> record,
+  byte[] serializedKey,
+  byte[] serializedValue,
+  Cluster cluster)
+```
+
+`partition` is the `partition` (of the given `ProducerRecord`) if defined or requests the [Partitioner](#partitioner) for the [partition](Partitioner.md#partition).
+
 ## <span id="flush"> Flushing
 
 ```java
@@ -158,4 +170,4 @@ Add the following line to `log4j.properties`:
 log4j.logger.org.apache.kafka.clients.producer.KafkaProducer=ALL
 ```
 
-Refer to [Logging](logging.md).
+Refer to [Logging](../logging.md).

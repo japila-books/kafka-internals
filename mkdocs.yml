@@ -109,6 +109,7 @@ nav:
       - producer/index.md
       - BufferPool: producer/BufferPool.md
       - KafkaProducer: producer/KafkaProducer.md
+      - Partitioner: producer/Partitioner.md
       - Producer: producer/Producer.md
       - ProducerBatch: producer/ProducerBatch.md
       - ProducerConfig: producer/ProducerConfig.md

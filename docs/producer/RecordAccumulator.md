@@ -19,6 +19,24 @@
 
 `RecordAccumulator` is created for [KafkaProducer](KafkaProducer.md#accumulator).
 
+## <span id="appendsInProgress"> appendsInProgress Counter
+
+`RecordAccumulator` creates an `AtomicInteger` ([Java]({{ java.api }}/java/util/concurrent/atomic/AtomicInteger.html)) for `appendsInProgress` internal counter when [created](#creating-instance).
+
+`appendsInProgress` simply marks a single execution of [append](#append) (and is incremented at the beginning and decremented right at the end).
+
+`appendsInProgress` is used when [flushInProgress](#flushInProgress).
+
+### flushInProgress
+
+```java
+boolean appendsInProgress()
+```
+
+`appendsInProgress` indicates if the [appendsInProgress](#appendsInProgress) counter is above `0`.
+
+`appendsInProgress` is used when [abortIncompleteBatches](#abortIncompleteBatches).
+
 ## <span id="flushesInProgress"> flushesInProgress Counter
 
 `RecordAccumulator` creates an `AtomicInteger` ([Java]({{ java.api }}/java/util/concurrent/atomic/AtomicInteger.html)) for `flushesInProgress` internal counter when [created](#creating-instance).
@@ -33,7 +51,7 @@
 boolean flushInProgress()
 ```
 
-`flushInProgress` is `true` when the [flushesInProgress](#flushesInProgress) counter is above `0`.
+`flushInProgress` indicates if the [flushesInProgress](#flushesInProgress) counter is above `0`.
 
 `flushInProgress` is used when:
 
@@ -60,6 +78,21 @@ RecordAppendResult append(
 `append` is used when:
 
 * `KafkaProducer` is requested to [send a record](KafkaProducer.md#send) (and [doSend](KafkaProducer.md#doSend))
+
+### <span id="tryAppend"> tryAppend
+
+```java
+RecordAppendResult tryAppend(
+  long timestamp,
+  byte[] key,
+  byte[] value,
+  Header[] headers,
+  Callback callback,
+  Deque<ProducerBatch> deque,
+  long nowMs)
+```
+
+`tryAppend`...FIXME
 
 ## <span id="ready"> ready
 
@@ -152,7 +185,9 @@ void abortBatches(
 void abortIncompleteBatches()
 ```
 
-`abortIncompleteBatches`...FIXME
+`abortIncompleteBatches` [abortBatches](#abortBatches) as long as there are [appendsInProgress](#appendsInProgress). `abortIncompleteBatches` [abortBatches](#abortBatches) one last time (after no thread was appending in case there was a new batch appended by the last appending thread).
+
+In the end, `abortIncompleteBatches` clears the [batches](#batches) registry.
 
 `abortIncompleteBatches` is used when:
 
@@ -177,10 +212,10 @@ void abortUndrainedBatches(
 
 `RecordAccumulator` uses the `IncompleteBatches` when:
 
-* [append](#append) (to [add a new ProducerBatch](IncompleteBatches.md#add))
-* [splitAndReenqueue](#splitAndReenqueue) (to [add a new ProducerBatch](IncompleteBatches.md#add))
-* [deallocate](#deallocate) (to [remove a ProducerBatch](IncompleteBatches.md#remove))
-* [awaitFlushCompletion](#awaitFlushCompletion), [abortBatches](#abortBatches) and [abortUndrainedBatches](#abortUndrainedBatches) (to [copyAll](IncompleteBatches.md#copyAll))
+* [append](#append) (to add a new `ProducerBatch`)
+* [splitAndReenqueue](#splitAndReenqueue) (to add a new `ProducerBatch`)
+* [deallocate](#deallocate) (to remove a `ProducerBatch`)
+* [awaitFlushCompletion](#awaitFlushCompletion), [abortBatches](#abortBatches) and [abortUndrainedBatches](#abortUndrainedBatches) (to copy all `ProducerBatch`s)
 
 ### <span id="hasIncomplete"> hasIncomplete
 
@@ -193,3 +228,35 @@ boolean hasIncomplete()
 `hasIncomplete` is used when:
 
 * `Sender` is requested to [maybeSendAndPollTransactionalRequest](Sender.md#maybeSendAndPollTransactionalRequest) and [maybeAbortBatches](Sender.md#maybeAbortBatches)
+
+## <span id="batches"> In-Progress Batches
+
+```java
+ConcurrentMap<TopicPartition, Deque<ProducerBatch>> batches
+```
+
+`RecordAccumulator` creates a `ConcurrentMap` ([Java]({{ java.api }}/java/util/concurrent/ConcurrentMap.html)) for the `batches` internal registry of in-progress [ProducerBatch](ProducerBatch.md)es (per `TopicPartition`).
+
+`RecordAccumulator` adds a new `ArrayDeque` ([Java]({{ java.api }}/java/util/ArrayDeque.html)) when [getOrCreateDeque](#getOrCreateDeque).
+
+`batches` is used when:
+
+* [expiredBatches](#expiredBatches)
+* [ready](#ready)
+* [hasUndrained](#hasUndrained)
+* [getDeque](#getDeque)
+* [batches](#batches)
+* [abortIncompleteBatches](#abortIncompleteBatches)
+
+## <span id="getOrCreateDeque"> getOrCreateDeque
+
+```java
+Deque<ProducerBatch> getOrCreateDeque(
+  TopicPartition tp)
+```
+
+`getOrCreateDeque`...FIXME
+
+`getOrCreateDeque` is used when:
+
+* `RecordAccumulator` is requested to [append](#append), [reenqueue](#reenqueue), [splitAndReenqueue](#splitAndReenqueue)
