@@ -101,21 +101,34 @@ nav:
   - Home: index.md
   - Internals:
     - Overview: overview.md
-    - Building from Sources: building-from-sources.md
     - AbstractConfig: AbstractConfig.md
     - Configurable: Configurable.md
-    - Logging: logging.md
+    - InterBrokerSendThread: InterBrokerSendThread.md
     - Utils: Utils.md
   - Clients:
+    - clients/index.md
+    - Admin:
+      - clients/admin/index.md
+      - AdminClientRunnable: clients/admin/AdminClientRunnable.md
+    - Consumers:
+      - clients/consumer/index.md
+      - ConsumerNetworkClient: clients/consumer/ConsumerNetworkClient.md
     - Producers:
-      - producer/index.md
-      - BufferPool: producer/BufferPool.md
-      - DefaultPartitioner: producer/DefaultPartitioner.md
-      - KafkaProducer: producer/KafkaProducer.md
-      - Partitioner: producer/Partitioner.md
-      - Producer: producer/Producer.md
-      - ProducerBatch: producer/ProducerBatch.md
-      - ProducerConfig: producer/ProducerConfig.md
-      - RecordAccumulator: producer/RecordAccumulator.md
-      - Sender: producer/Sender.md
-    - CommonClientConfigs: CommonClientConfigs.md
+      - clients/producer/index.md
+      - BufferPool: clients/producer/BufferPool.md
+      - DefaultPartitioner: clients/producer/DefaultPartitioner.md
+      - KafkaProducer: clients/producer/KafkaProducer.md
+      - Partitioner: clients/producer/Partitioner.md
+      - Producer: clients/producer/Producer.md
+      - ProducerBatch: clients/producer/ProducerBatch.md
+      - ProducerConfig: clients/producer/ProducerConfig.md
+      - RecordAccumulator: clients/producer/RecordAccumulator.md
+      - Sender: clients/producer/Sender.md
+      - TransactionManager: clients/producer/TransactionManager.md
+    - CommonClientConfigs: clients/CommonClientConfigs.md
+    - KafkaClient: clients/KafkaClient.md
+    - NetworkClient: clients/NetworkClient.md
+    - NetworkClientUtils: clients/NetworkClientUtils.md
+  - Misc:
+    - Building from Sources: building-from-sources.md
+    - Logging: logging.md

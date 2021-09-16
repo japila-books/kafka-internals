@@ -1,3 +1,0 @@
-# Sender
-
-`Sender` is...FIXME

@@ -60,6 +60,28 @@ short configureAcks(
 
 `configureAcks`...FIXME
 
+## <span id="sender"><span id="ioThread"> Sender Thread
+
+`KafkaProducer` creates a [Sender](Sender.md) when [created](#newSender).
+
+`Sender` is immediately started as a daemon thread with the following name (using the [clientId](#clientId)):
+
+```text
+kafka-producer-network-thread | [clientId]
+```
+
+`KafkaProducer` is actually considered open (and usable) as long as the `Sender` is [running](Sender.md#isRunning).
+
+`KafkaProducer` simply requests the `Sender` to [wake up](Sender.md#wakeup) for the following:
+
+* [initTransactions](#initTransactions)
+* [sendOffsetsToTransaction](#sendOffsetsToTransaction)
+* [commitTransaction](#commitTransaction)
+* [abortTransaction](#abortTransaction)
+* [doSend](#doSend)
+* [waitOnMetadata](#waitOnMetadata)
+* [flush](#flush)
+
 ## <span id="accumulator"> RecordAccumulator
 
 `KafkaProducer` creates a [RecordAccumulator](RecordAccumulator.md) when [created](#creating-instance).
@@ -170,4 +192,4 @@ Add the following line to `log4j.properties`:
 log4j.logger.org.apache.kafka.clients.producer.KafkaProducer=ALL
 ```
 
-Refer to [Logging](../logging.md).
+Refer to [Logging](../../logging.md).

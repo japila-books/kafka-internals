@@ -89,7 +89,7 @@ Map<String, Object> postProcessParsedConfig(
 `postProcessParsedConfig` [maybeOverrideClientId](#maybeOverrideClientId).
 `postProcessParsedConfig` [maybeOverrideAcksAndRetries](#maybeOverrideAcksAndRetries).
 
-`postProcessParsedConfig` is part of the [AbstractConfig](../AbstractConfig.md#postProcessParsedConfig) abstraction.
+`postProcessParsedConfig` is part of the [AbstractConfig](../../AbstractConfig.md#postProcessParsedConfig) abstraction.
 
 ### <span id="maybeOverrideClientId"> maybeOverrideClientId
 

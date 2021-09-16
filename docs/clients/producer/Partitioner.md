@@ -4,7 +4,7 @@
 
 ## <span id="Configurable"> Configurable
 
-`Partitioner` is a [Configurable](../Configurable.md).
+`Partitioner` is a [Configurable](../../Configurable.md).
 
 ## <span id="Closeable"> Closeable
 

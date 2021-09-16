@@ -11,7 +11,7 @@ int murmur2(
 
 `murmur2` is used when:
 
-* `DefaultPartitioner` is requested to [compute a partition for a record](producer/DefaultPartitioner.md#partition)
+* `DefaultPartitioner` is requested to [compute a partition for a record](clients/producer/DefaultPartitioner.md#partition)
 
 ### <span id="murmur2-demo"> Demo
 
