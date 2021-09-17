@@ -13,6 +13,10 @@ log4j.logger.kafka=INFO
 log4j.logger.org.apache.kafka=INFO
 ```
 
+## Tools
+
+Kafka tools (e.g. `kafka-console-producer`) use `config/tools-log4j.properties` as the logging configuration file.
+
 ## Clients
 
 ### build.sbt

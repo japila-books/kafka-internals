@@ -27,7 +27,7 @@
 
 `Sender` is given a [KafkaClient](../KafkaClient.md) when [created](#creating-instance).
 
-## <span id="run"> Starting Thread
+## <span id="run"> Running Thread
 
 ```java
 void run()
@@ -39,9 +39,31 @@ void run()
 Starting Kafka producer I/O thread.
 ```
 
+`run` [runs once](#runOnce) and repeats until the [running](#running) flag is turned off.
+
+Right after the [running](#running) flag is off, `run` prints out the following DEBUG message to the logs:
+
+```text
+Beginning shutdown of Kafka producer I/O thread, sending remaining records.
+```
+
 `run`...FIXME
 
+In the end, `run` prints out the following DEBUG message to the logs:
+
+```text
+Shutdown of Kafka producer I/O thread has completed.
+```
+
 `run` is part of the `Runnable` ([Java]({{ java.api }}/java/lang/Runnable.html#run())) abstraction.
+
+### <span id="runOnce"> runOnce
+
+```java
+void runOnce()
+```
+
+`runOnce`...FIXME
 
 ## <span id="wakeup"> Waking Up
 
