@@ -132,3 +132,6 @@ nav:
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
+  - Demos:
+    - demo/index.md
+    - Kafka and kcat in Docker: demo/kafka-and-kcat-in-docker.md

@@ -27,6 +27,22 @@
 
 `Sender` is given a [KafkaClient](../KafkaClient.md) when [created](#creating-instance).
 
+## <span id="run"> Starting Thread
+
+```java
+void run()
+```
+
+`run` prints out the following DEBUG message to the logs:
+
+```text
+Starting Kafka producer I/O thread.
+```
+
+`run`...FIXME
+
+`run` is part of the `Runnable` ([Java]({{ java.api }}/java/lang/Runnable.html#run())) abstraction.
+
 ## <span id="wakeup"> Waking Up
 
 ```java
@@ -39,3 +55,15 @@ void wakeup()
 
 * `KafkaProducer` is requested to [initTransactions](KafkaProducer.md#initTransactions), [sendOffsetsToTransaction](KafkaProducer.md#sendOffsetsToTransaction), [commitTransaction](KafkaProducer.md#commitTransaction), [abortTransaction](KafkaProducer.md#abortTransaction), [doSend](KafkaProducer.md#doSend), [waitOnMetadata](KafkaProducer.md#waitOnMetadata), [flush](KafkaProducer.md#flush)
 * `Sender` is requested to [initiateClose](#initiateClose)
+
+## Logging
+
+Enable `ALL` logging level for `org.apache.kafka.clients.producer.internals.Sender` logger to see what happens inside.
+
+Add the following line to `log4j.properties`:
+
+```text
+log4j.logger.org.apache.kafka.clients.producer.internals.Sender=ALL
+```
+
+Refer to [Logging](../../logging.md).

@@ -8,11 +8,15 @@
 
 ```java
 int inFlightRequestCount()
+int inFlightRequestCount(
+  String nodeId)
 ```
 
 Used when:
 
-* FIXME
+* `ConsumerNetworkClient` is requested to [pendingRequestCount](consumer/ConsumerNetworkClient.md#pendingRequestCount) and [poll](consumer/ConsumerNetworkClient.md#poll)
+* `Sender` is requested to [run](producer/Sender.md#run)
+* `SenderMetrics` is requested for `requests-in-flight` performance metric
 
 ### <span id="leastLoadedNode"> leastLoadedNode
 
