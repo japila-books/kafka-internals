@@ -10,7 +10,7 @@
 * <span id="keySerializer"> Key `Serializer<K>`
 * <span id="valueSerializer"> Value `Serializer<V>`
 * <span id="metadata"> ProducerMetadata
-* <span id="kafkaClient"> KafkaClient
+* <span id="kafkaClient"> [KafkaClient](../KafkaClient.md)
 * <span id="interceptors"> `ProducerInterceptor<K, V>`s
 * <span id="time"> Time
 
@@ -155,6 +155,24 @@ void flush()
 `flush` requests the [RecordAccumulator](#accumulator) to [awaitFlushCompletion](RecordAccumulator.md#awaitFlushCompletion).
 
 `flush` is part of the [Producer](Producer.md#flush) abstraction.
+
+## <span id="waitOnMetadata"> waitOnMetadata
+
+```java
+ClusterAndWaitTime waitOnMetadata(
+  String topic,
+  Integer partition,
+  long nowMs,
+  long maxWaitMs)
+```
+
+`waitOnMetadata` requests the [ProducerMetadata](#metadata) for the [current cluster info](../Metadata.md#fetch).
+
+`waitOnMetadata`...FIXME
+
+`waitOnMetadata` is used when:
+
+* `KafkaProducer` is requested to [doSend](#doSend) and [partitionsFor](#partitionsFor)
 
 ## Demo
 

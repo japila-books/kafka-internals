@@ -128,8 +128,12 @@ nav:
     - CommonClientConfigs: clients/CommonClientConfigs.md
     - KafkaClient: clients/KafkaClient.md
     - Metadata: clients/Metadata.md
+    - MetadataUpdater: clients/MetadataUpdater.md
     - NetworkClient: clients/NetworkClient.md
     - NetworkClientUtils: clients/NetworkClientUtils.md
+  - Tools:
+    - tools/index.md
+    - ReplicaVerificationTool: tools/ReplicaVerificationTool.md
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md

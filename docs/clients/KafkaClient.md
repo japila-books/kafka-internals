@@ -27,11 +27,19 @@ Node leastLoadedNode(
 
 Used when:
 
-* FIXME
+* `ConsumerNetworkClient` is requested for the [leastLoadedNode](consumer/ConsumerNetworkClient.md#leastLoadedNode)
+* `DefaultMetadataUpdater` is requested to `maybeUpdate`
+* `KafkaAdminClient` is used
+* `Sender` is requested for the [maybeSendAndPollTransactionalRequest](producer/Sender.md#maybeSendAndPollTransactionalRequest)
 
 ### <span id="newClientRequest"> newClientRequest
 
 ```java
+ClientRequest newClientRequest(
+  String nodeId,
+  AbstractRequest.Builder<?> requestBuilder,
+  long createdTimeMs,
+  boolean expectResponse)
 ClientRequest newClientRequest(
   String nodeId,
   AbstractRequest.Builder<?> requestBuilder,
@@ -43,7 +51,14 @@ ClientRequest newClientRequest(
 
 Used when:
 
-* FIXME
+* `AdminClientRunnable` is requested to `sendEligibleCalls`
+* `ConsumerNetworkClient` is requested to [send](consumer/ConsumerNetworkClient.md#send)
+* `NetworkClient` is requested to [newClientRequest](NetworkClient.md#newClientRequest), [sendInternalMetadataRequest](NetworkClient.md#sendInternalMetadataRequest) and [handleInitiateApiVersionRequests](NetworkClient.md#handleInitiateApiVersionRequests)
+* `RequestSendThread` is requested to `doWork`
+* `Sender` is requested to [run](producer/Sender.md#run)
+* `KafkaServer` is requested to `controlledShutdown`
+* `ReplicaFetcherBlockingSend` is requested to `sendRequest`
+* [ReplicaVerificationTool](../tools/ReplicaVerificationTool.md) is used
 
 ### <span id="poll"> poll
 

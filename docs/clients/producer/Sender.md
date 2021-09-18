@@ -1,6 +1,6 @@
 # Sender
 
-`Sender` is a `Runnable` ([Java]({{ java.api }}/java/lang/Runnable.html)) (and is intended to be executed by a thread).
+`Sender` is a `Runnable` ([Java]({{ java.api }}/java/lang/Runnable.html)) that is executed as a separate thread alongside [KafkaProducer](KafkaProducer.md#sender) to send records to a Kafka cluster.
 
 ## Creating Instance
 
@@ -21,7 +21,7 @@
 * <span id="transactionManager"> [TransactionManager](TransactionManager.md)
 * <span id="apiVersions"> `ApiVersions`
 
-`Sender` is created along with a [KafkaProducer](KafkaProducer.md#sender).
+`Sender` is [created](#creating-instance) along for a [KafkaProducer](KafkaProducer.md#sender).
 
 ## <span id="client"> KafkaClient
 
@@ -147,6 +147,33 @@ void handleProduceResponse(
   Map<TopicPartition, ProducerBatch> batches,
   long now)
 ```
+
+### <span id="maybeSendAndPollTransactionalRequest"> maybeSendAndPollTransactionalRequest
+
+```java
+boolean maybeSendAndPollTransactionalRequest()
+```
+
+## <span id="running"><span id="isRunning"> running Flag
+
+`Sender` [runs](#run) as long as the `running` internal flag is on.
+
+The `running` flag is on from when `Sender` is [created](#creating-instance) until requested to [initiateClose](#initiateClose).
+
+## <span id="initiateClose"> initiateClose
+
+```java
+void initiateClose()
+```
+
+`initiateClose` requests the [RecordAccumulator](#accumulator) to [close](RecordAccumulator.md#close) and turns the [running](#running) flag off.
+
+In the end, `initiateClose` [wakes up the KafkaClient](#wakeup).
+
+`initiateClose` is used when:
+
+* `KafkaProducer` is requested to [close](KafkaProducer.md#close)
+* `Sender` is requested to [forceClose](#forceClose)
 
 ## <span id="wakeup"> Waking Up
 
