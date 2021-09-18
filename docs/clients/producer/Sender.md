@@ -63,7 +63,90 @@ Shutdown of Kafka producer I/O thread has completed.
 void runOnce()
 ```
 
-`runOnce`...FIXME
+If executed with a [TransactionManager](#transactionManager), `runOnce`...FIXME
+
+`runOnce` [sendProducerData](#sendProducerData).
+
+`runOnce` requests the [KafkaClient](#client) to [poll](../KafkaClient.md#poll).
+
+### <span id="sendProducerData"> sendProducerData
+
+```java
+long sendProducerData(
+  long now)
+```
+
+`sendProducerData` requests the [ProducerMetadata](#metadata) for the [current cluster info](../Metadata.md#fetch)
+
+`sendProducerData` requests the [RecordAccumulator](#accumulator) for the [partitions with data ready to send](RecordAccumulator.md#ready).
+
+`sendProducerData` requests a metadata update when there are partitions with no leaders.
+
+`sendProducerData` removes nodes not ready to send to.
+
+`sendProducerData` requests the [RecordAccumulator](#accumulator) to [drain](RecordAccumulator.md#drain) (and create [ProducerBatch](ProducerBatch.md)s).
+
+`sendProducerData` [registers the batches](#addToInflightBatches) (in the [inFlightBatches](#inFlightBatches) registry).
+
+With [guaranteeMessageOrder](#guaranteeMessageOrder), `sendProducerData` mutes all the partitions drained.
+
+`sendProducerData` requests the [RecordAccumulator](#accumulator) to [resetNextBatchExpiryTime](RecordAccumulator.md#resetNextBatchExpiryTime).
+
+`sendProducerData` requests the [RecordAccumulator](#accumulator) for the [expired batches](RecordAccumulator.md#expiredBatches) and adds all [expired InflightBatches](#getExpiredInflightBatches).
+
+If there are any expired batches, `sendProducerData`...FIXME
+
+`sendProducerData` requests the `SenderMetrics` to `updateProduceRequestMetrics`.
+
+With at least one broker to send batches to, `sendProducerData` prints out the following TRACE message to the logs:
+
+```text
+Nodes with data ready to send: [readyNodes]
+```
+
+`sendProducerData` [sendProduceRequests](#sendProduceRequests).
+
+### <span id="sendProduceRequests"> sendProduceRequests
+
+```java
+void sendProduceRequests(
+  Map<Integer, List<ProducerBatch>> collated,
+  long now)
+```
+
+For every pair of a broker node and an associated [ProducerBatch](ProducerBatch.md) (in the given `collated` collection), `sendProduceRequests` [sendProduceRequest](#sendProduceRequest) with the broker node, the [acks](#acks), the [requestTimeoutMs](#requestTimeoutMs) and the `ProducerBatch`.
+
+### <span id="sendProduceRequest"> sendProduceRequest
+
+```java
+void sendProduceRequest(
+  long now,
+  int destination,
+  short acks,
+  int timeout,
+  List<ProducerBatch> batches)
+```
+
+`sendProduceRequest` creates a collection of [ProducerBatch](ProducerBatch.md)es by `TopicPartition` from the given `batches`.
+
+`sendProduceRequest` requests the [KafkaClient](#client) for a new [ClientRequest](../KafkaClient.md#newClientRequest) (for the `destination` broker) and to [send it](../KafkaClient.md#send).
+
+`sendProduceRequest` registers a [handleProduceResponse] callback to invoke when a response arrives. `sendProduceRequest` expects a response for all the `acks` but `0`.
+
+In the end, `sendProduceRequest` prints out the following TRACE message to the logs:
+
+```text
+Sent produce request to [nodeId]: [requestBuilder]
+```
+
+### <span id="handleProduceResponse"> handleProduceResponse
+
+```java
+void handleProduceResponse(
+  ClientResponse response,
+  Map<TopicPartition, ProducerBatch> batches,
+  long now)
+```
 
 ## <span id="wakeup"> Waking Up
 

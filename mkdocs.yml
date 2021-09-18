@@ -127,6 +127,7 @@ nav:
       - TransactionManager: clients/producer/TransactionManager.md
     - CommonClientConfigs: clients/CommonClientConfigs.md
     - KafkaClient: clients/KafkaClient.md
+    - Metadata: clients/Metadata.md
     - NetworkClient: clients/NetworkClient.md
     - NetworkClientUtils: clients/NetworkClientUtils.md
   - Misc:
