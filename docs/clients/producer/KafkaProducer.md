@@ -94,6 +94,32 @@ short configureAcks(
 
 `configureAcks`...FIXME
 
+## <span id="transactionManager"> TransactionManager
+
+`KafkaProducer` may create a [TransactionManager](TransactionManager.md) when [created](#configureTransactionState).
+
+`TransactionManager` is used to create the following:
+
+* [RecordAccumulator](RecordAccumulator.md#transactionManager)
+* [Sender](Sender.md#transactionManager)
+
+`KafkaProducer` uses the `TransactionManager` for the following transactional methods:
+
+* [abortTransaction](#abortTransaction)
+* [beginTransaction](#beginTransaction)
+* [commitTransaction](#commitTransaction)
+* [initTransactions](#initTransactions)
+* [sendOffsetsToTransaction](#sendOffsetsToTransaction)
+* [doSend](#doSend)
+
+### <span id="throwIfNoTransactionManager"> throwIfNoTransactionManager
+
+`KafkaProducer` throws an `IllegalStateException` for the transactional methods but [TransactionManager](#transactionManager) is not configured.
+
+```text
+Cannot use transactional methods without enabling transactions by setting the transactional.id configuration property
+```
+
 ## <span id="sender"><span id="ioThread"> Sender Thread
 
 `KafkaProducer` creates a [Sender](Sender.md) when [created](#newSender).

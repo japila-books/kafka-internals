@@ -14,10 +14,10 @@
 * <span id="metricGrpName"> Name of the Metrics Group
 * <span id="time"> Time
 * <span id="apiVersions"> ApiVersions
-* <span id="transactionManager"> TransactionManager
+* <span id="transactionManager"> [TransactionManager](TransactionManager.md)
 * <span id="bufferPool"> BufferPool
 
-`RecordAccumulator` is created for [KafkaProducer](KafkaProducer.md#accumulator).
+`RecordAccumulator` is created together with [KafkaProducer](KafkaProducer.md#accumulator).
 
 ## <span id="appendsInProgress"> appendsInProgress Counter
 

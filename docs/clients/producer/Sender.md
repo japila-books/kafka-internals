@@ -21,7 +21,7 @@
 * <span id="transactionManager"> [TransactionManager](TransactionManager.md)
 * <span id="apiVersions"> `ApiVersions`
 
-`Sender` is [created](#creating-instance) along for a [KafkaProducer](KafkaProducer.md#sender).
+`Sender` is created together with [KafkaProducer](KafkaProducer.md#sender).
 
 ## <span id="client"> KafkaClient
 
