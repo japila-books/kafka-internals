@@ -27,6 +27,8 @@ Used when:
 * `KafkaProducer` is requested to [configureTransactionState](KafkaProducer.md#configureTransactionState)
 * `ProducerConfig` is requested to [maybeOverrideEnableIdempotence](#maybeOverrideEnableIdempotence) and [idempotenceEnabled](#idempotenceEnabled)
 
+## <span id="internal.auto.downgrade.txn.commit"><span id="AUTO_DOWNGRADE_TXN_COMMIT"> internal.auto.downgrade.txn.commit
+
 ## <span id="linger.ms"><span id="LINGER_MS_CONFIG"> linger.ms
 
 ## <span id="max.in.flight.requests.per.connection"><span id="MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION"> max.in.flight.requests.per.connection
@@ -55,15 +57,23 @@ Default: [DefaultPartitioner](DefaultPartitioner.md)
 
 ## <span id="retries"><span id="RETRIES_CONFIG"> retries
 
+## <span id="retry.backoff.ms"><span id="RETRY_BACKOFF_MS_CONFIG"> retry.backoff.ms
+
+[retry.backoff.ms](CommonClientConfigs.md#RETRY_BACKOFF_MS_CONFIG)
+
 ## <span id="transactional.id"><span id="TRANSACTIONAL_ID_CONFIG"> transactional.id
 
-The `TransactionalId` to use for transactional delivery. This enables reliability semantics which span multiple producer sessions since it allows the client to guarantee that transactions using the same TransactionalId have been completed prior to starting any new transactions. If no TransactionalId is provided, then the producer is limited to idempotent delivery. If a TransactionalId is configured, [enable.idempotence](#enable.idempotence) is implied.
+The `TransactionalId` to use for transactional delivery. This enables reliability semantics which span multiple producer sessions since it allows the client to guarantee that transactions using the same TransactionalId have been completed prior to starting any new transactions. If no TransactionalId is provided, then the producer is limited to idempotent delivery.
 
-Default: (empty) (transactions cannot be used)
+Default: (empty)
+
+If a `TransactionalId` is configured, [enable.idempotence](#enable.idempotence) is implied (and configured when `KafkaProducer` is [created](KafkaProducer.md#configureTransactionState)).
 
 Note that, by default, transactions require a cluster of at least three brokers which is the recommended setting for production; for development you can change this, by adjusting broker setting [transaction.state.log.replication.factor](#transaction.state.log.replication.factor).
 
 ## <span id="transaction.state.log.replication.factor"> transaction.state.log.replication.factor
+
+## <span id="transaction.timeout.ms"><span id="TRANSACTION_TIMEOUT_CONFIG"> transaction.timeout.ms
 
 ## <span id="idempotenceEnabled"> idempotenceEnabled
 

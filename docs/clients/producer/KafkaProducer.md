@@ -22,7 +22,41 @@ TransactionManager configureTransactionState(
   LogContext logContext)
 ```
 
-`configureTransactionState`...FIXME
+`configureTransactionState` creates a new [TransactionManager](TransactionManager.md) or returns `null`.
+
+---
+
+`configureTransactionState` checks whether the following configuration properties are specified in the given [ProducerConfig](ProducerConfig.md):
+
+1. [enable.idempotence](ProducerConfig.md#ENABLE_IDEMPOTENCE_CONFIG)
+1. [transactional.id](ProducerConfig.md#TRANSACTIONAL_ID_CONFIG)
+
+With [transactional.id](ProducerConfig.md#TRANSACTIONAL_ID_CONFIG) specified, `configureTransactionState` turns the [enable.idempotence](ProducerConfig.md#ENABLE_IDEMPOTENCE_CONFIG) on and prints out the following INFO message to the logs:
+
+```text
+Overriding the default [enable.idempotence] to true since transactional.id is specified.
+```
+
+With [idempotence enabled](ProducerConfig.md#idempotenceEnabled), `configureTransactionState` creates a [TransactionManager](TransactionManager.md) with the values of the following configuration properties:
+
+1. [transactional.id](ProducerConfig.md#TRANSACTIONAL_ID_CONFIG)
+1. [transaction.timeout.ms](ProducerConfig.md#TRANSACTION_TIMEOUT_CONFIG)
+1. [retry.backoff.ms](ProducerConfig.md#RETRY_BACKOFF_MS_CONFIG)
+1. [internal.auto.downgrade.txn.commit](ProducerConfig.md#AUTO_DOWNGRADE_TXN_COMMIT)
+
+When the `TransactionManager` is [transactional](TransactionManager.md#isTransactional), `configureTransactionState` prints out the following INFO message to the logs:
+
+```text
+Instantiated a transactional producer.
+```
+
+Otherwise, `configureTransactionState` prints out the following INFO message to the logs:
+
+```text
+Instantiated an idempotent producer.
+```
+
+In the end, `configureTransactionState` returns the `TransactionManager` or `null`.
 
 ### <span id="newSender"> newSender
 
