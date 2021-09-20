@@ -65,13 +65,26 @@ Default: [DefaultPartitioner](DefaultPartitioner.md)
 
 ## <span id="transactional.id"><span id="TRANSACTIONAL_ID_CONFIG"> transactional.id
 
-The `TransactionalId` to use for transactional delivery. This enables reliability semantics which span multiple producer sessions since it allows the client to guarantee that transactions using the same TransactionalId have been completed prior to starting any new transactions. If no TransactionalId is provided, then the producer is limited to idempotent delivery.
+The ID of a [KafkaProducer](KafkaProducer.md) for transactional delivery
 
-Default: (empty)
+Default: (undefined)
 
-If a `TransactionalId` is configured, [enable.idempotence](#enable.idempotence) is implied (and configured when `KafkaProducer` is [created](KafkaProducer.md#configureTransactionState)).
+This enables reliability semantics which span multiple producer sessions since it allows the client to guarantee that transactions using the same `transactional.id` have been completed prior to starting any new transactions.
+
+With no `transactional.id`, a producer is limited to idempotent delivery.
+
+When configured, [enable.idempotence](#enable.idempotence) is [implied](#maybeOverrideEnableIdempotence) (and configured when `KafkaProducer` is [created](KafkaProducer.md#configureTransactionState)).
+
+With `transactional.id`, `KafkaProducer` uses a modified [client.id](#client.id) (that [includes the ID](#maybeOverrideClientId)).
 
 Note that, by default, transactions require a cluster of at least three brokers which is the recommended setting for production; for development you can change this, by adjusting broker setting [transaction.state.log.replication.factor](#transaction.state.log.replication.factor).
+
+`transactional.id` is required for the [transactional methods](KafkaProducer.md#throwIfNoTransactionManager).
+
+Used when:
+
+* [KafkaProducer](KafkaProducer.md) prints out log messages (with the transactional ID included in the log prefix)
+* `KafkaProducer` is [created](KafkaProducer.md#configureTransactionState) (and creates a [TransactionManager](TransactionManager.md))
 
 ## <span id="transaction.state.log.replication.factor"> transaction.state.log.replication.factor
 
@@ -114,7 +127,9 @@ Map<String, Object> postProcessParsedConfig(
 
 ### <span id="maybeOverrideClientId"> maybeOverrideClientId
 
-`maybeOverrideAcksAndRetries` uses [transactional.id](#transactional.id) (if defined) or the next available ID for an ID with `producer-` prefix for [client.id](../CommonClientConfigs.md#client.id) unless already defined.
+`maybeOverrideAcksAndRetries` overrides [client.id](#client.id) configuration property unless already defined.
+
+The new value uses [transactional.id](#transactional.id) (if defined) or the next available ID with the `producer-` prefix.
 
 ### <span id="maybeOverrideAcksAndRetries"> maybeOverrideAcksAndRetries
 
@@ -132,4 +147,4 @@ void maybeOverrideEnableIdempotence(
   Map<String, Object> configs)
 ```
 
-`maybeOverrideEnableIdempotence`...FIXME
+`maybeOverrideEnableIdempotence` sets [enable.idempotence](#enable.idempotence) configuration property to `true` when [transactional.id](#transactional.id) is defined with no [enable.idempotence](#enable.idempotence).
