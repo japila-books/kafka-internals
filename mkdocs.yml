@@ -87,6 +87,10 @@ extra:
   kafka:
     version: 2.8.0
     github: https://github.com/apache/kafka/tree/2.8.0
+  scala:
+    api: https://www.scala-lang.org/api/2.12.14
+    docs: https://docs.scala-lang.org/
+    spec: https://www.scala-lang.org/files/archive/spec/2.12
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/jaceklaskowski
@@ -102,8 +106,15 @@ nav:
   - Internals:
     - Overview: overview.md
     - AbstractConfig: AbstractConfig.md
+    - BrokerServer: BrokerServer.md
     - Configurable: Configurable.md
     - InterBrokerSendThread: InterBrokerSendThread.md
+    - Kafka: Kafka.md
+    - KafkaConfig: KafkaConfig.md
+    - KafkaServer: KafkaServer.md
+    - KafkaRaftServer: KafkaRaftServer.md
+    - Server: Server.md
+    - TransactionCoordinator: TransactionCoordinator.md
     - Utils: Utils.md
   - Clients:
     - clients/index.md
