@@ -161,6 +161,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/demo/transactional-kafka-producer/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/tools/</loc>
          <lastmod>2021-09-20</lastmod>
          <changefreq>daily</changefreq>
