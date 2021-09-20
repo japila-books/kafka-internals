@@ -11,12 +11,47 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/BrokerServer/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/Configurable/</loc>
          <lastmod>2021-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/InterBrokerSendThread/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/Kafka/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/KafkaConfig/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/KafkaRaftServer/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/KafkaServer/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/Server/</loc>
+         <lastmod>2021-09-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/TransactionCoordinator/</loc>
          <lastmod>2021-09-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
