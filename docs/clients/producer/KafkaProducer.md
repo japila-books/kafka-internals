@@ -109,7 +109,7 @@ Otherwise we cannot guarantee idempotence.
 
 ## <span id="transactionManager"> TransactionManager
 
-`KafkaProducer` may create a [TransactionManager](TransactionManager.md) when [created](#configureTransactionState).
+`KafkaProducer` may create a [TransactionManager](TransactionManager.md) when [created](#configureTransactionState) (with [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled)).
 
 `TransactionManager` is used to create the following:
 
@@ -180,6 +180,22 @@ Aborting incomplete transaction
 `abortTransaction`...FIXME
 
 `abortTransaction` is part of the [Producer](Producer.md#abortTransaction) abstraction.
+
+## <span id="maxBlockTimeMs"> max.block.ms
+
+`KafkaProducer` uses [max.block.ms](ProducerConfig.md#MAX_BLOCK_MS_CONFIG) configuration property.
+
+## <span id="initTransactions"> initTransactions
+
+```java
+void initTransactions()
+```
+
+`initTransactions` requests the [TransactionManager](#transactionManager) to [initializeTransactions](TransactionManager.md#initializeTransactions) and requests the [Sender](#sender) to [wakeup](Sender.md#wakeup).
+
+In the end, `initTransactions` waits [maxBlockTimeMs](#maxBlockTimeMs) until transaction initialization is completed (successfully or not).
+
+`initTransactions` is part of the [Producer](Producer.md#initTransactions) abstraction.
 
 ## <span id="send"> Sending Record
 

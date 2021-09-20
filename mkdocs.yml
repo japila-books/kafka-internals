@@ -140,3 +140,4 @@ nav:
   - Demos:
     - demo/index.md
     - Kafka and kcat in Docker: demo/kafka-and-kcat-in-docker.md
+    - Transactional Kafka Producer: demo/transactional-kafka-producer.md

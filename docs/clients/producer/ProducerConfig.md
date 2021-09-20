@@ -33,6 +33,8 @@ Used when:
 
 ## <span id="linger.ms"><span id="LINGER_MS_CONFIG"> linger.ms
 
+## <span id="max.block.ms"><span id="MAX_BLOCK_MS_CONFIG"> max.block.ms
+
 ## <span id="max.in.flight.requests.per.connection"><span id="MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION"> max.in.flight.requests.per.connection
 
 The maximum number of unacknowledged requests the client will send on a single connection before blocking.
