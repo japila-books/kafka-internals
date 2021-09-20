@@ -1,5 +1,7 @@
 # ProducerConfig
 
+## <span id="acks"><span id="ACKS_CONFIG"> acks
+
 ## <span id="batch.size"><span id="BATCH_SIZE_CONFIG"> batch.size
 
 The buffer size allocated for a partition. When records are received (which are smaller than this size) [KafkaProducer](KafkaProducer.md) will attempt to optimistically group them together until this size is reached.
@@ -59,7 +61,7 @@ Default: [DefaultPartitioner](DefaultPartitioner.md)
 
 ## <span id="retry.backoff.ms"><span id="RETRY_BACKOFF_MS_CONFIG"> retry.backoff.ms
 
-[retry.backoff.ms](CommonClientConfigs.md#RETRY_BACKOFF_MS_CONFIG)
+[retry.backoff.ms](../CommonClientConfigs.md#RETRY_BACKOFF_MS_CONFIG)
 
 ## <span id="transactional.id"><span id="TRANSACTIONAL_ID_CONFIG"> transactional.id
 
@@ -81,7 +83,16 @@ Note that, by default, transactions require a cluster of at least three brokers 
 boolean idempotenceEnabled()
 ```
 
-`idempotenceEnabled`...FIXME
+`idempotenceEnabled` is enabled (`true`) when one of the following holds:
+
+1. [transactional.id](#transactional.id) is defined
+1. [enable.idempotence](#enable.idempotence) is enabled
+
+`idempotenceEnabled` throws a `ConfigException` when [enable.idempotence](#enable.idempotence) is disabled but [transactional.id](#transactional.id) is defined:
+
+```text
+Cannot set a transactional.id without also enabling idempotence.
+```
 
 `idempotenceEnabled` is used when:
 

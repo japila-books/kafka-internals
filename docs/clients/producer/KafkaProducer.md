@@ -92,7 +92,20 @@ short configureAcks(
   Logger log)
 ```
 
-`configureAcks`...FIXME
+`configureAcks` returns the value of [acks](ProducerConfig.md#ACKS_CONFIG) configuration property (in the given [ProducerConfig](ProducerConfig.md)).
+
+With [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled), `configureAcks` prints out the following INFO message to the logs when there is no [acks](ProducerConfig.md#ACKS_CONFIG) configuration property defined:
+
+```text
+Overriding the default [acks] to all since idempotence is enabled.
+```
+
+With [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled) and the `acks` not `-1`, `configureAcks` throws a `ConfigException`:
+
+```text
+Must set acks to all in order to use the idempotent producer.
+Otherwise we cannot guarantee idempotence.
+```
 
 ## <span id="transactionManager"> TransactionManager
 

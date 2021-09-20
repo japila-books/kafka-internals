@@ -14,10 +14,22 @@
 * <span id="metricGrpName"> Name of the Metrics Group
 * <span id="time"> Time
 * <span id="apiVersions"> ApiVersions
-* <span id="transactionManager"> [TransactionManager](TransactionManager.md)
-* <span id="bufferPool"> BufferPool
+* [TransactionManager](#transactionManager)
+* <span id="bufferPool"> [BufferPool](BufferPool.md)
 
 `RecordAccumulator` is created together with [KafkaProducer](KafkaProducer.md#accumulator).
+
+## <span id="transactionManager"> TransactionManager
+
+`RecordAccumulator` is given a [TransactionManager](TransactionManager.md) when [created](#creating-instance).
+
+`RecordAccumulator` uses the `TransactionManager` when requested for the following:
+
+* [reenqueue](#reenqueue)
+* [splitAndReenqueue](#splitAndReenqueue)
+* [insertInSequenceOrder](#insertInSequenceOrder)
+* [drain](#drain) ([drainBatchesForOneNode](#drainBatchesForOneNode) and [shouldStopDrainBatchesForPartition](#shouldStopDrainBatchesForPartition))
+* [abortUndrainedBatches](#abortUndrainedBatches)
 
 ## <span id="appendsInProgress"> appendsInProgress Counter
 
@@ -260,3 +272,69 @@ Deque<ProducerBatch> getOrCreateDeque(
 `getOrCreateDeque` is used when:
 
 * `RecordAccumulator` is requested to [append](#append), [reenqueue](#reenqueue), [splitAndReenqueue](#splitAndReenqueue)
+
+## <span id="reenqueue"> reenqueue
+
+```java
+void reenqueue(
+  ProducerBatch batch,
+  long now)
+```
+
+`reenqueue`...FIXME
+
+`reenqueue` is used when:
+
+* `Sender` is requested to [reenqueueBatch](Sender.md#reenqueueBatch)
+
+## <span id="insertInSequenceOrder"> insertInSequenceOrder
+
+```java
+void insertInSequenceOrder(
+  Deque<ProducerBatch> deque,
+  ProducerBatch batch)
+```
+
+`insertInSequenceOrder`...FIXME
+
+`insertInSequenceOrder` is used when:
+
+* `RecordAccumulator` is requested to [reenqueue](#reenqueue) and [splitAndReenqueue](#splitAndReenqueue)
+
+## <span id="drain"> drain
+
+```java
+Map<Integer, List<ProducerBatch>> drain(
+  Cluster cluster,
+  Set<Node> nodes,
+  int maxSize,
+  long now)
+```
+
+`drain`...FIXME
+
+`drain` is used when:
+
+* `Sender` is requested to [sendProducerData](Sender.md#sendProducerData)
+
+### <span id="drainBatchesForOneNode"> drainBatchesForOneNode
+
+```java
+List<ProducerBatch> drainBatchesForOneNode(
+  Cluster cluster,
+  Node node,
+  int maxSize,
+  long now)
+```
+
+`drainBatchesForOneNode`...FIXME
+
+### <span id="shouldStopDrainBatchesForPartition"> shouldStopDrainBatchesForPartition
+
+```java
+boolean shouldStopDrainBatchesForPartition(
+  ProducerBatch first,
+  TopicPartition tp)
+```
+
+`shouldStopDrainBatchesForPartition`...FIXME
