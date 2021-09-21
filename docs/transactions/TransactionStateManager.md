@@ -6,8 +6,8 @@
 
 * <span id="brokerId"> Broker ID
 * <span id="scheduler"> `Scheduler`
-* <span id="replicaManager"> [ReplicaManager](ReplicaManager.md)
-* <span id="config"> `TransactionConfig`
+* <span id="replicaManager"> [ReplicaManager](../ReplicaManager.md)
+* <span id="config"> [TransactionConfig](TransactionConfig.md)
 * <span id="time"> `Time`
 * <span id="metrics"> `Metrics`
 
@@ -30,7 +30,7 @@ appendTransactionToLog(
 
 `appendTransactionToLog`...FIXME
 
-`appendTransactionToLog` requests the [ReplicaManager](#replicaManager) to [appendRecords](ReplicaManager.md#appendRecords) (with `-1` acks, `internalTopicsAllowed` enabled annd `Coordinator` origin) and prints out the following TRACE message to the logs:
+`appendTransactionToLog` requests the [ReplicaManager](#replicaManager) to [appendRecords](../ReplicaManager.md#appendRecords) (with `-1` acks, `internalTopicsAllowed` enabled annd `Coordinator` origin) and prints out the following TRACE message to the logs:
 
 ```text
 Appending new metadata [newMetadata] for transaction id [transactionalId] with coordinator epoch [coordinatorEpoch] to the local transaction log

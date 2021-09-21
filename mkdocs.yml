@@ -118,11 +118,12 @@ nav:
     - KafkaRaftServer: KafkaRaftServer.md
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
-    - TransactionCoordinator: TransactionCoordinator.md
-    - TransactionStateManager: TransactionStateManager.md
     - Utils: Utils.md
   - Transactions:
     - transactions/index.md
+    - TransactionConfig: transactions/TransactionConfig.md
+    - TransactionCoordinator: transactions/TransactionCoordinator.md
+    - TransactionStateManager: transactions/TransactionStateManager.md
   - Clients:
     - clients/index.md
     - Admin:

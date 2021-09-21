@@ -1,21 +1,21 @@
 # TransactionCoordinator
 
+`TransactionCoordinator` runs on every Kafka broker ([BrokerServer](../BrokerServer.md) or [KafkaServer](../KafkaServer.md#)).
+
 ## Creating Instance
 
 `TransactionCoordinator` takes the following to be created:
 
 * <span id="brokerId"> Broker Id
-* <span id="txnConfig"> `TransactionConfig`
+* <span id="txnConfig"> [TransactionConfig](TransactionConfig.md)
 * <span id="scheduler"> `Scheduler`
 * <span id="createProducerIdGenerator"> `createProducerIdGenerator` function (`() => ProducerIdGenerator`)
-* <span id="txnManager"> `TransactionStateManager`
+* <span id="txnManager"> [TransactionStateManager](TransactionStateManager.md)
 * <span id="txnMarkerChannelManager"> `TransactionMarkerChannelManager`
 * <span id="time"> `Time`
 * <span id="logContext"> `LogContext`
 
-`TransactionCoordinator` is created (using [apply](#apply) factory) when:
-
-* FIXME
+`TransactionCoordinator` is created using [apply](#apply) factory.
 
 ## <span id="apply"> Creating TransactionCoordinator
 
@@ -30,22 +30,11 @@ apply(
   time: Time): TransactionCoordinator
 ```
 
-`apply` creates a `TransactionConfig` with the following configuration properties:
+`apply` creates a [TransactionConfig](TransactionConfig.md).
 
-* [transactional.id.expiration.ms](KafkaConfig.md#transactionalIdExpirationMs)
-* [transaction.max.timeout.ms](KafkaConfig.md#transactionMaxTimeoutMs)
-* [transaction.state.log.num.partitions](KafkaConfig.md#transactionTopicPartitions)
-* [transaction.state.log.replication.factor](KafkaConfig.md#transactionTopicReplicationFactor)
-* [transaction.state.log.segment.bytes](KafkaConfig.md#transactionTopicSegmentBytes)
-* [transaction.state.log.load.buffer.size](KafkaConfig.md#transactionsLoadBufferSize)
-* [transaction.state.log.min.isr](KafkaConfig.md#transactionTopicMinISR)
-* [transaction.abort.timed.out.transaction.cleanup.interval.ms](KafkaConfig.md#transactionAbortTimedOutTransactionCleanupIntervalMs)
-* [transaction.remove.expired.transaction.cleanup.interval.ms](KafkaConfig.md#transactionRemoveExpiredTransactionalIdCleanupIntervalMs)
-* [request.timeout.ms](KafkaConfig.md#requestTimeoutMs)
+`apply` creates a [TransactionStateManager](TransactionStateManager.md) (with the [brokerId](../KafkaConfig.md#brokerId) and the other Kafka services).
 
-`apply` creates a `TransactionStateManager` (with the [brokerId](KafkaConfig.md#brokerId) and the other Kafka services).
-
-`apply` creates a `LogContext` that uses the following log prefix (with the [brokerId](KafkaConfig.md#brokerId)):
+`apply` creates a `LogContext` that uses the following log prefix (with the [brokerId](../KafkaConfig.md#brokerId)):
 
 ```text
 [TransactionCoordinator id=[brokerId]]
@@ -57,8 +46,8 @@ In the end, `apply` creates a [TransactionCoordinator](#creating-instance).
 
 `apply` is used when:
 
-* `BrokerServer` is requested to [startup](BrokerServer.md#startup)
-* `KafkaServer` is requested to [startup](KafkaServer.md#startup)
+* `BrokerServer` is requested to [startup](../BrokerServer.md#startup)
+* `KafkaServer` is requested to [startup](../KafkaServer.md#startup)
 
 ## <span id="handleInitProducerId"> handleInitProducerId
 
@@ -85,4 +74,4 @@ In the end, `handleInitProducerId` requests the [TransactionStateManager](#txnMa
 
 `handleInitProducerId` is used when:
 
-* `KafkaApis` is requested to [handleInitProducerIdRequest](KafkaApis.md#handleInitProducerIdRequest)
+* `KafkaApis` is requested to [handleInitProducerIdRequest](../KafkaApis.md#handleInitProducerIdRequest)

@@ -31,7 +31,7 @@
 
 ## <span id="txnCoordinator"> TransactionCoordinator
 
-`KafkaApis` is given a [TransactionCoordinator](TransactionCoordinator.md) when [created](#creating-instance).
+`KafkaApis` is given a [TransactionCoordinator](transactions/TransactionCoordinator.md) when [created](#creating-instance).
 
 The `TransactionCoordinator` is used for the following:
 
@@ -54,7 +54,7 @@ handleInitProducerIdRequest(
 
 `handleInitProducerIdRequest` authorizes the request.
 
-With `producerId` and `producerEpoch` set either to `-1`s (`NO_PRODUCER_ID` and `NO_PRODUCER_EPOCH`) or some non-`-1` values, `handleInitProducerIdRequest` requests the [TransactionCoordinator](#txnCoordinator) to [handleInitProducerId](TransactionCoordinator.md#handleInitProducerId).
+With `producerId` and `producerEpoch` set either to `-1`s (`NO_PRODUCER_ID` and `NO_PRODUCER_EPOCH`) or some non-`-1` values, `handleInitProducerIdRequest` requests the [TransactionCoordinator](#txnCoordinator) to [handleInitProducerId](transactions/TransactionCoordinator.md#handleInitProducerId).
 
 Otherwise, `handleInitProducerIdRequest` sends an error back.
 

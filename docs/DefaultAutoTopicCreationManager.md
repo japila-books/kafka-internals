@@ -20,6 +20,6 @@
 
 ## <span id="txnCoordinator"> TransactionCoordinator
 
-`DefaultAutoTopicCreationManager` is given a [TransactionCoordinator](TransactionCoordinator.md) when [created](#creating-instance).
+`DefaultAutoTopicCreationManager` is given a [TransactionCoordinator](transactions/TransactionCoordinator.md) when [created](#creating-instance).
 
-`DefaultAutoTopicCreationManager` uses the `TransactionCoordinator` for the [transactionTopicConfigs](TransactionCoordinator.md#transactionTopicConfigs) when requested to [creatableTopic](#creatableTopic) for [__transaction_state](transactions/index.md#TRANSACTION_STATE_TOPIC_NAME) topic.
+`DefaultAutoTopicCreationManager` uses the `TransactionCoordinator` for the [transactionTopicConfigs](transactions/TransactionCoordinator.md#transactionTopicConfigs) when requested to [creatableTopic](#creatableTopic) for [__transaction_state](transactions/index.md#TRANSACTION_STATE_TOPIC_NAME) topic.

@@ -17,14 +17,14 @@
 
 ## <span id="transactionCoordinator"> TransactionCoordinator
 
-`KafkaServer` creates and starts a [TransactionCoordinator](TransactionCoordinator.md) when [created](#creating-instance).
+`KafkaServer` creates and starts a [TransactionCoordinator](transactions/TransactionCoordinator.md) when [created](#creating-instance).
 
 `KafkaServer` uses the `TransactionCoordinator` to create the following:
 
 * [data-plane](#dataPlaneRequestProcessor) and the [control-plane](#controlPlaneRequestProcessor) request processors
 * [AutoTopicCreationManager](AutoTopicCreationManager.md)
 
-The `TransactionCoordinator` is requested to [shutdown](TransactionCoordinator.md#shutdown) together with [KafkaServer](#shutdown).
+The `TransactionCoordinator` is requested to [shutdown](transactions/TransactionCoordinator.md#shutdown) along with [KafkaServer](#shutdown).
 
 ## <span id="dataPlaneRequestProcessor"> Data-Plane Request Processor
 
@@ -62,7 +62,7 @@ Cluster ID = [clusterId]
 
 `startup`...FIXME
 
-`startup` creates a [TransactionCoordinator](#transactionCoordinator) (with the [ReplicaManager](#replicaManager)) and requests it to [startup](TransactionCoordinator.md#startup).
+`startup` creates a [TransactionCoordinator](#transactionCoordinator) (with the [ReplicaManager](#replicaManager)) and requests it to [startup](transactions/TransactionCoordinator.md#startup).
 
 `startup`...FIXME
 
