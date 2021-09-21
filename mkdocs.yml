@@ -106,16 +106,23 @@ nav:
   - Internals:
     - Overview: overview.md
     - AbstractConfig: AbstractConfig.md
+    - AutoTopicCreationManager: AutoTopicCreationManager.md
     - BrokerServer: BrokerServer.md
     - Configurable: Configurable.md
+    - DefaultAutoTopicCreationManager: DefaultAutoTopicCreationManager.md
     - InterBrokerSendThread: InterBrokerSendThread.md
     - Kafka: Kafka.md
+    - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
     - KafkaServer: KafkaServer.md
     - KafkaRaftServer: KafkaRaftServer.md
+    - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - TransactionCoordinator: TransactionCoordinator.md
+    - TransactionStateManager: TransactionStateManager.md
     - Utils: Utils.md
+  - Transactions:
+    - transactions/index.md
   - Clients:
     - clients/index.md
     - Admin:
