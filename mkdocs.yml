@@ -116,6 +116,7 @@ nav:
     - KafkaConfig: KafkaConfig.md
     - KafkaServer: KafkaServer.md
     - KafkaRaftServer: KafkaRaftServer.md
+    - RequestHandlerHelper: RequestHandlerHelper.md
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - Utils: Utils.md

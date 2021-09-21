@@ -15,6 +15,28 @@
 
 * `TransactionCoordinator` utility is used to [create a TransactionCoordinator](TransactionCoordinator.md#apply)
 
+## <span id="startup"> Starting Up
+
+```scala
+startup(
+  retrieveTransactionTopicPartitionCount: () => Int,
+  enableTransactionalIdExpiration: Boolean = true): Unit
+```
+
+`startup`...FIXME
+
+`startup` is used when:
+
+* `TransactionCoordinator` is requested to [start up](TransactionCoordinator.md#startup)
+
+### <span id="enableTransactionalIdExpiration"> enableTransactionalIdExpiration
+
+```scala
+enableTransactionalIdExpiration(): Unit
+```
+
+`enableTransactionalIdExpiration`...FIXME
+
 ## <span id="appendTransactionToLog"> appendTransactionToLog
 
 ```scala
@@ -57,3 +79,34 @@ partitionFor(
 * `TransactionStateManager` is requested to [appendTransactionToLog](#appendTransactionToLog), [enableTransactionalIdExpiration](#enableTransactionalIdExpiration), [getAndMaybeAddTransactionState](#getAndMaybeAddTransactionState)
 * `TransactionCoordinator` is requested to [handleInitProducerId](TransactionCoordinator.md#handleInitProducerId)
 * `TransactionMarkerChannelManager` is requested to `addTxnMarkersToBrokerQueue`
+
+## <span id="loadTransactionsForTxnTopicPartition"> loadTransactionsForTxnTopicPartition
+
+```scala
+loadTransactionsForTxnTopicPartition(
+  partitionId: Int,
+  coordinatorEpoch: Int,
+  sendTxnMarkers: SendTxnMarkersCallback): Unit
+```
+
+`loadTransactionsForTxnTopicPartition`...FIXME
+
+`loadTransactionsForTxnTopicPartition` is used when:
+
+* `TransactionCoordinator` is requested to [onElection](TransactionCoordinator.md#onElection)
+
+## <span id="removeTransactionsForTxnTopicPartition"> removeTransactionsForTxnTopicPartition
+
+```scala
+removeTransactionsForTxnTopicPartition(
+  partitionId: Int): Unit
+removeTransactionsForTxnTopicPartition(
+  partitionId: Int,
+  coordinatorEpoch: Int): Unit
+```
+
+`removeTransactionsForTxnTopicPartition`...FIXME
+
+`removeTransactionsForTxnTopicPartition` is used when:
+
+* `TransactionCoordinator` is requested to [onResignation](TransactionCoordinator.md#onResignation)

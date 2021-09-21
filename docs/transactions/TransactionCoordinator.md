@@ -46,8 +46,52 @@ In the end, `apply` creates a [TransactionCoordinator](#creating-instance).
 
 `apply` is used when:
 
-* `BrokerServer` is requested to [startup](../BrokerServer.md#startup)
-* `KafkaServer` is requested to [startup](../KafkaServer.md#startup)
+* `BrokerServer` is requested to [start up](../BrokerServer.md#startup)
+* `KafkaServer` is requested to [start up](../KafkaServer.md#startup)
+
+## <span id="startup"> Starting Up
+
+```scala
+startup(
+  retrieveTransactionTopicPartitionCount: () => Int,
+  enableTransactionalIdExpiration: Boolean = true): Unit
+```
+
+`startup`...FIXME
+
+`startup` is used when:
+
+* `BrokerServer` is requested to [start up](../BrokerServer.md#startup)
+* `KafkaServer` is requested to [start up](../KafkaServer.md#startup)
+
+## <span id="onElection"> onElection
+
+```scala
+onElection(
+  txnTopicPartitionId: Int,
+  coordinatorEpoch: Int): Unit
+```
+
+`onElection`...FIXME
+
+`onElection` is used when:
+
+* `RequestHandlerHelper` is requested to [onLeadershipChange](../RequestHandlerHelper.md#onLeadershipChange)
+
+## <span id="onResignation"> onResignation
+
+```scala
+onResignation(
+  txnTopicPartitionId: Int,
+  coordinatorEpoch: Option[Int]): Unit
+```
+
+`onResignation`...FIXME
+
+`onResignation` is used when:
+
+* `KafkaApis` is requested to [handleStopReplicaRequest](../KafkaApis.md#handleStopReplicaRequest)
+* `RequestHandlerHelper` is requested to [onLeadershipChange](../RequestHandlerHelper.md#onLeadershipChange)
 
 ## <span id="handleInitProducerId"> handleInitProducerId
 
