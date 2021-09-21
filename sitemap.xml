@@ -71,16 +71,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/TransactionCoordinator/</loc>
-         <lastmod>2021-09-21</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://books.japila.pl/kafka-internals/TransactionStateManager/</loc>
-         <lastmod>2021-09-21</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/Utils/</loc>
          <lastmod>2021-09-21</lastmod>
          <changefreq>daily</changefreq>
@@ -237,6 +227,21 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/transactions/</loc>
+         <lastmod>2021-09-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/transactions/TransactionConfig/</loc>
+         <lastmod>2021-09-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/transactions/TransactionCoordinator/</loc>
+         <lastmod>2021-09-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/transactions/TransactionStateManager/</loc>
          <lastmod>2021-09-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
