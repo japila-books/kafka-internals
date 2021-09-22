@@ -11,7 +11,33 @@
 * <span id="apiVersions"> `ApiVersions`
 * <span id="autoDowngradeTxnCommit"> [internal.auto.downgrade.txn.commit](ProducerConfig.md#AUTO_DOWNGRADE_TXN_COMMIT)
 
-`TransactionManager` is created together with [KafkaProducer](KafkaProducer.md#transactionManager) (with [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled)).
+`TransactionManager` is created along with [KafkaProducer](KafkaProducer.md#transactionManager) (with [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled)).
+
+## <span id="State"><span id="transitionTo"><span id="states"> States
+
+`TransactionManager` can be in one of the following states:
+
+* UNINITIALIZED
+* INITIALIZING
+* READY
+* IN_TRANSACTION
+* COMMITTING_TRANSACTION
+* ABORTING_TRANSACTION
+* ABORTABLE_ERROR
+* FATAL_ERROR
+
+### <span id="isTransitionValid"> Valid Transitions
+
+Source (Current) State | Target States | transitionTo
+-----------------------|---------------|-------------
+ ABORTABLE_ERROR | <ul><li>ABORTING_TRANSACTION</li><li>ABORTABLE_ERROR</li></ul> |
+ ABORTING_TRANSACTION | <ul><li>INITIALIZING</li><li>READY</li></ul> | [beginAbort](#beginAbort)
+ COMMITTING_TRANSACTION | <ul><li>READY</li><li>ABORTABLE_ERROR</li></ul> | [beginCommit](#beginCommit)
+ IN_TRANSACTION | <ul><li>COMMITTING_TRANSACTION</li><li>ABORTING_TRANSACTION</li><li>ABORTABLE_ERROR</li></ul> | [beginTransaction](#beginTransaction)
+ INITIALIZING | READY | <ul><li>[initializeTransactions](#initializeTransactions)</li><li> [bumpIdempotentEpochAndResetIdIfNeeded](#bumpIdempotentEpochAndResetIdIfNeeded)</li><li>[completeTransaction](#completeTransaction)</li></ul>
+ READY | <ul><li>UNINITIALIZED</li><li>IN_TRANSACTION</li></ul> |  <ul><li>[completeTransaction](#completeTransaction)</li><li>`InitProducerIdHandler`</li></ul>
+ UNINITIALIZED | INITIALIZING | [resetIdempotentProducerId](#resetIdempotentProducerId)
+ _any state_ | FATAL_ERROR |
 
 ## <span id="beginAbort"> beginAbort
 
@@ -57,7 +83,7 @@ TransactionalRequestResult beginCompletingTransaction(
 void beginTransaction()
 ```
 
-`beginTransaction`...FIXME
+`beginTransaction` makes sure that the producer is [transactional](#ensureTransactional) and [transition to](#transitionTo) `IN_TRANSACTION` state.
 
 `beginTransaction` is used when:
 
@@ -86,7 +112,7 @@ TransactionalRequestResult initializeTransactions(
 boolean isTransactional()
 ```
 
-`isTransactional` is `true` when the [transactionalId](#transactionalId) is defined.
+`isTransactional` is enabled (`true`) when the [transactional.id](ProducerConfig.md#TRANSACTIONAL_ID_CONFIG) configuration property is defined (for the producer and the [transactionalId](#transactionalId) was given when [created](#creating-instance)).
 
 ## <span id="maybeAddPartitionToTransaction"> maybeAddPartitionToTransaction
 

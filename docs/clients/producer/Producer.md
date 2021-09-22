@@ -16,29 +16,17 @@ void abortTransaction()
 void beginTransaction()
 ```
 
-Used when:
-
-* FIXME
-
 ### <span id="commitTransaction"> commitTransaction
 
 ```java
 void commitTransaction()
 ```
 
-Used when:
-
-* FIXME
-
 ### <span id="initTransactions"> initTransactions
 
 ```java
 void initTransactions()
 ```
-
-Used when:
-
-* FIXME
 
 ### <span id="sendOffsetsToTransaction"> sendOffsetsToTransaction
 
@@ -51,6 +39,4 @@ void sendOffsetsToTransaction(
   ConsumerGroupMetadata groupMetadata)
 ```
 
-Used when:
-
-* FIXME
+Used when the producer is also a [Consumer](../consumer/index.md) for a consume-transform-produce pattern

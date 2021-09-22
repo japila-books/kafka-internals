@@ -1,8 +1,18 @@
 # Transactions
 
-Apache Kafka supports transactional record delivery.
+Apache Kafka supports transactional record delivery (and consumption if in consumer-process-produce processing mode).
 
 Every Kafka broker runs a [TransactionCoordinator](TransactionCoordinator.md) to manage (_coordinate_) transactions.
+
+## Transactional Producer
+
+A [KafkaProducer](../clients/producer/KafkaProducer.md) is [transactional](../clients/producer/TransactionManager.md#isTransactional) when [transactional.id](../clients/producer/ProducerConfig.md#transactional.id) configuration property is specified.
+
+Any [record sending](../clients/producer/KafkaProducer.md#send) has to be after [KafkaProducer.initTransactions](../clients/producer/KafkaProducer.md#initTransactions) followed by [KafkaProducer.beginTransaction](../clients/producer/KafkaProducer.md#beginTransaction). Otherwise, the underlying [TransactionManager](../clients/producer/TransactionManager.md) is going to be in a wrong [state](../clients/producer/TransactionManager.md#states) (that will inevitably lead to exceptions).
+
+## Demo
+
+[Demo: Transactional Kafka Producer](../demo/transactional-kafka-producer.md)
 
 ## <span id="TransactionConfig"> Transactional Configuration Properties
 

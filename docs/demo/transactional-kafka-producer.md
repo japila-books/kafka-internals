@@ -19,8 +19,10 @@ val props = new Properties()
 props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
 props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
 props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, ":9092")
+props.put(ProducerConfig.CLIENT_ID_CONFIG, "txn-demo")
 // Define transaction.id
-props.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "my-custom-txnId")
+val transactionalId = "my-custom-txnId"
+props.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, transactionalId)
 val producer = new KafkaProducer[String, String](props)
 ```
 
@@ -28,6 +30,37 @@ val producer = new KafkaProducer[String, String](props)
 
 ```text
 producer.initTransactions
+```
+
+Once initialized, the transactional producer must not be initialized again.
+
+```text
+scala> producer.initTransactions
+org.apache.kafka.common.KafkaException: TransactionalId my-custom-txnId: Invalid transition attempted from state READY to state INITIALIZING
+  at org.apache.kafka.clients.producer.internals.TransactionManager.transitionTo(TransactionManager.java:1078)
+  at org.apache.kafka.clients.producer.internals.TransactionManager.transitionTo(TransactionManager.java:1071)
+  at org.apache.kafka.clients.producer.internals.TransactionManager.lambda$initializeTransactions$1(TransactionManager.java:337)
+  at org.apache.kafka.clients.producer.internals.TransactionManager.handleCachedTransactionRequestResult(TransactionManager.java:1200)
+  at org.apache.kafka.clients.producer.internals.TransactionManager.initializeTransactions(TransactionManager.java:334)
+  at org.apache.kafka.clients.producer.internals.TransactionManager.initializeTransactions(TransactionManager.java:329)
+  at org.apache.kafka.clients.producer.KafkaProducer.initTransactions(KafkaProducer.java:596)
+  ... 31 elided
+```
+
+### beginTransaction
+
+Next up is starting a transaction using [KafkaProducer.beginTransaction](../clients/producer/KafkaProducer.md#beginTransaction)
+
+```text
+producer.beginTransaction
+```
+
+### Transactional send
+
+```text
+import org.apache.kafka.clients.producer.ProducerRecord
+val record = new ProducerRecord[String, String]("demo", "Hello from transactional producer")
+producer.send(record)
 ```
 
 ### Logs
@@ -48,4 +81,10 @@ You should see the following INFO message in the logs of a Kafka cluster:
 
 ```text
 INFO [TransactionCoordinator id=0] Initialized transactionalId my-custom-txnId with producerId 0 and producer epoch 0 on partition __transaction_state-20 (kafka.coordinator.transaction.TransactionCoordinator)
+```
+
+The calculation to [determine the transactional partition](../transactions/TransactionStateManager.md#partitionFor) (`__transaction_state-20`) is as follows:
+
+```scala
+Math.abs(transactionalId.hashCode) % 50
 ```

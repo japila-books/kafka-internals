@@ -5,19 +5,19 @@
 `RecordAccumulator` takes the following to be created:
 
 * <span id="logContext"> LogContext
-* <span id="batchSize"> Batch size
+* <span id="batchSize"> [batch.size](ProducerConfig.md#BATCH_SIZE_CONFIG)
 * <span id="compression"> CompressionType
-* <span id="lingerMs"> Linger
-* <span id="retryBackoffMs"> retryBackoffMs
-* <span id="deliveryTimeoutMs"> deliveryTimeoutMs
-* <span id="metrics"> Metrics
+* <span id="lingerMs"> [linger.ms](ProducerConfig.md#LINGER_MS_CONFIG)
+* <span id="retryBackoffMs"> [retry.backoff.ms](ProducerConfig.md#RETRY_BACKOFF_MS_CONFIG)
+* <span id="deliveryTimeoutMs"> [configureDeliveryTimeout](KafkaProducer.md#configureDeliveryTimeout)
+* <span id="metrics"> `Metrics`
 * <span id="metricGrpName"> Name of the Metrics Group
-* <span id="time"> Time
-* <span id="apiVersions"> ApiVersions
+* <span id="time"> `Time`
+* <span id="apiVersions"> `ApiVersions`
 * [TransactionManager](#transactionManager)
 * <span id="bufferPool"> [BufferPool](BufferPool.md)
 
-`RecordAccumulator` is created together with [KafkaProducer](KafkaProducer.md#accumulator).
+`RecordAccumulator` is created along with [KafkaProducer](KafkaProducer.md#accumulator).
 
 ## <span id="transactionManager"> TransactionManager
 

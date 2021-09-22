@@ -107,6 +107,16 @@ Must set acks to all in order to use the idempotent producer.
 Otherwise we cannot guarantee idempotence.
 ```
 
+### <span id="configureDeliveryTimeout"> configureDeliveryTimeout
+
+```java
+int configureDeliveryTimeout(
+  ProducerConfig config,
+  Logger log)
+```
+
+`configureDeliveryTimeout`...FIXME
+
 ## <span id="transactionManager"> TransactionManager
 
 `KafkaProducer` may create a [TransactionManager](TransactionManager.md) when [created](#configureTransactionState) (with [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled)).
@@ -165,7 +175,13 @@ This `RecordAccumulator` is used for the following:
 * [append](RecordAccumulator.md#append) when [doSend](#doSend)
 * [beginFlush](RecordAccumulator.md#beginFlush) when [flush](#flush)
 
-## <span id="abortTransaction"> Aborting Incomplete Transaction
+## <span id="maxBlockTimeMs"> max.block.ms
+
+`KafkaProducer` uses [max.block.ms](ProducerConfig.md#MAX_BLOCK_MS_CONFIG) configuration property.
+
+## Transactional Methods
+
+### <span id="abortTransaction"> abortTransaction
 
 ```java
 void abortTransaction()
@@ -181,11 +197,17 @@ Aborting incomplete transaction
 
 `abortTransaction` is part of the [Producer](Producer.md#abortTransaction) abstraction.
 
-## <span id="maxBlockTimeMs"> max.block.ms
+### <span id="beginTransaction"> beginTransaction
 
-`KafkaProducer` uses [max.block.ms](ProducerConfig.md#MAX_BLOCK_MS_CONFIG) configuration property.
+```java
+void beginTransaction()
+```
 
-## <span id="initTransactions"> initTransactions
+`beginTransaction` requests the [TransactionManager](#transactionManager) to [beginTransaction](TransactionManager.md#beginTransaction).
+
+`beginTransaction` is part of the [Producer](Producer.md#beginTransaction) abstraction.
+
+### <span id="initTransactions"> initTransactions
 
 ```java
 void initTransactions()
@@ -193,19 +215,42 @@ void initTransactions()
 
 `initTransactions` requests the [TransactionManager](#transactionManager) to [initializeTransactions](TransactionManager.md#initializeTransactions) and requests the [Sender](#sender) to [wakeup](Sender.md#wakeup).
 
-In the end, `initTransactions` waits [maxBlockTimeMs](#maxBlockTimeMs) until transaction initialization is completed (successfully or not).
+In the end, `initTransactions` waits [max.block.ms](#maxBlockTimeMs) until transaction initialization is completed (successfully or not).
 
 `initTransactions` is part of the [Producer](Producer.md#initTransactions) abstraction.
+
+### <span id="sendOffsetsToTransaction"> sendOffsetsToTransaction
+
+```java
+void sendOffsetsToTransaction(
+  Map<TopicPartition, OffsetAndMetadata> offsets,
+  String consumerGroupId) // (1)
+void sendOffsetsToTransaction(
+  Map<TopicPartition, OffsetAndMetadata> offsets,
+  ConsumerGroupMetadata groupMetadata)
+```
+
+1. Creates a new `ConsumerGroupMetadata` for the `consumerGroupId`
+
+`sendOffsetsToTransaction` requests the [TransactionManager](#transactionManager) to [sendOffsetsToTransaction](TransactionManager.md#sendOffsetsToTransaction) and requests the [Sender](#sender) to [wakeup](Sender.md#wakeup).
+
+In the end, `sendOffsetsToTransaction` waits [max.block.ms](#maxBlockTimeMs) for the send to be completed (successfully or not).
+
+`sendOffsetsToTransaction` is part of the [Producer](Producer.md#sendOffsetsToTransaction) abstraction.
 
 ## <span id="send"> Sending Record
 
 ```java
 Future<RecordMetadata> send(
+  ProducerRecord<K, V> record) // (1)
+Future<RecordMetadata> send(
   ProducerRecord<K, V> record,
   Callback callback)
 ```
 
-`send`...FIXME
+1. Uses uninitialized [Callback](Callback.md) (`null`)
+
+`send` requests the [interceptors](#interceptors) to [onSend](#onSend) with the given `record` (possibly modifying it) followed by [doSend](#doSend).
 
 `send` is part of the [Producer](Producer.md#send) abstraction.
 
@@ -217,7 +262,38 @@ Future<RecordMetadata> doSend(
   Callback callback)
 ```
 
-`doSend`...FIXME
+`doSend` [waitOnMetadata](#waitOnMetadata) for the topic and partition of the given record.
+
+`doSend` requests the [key Serializer](#keySerializer) to `serialize` the record (passing in the topic, the headers and the key of the record).
+
+`doSend` requests the [value Serializer](#valueSerializer) to `serialize` the record (passing in the topic, the headers and the value of the record).
+
+`doSend` [determines the partition](#partition) for the record.
+
+`doSend` [ensureValidRecordSize](#ensureValidRecordSize) for the record (upper bound estimate).
+
+`doSend` prints out the following TRACE message to the logs:
+
+```text
+Attempting to append record [r] with callback [c] to topic [t] partition [p]
+```
+
+`doSend` requests the [RecordAccumulator](#accumulator) to [append](RecordAccumulator.md#append) the record (with the `abortOnNewBatch` flag enabled).
+
+When aborted for a new batch, `doSend`...FIXME (repeats the steps)...and prints out the following TRACE message to the logs:
+
+```text
+Retrying append due to new batch creation for topic [t] partition [p].
+The old partition was [prev]
+```
+
+When [transactional](TransactionManager.md#isTransactional), `doSend` requests the [TransactionManager](#transactionManager) to [maybeAddPartitionToTransaction](TransactionManager.md#maybeAddPartitionToTransaction).
+
+For `batchIsFull` or a new batch created, `doSend` prints out the following TRACE message to the logs and requests the [Sender](#sender) to [wakeup](Sender.md#wakeup).
+
+```text
+Waking up the sender since topic [t] partition [p] is either full or getting a new batch
+```
 
 ### <span id="partition"> partition
 

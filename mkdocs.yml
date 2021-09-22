@@ -136,12 +136,14 @@ nav:
     - Producers:
       - clients/producer/index.md
       - BufferPool: clients/producer/BufferPool.md
+      - Callback: clients/producer/Callback.md
       - DefaultPartitioner: clients/producer/DefaultPartitioner.md
       - KafkaProducer: clients/producer/KafkaProducer.md
       - Partitioner: clients/producer/Partitioner.md
       - Producer: clients/producer/Producer.md
       - ProducerBatch: clients/producer/ProducerBatch.md
       - ProducerConfig: clients/producer/ProducerConfig.md
+      - ProducerInterceptors: clients/producer/ProducerInterceptors.md
       - RecordAccumulator: clients/producer/RecordAccumulator.md
       - Sender: clients/producer/Sender.md
       - TransactionManager: clients/producer/TransactionManager.md
