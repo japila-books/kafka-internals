@@ -125,6 +125,7 @@ nav:
     - transactions/index.md
     - TransactionConfig: transactions/TransactionConfig.md
     - TransactionCoordinator: transactions/TransactionCoordinator.md
+    - TransactionMarkerChannelManager: transactions/TransactionMarkerChannelManager.md
     - TransactionStateManager: transactions/TransactionStateManager.md
   - Clients:
     - clients/index.md
@@ -133,6 +134,8 @@ nav:
       - AdminClientRunnable: clients/admin/AdminClientRunnable.md
     - Consumers:
       - clients/consumer/index.md
+      - Consumer: clients/consumer/Consumer.md
+      - KafkaConsumer: clients/consumer/KafkaConsumer.md
       - ConsumerNetworkClient: clients/consumer/ConsumerNetworkClient.md
     - Producers:
       - clients/producer/index.md

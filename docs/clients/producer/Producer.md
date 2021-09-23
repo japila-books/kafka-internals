@@ -1,6 +1,6 @@
 # Producer
 
-`Producer<K, V>` is an [interface](#contract) to [KafkaProducer](KafkaProducer.md) for Kafka developers to use to send messages (with `K` keys and `V` values) to a Kafka cluster.
+`Producer<K, V>` is an [interface](#contract) to [KafkaProducer](KafkaProducer.md) for Kafka developers to use to send records (with `K` keys and `V` values) to a Kafka cluster.
 
 ## Contract (Subset)
 
@@ -31,9 +31,6 @@ void initTransactions()
 ### <span id="sendOffsetsToTransaction"> sendOffsetsToTransaction
 
 ```java
-void sendOffsetsToTransaction(
-  Map<TopicPartition, OffsetAndMetadata> offsets,
-  String consumerGroupId)
 void sendOffsetsToTransaction(
   Map<TopicPartition, OffsetAndMetadata> offsets,
   ConsumerGroupMetadata groupMetadata)

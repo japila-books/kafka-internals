@@ -7,7 +7,9 @@ hide:
 
 This demo shows the internals of transactional [KafkaProducer](../clients/producer/KafkaProducer.md) that is a Kafka producer with [transaction.id](../clients/producer/ProducerConfig.md#TRANSACTIONAL_ID_CONFIG) defined.
 
-## Create KafkaProducer
+## KafkaProducer
+
+### Start Up Kafka Producer
 
 ```text
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -26,7 +28,7 @@ props.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, transactionalId)
 val producer = new KafkaProducer[String, String](props)
 ```
 
-### initTransactions
+### Initialize Transactions
 
 ```text
 producer.initTransactions
@@ -47,7 +49,7 @@ org.apache.kafka.common.KafkaException: TransactionalId my-custom-txnId: Invalid
   ... 31 elided
 ```
 
-### beginTransaction
+### Start Transaction
 
 Next up is starting a transaction using [KafkaProducer.beginTransaction](../clients/producer/KafkaProducer.md#beginTransaction)
 
@@ -59,7 +61,8 @@ producer.beginTransaction
 
 ```text
 import org.apache.kafka.clients.producer.ProducerRecord
-val record = new ProducerRecord[String, String]("demo", "Hello from transactional producer")
+val topic = "txn-demo"
+val record = new ProducerRecord[String, String](topic, "Hello from transactional producer")
 producer.send(record)
 ```
 
@@ -87,4 +90,33 @@ The calculation to [determine the transactional partition](../transactions/Trans
 
 ```scala
 Math.abs(transactionalId.hashCode) % 50
+```
+
+## Start Up Consumer
+
+```text
+kcat -C -b localhost -t txn-demo
+```
+
+You should see no records produced yet (since the transaction has not been committed yet).
+
+## Commit Transaction
+
+Let's commit the transaction using [KafkaProducer.commitTransaction](../clients/producer/KafkaProducer.md#commitTransaction).
+
+```text
+producer.commitTransaction
+```
+
+Immediately after committing the transaction you should see the record printed out by the Kafka consumer.
+
+## Another Kafka Producer (WIP)
+
+!!! TODO
+    This is a work-in-progress.
+
+```text
+scala> producer.commitTransaction
+[2021-09-23 11:38:29,001] INFO [Producer clientId=txn-demo, transactionalId=my-custom-txnId] Transiting to fatal error state due to org.apache.kafka.common.errors.ProducerFencedException: There is a newer producer with the same transactionalId which fences the current one. (org.apache.kafka.clients.producer.internals.TransactionManager)
+org.apache.kafka.common.errors.ProducerFencedException: There is a newer producer with the same transactionalId which fences the current one.
 ```
