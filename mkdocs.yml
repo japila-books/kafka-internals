@@ -135,8 +135,11 @@ nav:
     - Consumers:
       - clients/consumer/index.md
       - Consumer: clients/consumer/Consumer.md
-      - KafkaConsumer: clients/consumer/KafkaConsumer.md
+      - ConsumerConfig: clients/consumer/ConsumerConfig.md
+      - ConsumerCoordinator: clients/consumer/ConsumerCoordinator.md
       - ConsumerNetworkClient: clients/consumer/ConsumerNetworkClient.md
+      - Fetcher: clients/consumer/Fetcher.md
+      - KafkaConsumer: clients/consumer/KafkaConsumer.md
     - Producers:
       - clients/producer/index.md
       - BufferPool: clients/producer/BufferPool.md

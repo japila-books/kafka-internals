@@ -10,6 +10,14 @@ A [KafkaProducer](../clients/producer/KafkaProducer.md) is [transactional](../cl
 
 Any [record sending](../clients/producer/KafkaProducer.md#send) has to be after [KafkaProducer.initTransactions](../clients/producer/KafkaProducer.md#initTransactions) followed by [KafkaProducer.beginTransaction](../clients/producer/KafkaProducer.md#beginTransaction). Otherwise, the underlying [TransactionManager](../clients/producer/TransactionManager.md) is going to be in a wrong [state](../clients/producer/TransactionManager.md#states) (that will inevitably lead to exceptions).
 
+## Transaction-Aware Consumer
+
+A [KafkaConsumer](../clients/consumer/KafkaConsumer.md) supports transactions using [isolation.level](../clients/consumer/ConsumerConfig.md#isolation.level) configuration property.
+
+## kafka-console-consumer
+
+`kafka-console-consumer` supports `--isolation-level` option for [isolation.level](../clients/consumer/ConsumerConfig.md#isolation.level) configuration property.
+
 ## Demo
 
 [Demo: Transactional Kafka Producer](../demo/transactional-kafka-producer.md)

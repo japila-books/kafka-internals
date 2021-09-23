@@ -1,0 +1,3 @@
+# ConsumerCoordinator
+
+`ConsumerCoordinator` is...FIXME
