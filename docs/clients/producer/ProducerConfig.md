@@ -29,8 +29,6 @@ Used when:
 * `KafkaProducer` is requested to [configureTransactionState](KafkaProducer.md#configureTransactionState)
 * `ProducerConfig` is requested to [maybeOverrideEnableIdempotence](#maybeOverrideEnableIdempotence) and [idempotenceEnabled](#idempotenceEnabled)
 
-## <span id="internal.auto.downgrade.txn.commit"><span id="AUTO_DOWNGRADE_TXN_COMMIT"> internal.auto.downgrade.txn.commit
-
 ## <span id="linger.ms"><span id="LINGER_MS_CONFIG"> linger.ms
 
 ## <span id="max.block.ms"><span id="MAX_BLOCK_MS_CONFIG"> max.block.ms

@@ -42,7 +42,6 @@ With [idempotence enabled](ProducerConfig.md#idempotenceEnabled), `configureTran
 1. [transactional.id](ProducerConfig.md#TRANSACTIONAL_ID_CONFIG)
 1. [transaction.timeout.ms](ProducerConfig.md#TRANSACTION_TIMEOUT_CONFIG)
 1. [retry.backoff.ms](ProducerConfig.md#RETRY_BACKOFF_MS_CONFIG)
-1. [internal.auto.downgrade.txn.commit](ProducerConfig.md#AUTO_DOWNGRADE_TXN_COMMIT)
 
 When the `TransactionManager` is [transactional](TransactionManager.md#isTransactional), `configureTransactionState` prints out the following INFO message to the logs:
 
@@ -224,13 +223,8 @@ In the end, `initTransactions` waits [max.block.ms](#maxBlockTimeMs) until trans
 ```java
 void sendOffsetsToTransaction(
   Map<TopicPartition, OffsetAndMetadata> offsets,
-  String consumerGroupId) // (1)
-void sendOffsetsToTransaction(
-  Map<TopicPartition, OffsetAndMetadata> offsets,
   ConsumerGroupMetadata groupMetadata)
 ```
-
-1. Creates a new `ConsumerGroupMetadata` for the `consumerGroupId`
 
 `sendOffsetsToTransaction` requests the [TransactionManager](#transactionManager) to [sendOffsetsToTransaction](TransactionManager.md#sendOffsetsToTransaction) and requests the [Sender](#sender) to [wakeup](Sender.md#wakeup).
 

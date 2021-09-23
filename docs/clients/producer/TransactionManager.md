@@ -9,7 +9,6 @@
 * <span id="transactionTimeoutMs"> [transaction.timeout.ms](ProducerConfig.md#TRANSACTION_TIMEOUT_CONFIG)
 * <span id="retryBackoffMs"> [retry.backoff.ms](ProducerConfig.md#RETRY_BACKOFF_MS_CONFIG)
 * <span id="apiVersions"> `ApiVersions`
-* <span id="autoDowngradeTxnCommit"> [internal.auto.downgrade.txn.commit](ProducerConfig.md#AUTO_DOWNGRADE_TXN_COMMIT)
 
 `TransactionManager` is created along with [KafkaProducer](KafkaProducer.md#transactionManager) (with [idempotenceEnabled](ProducerConfig.md#idempotenceEnabled)).
 
