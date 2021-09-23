@@ -3,20 +3,27 @@
 Based on [README.md](https://github.com/apache/kafka/blob/2.8.0/README.md#apache-kafka):
 
 ```text
-KAFKA_VERSION=2.8.0
+KAFKA_VERSION={{ kafka.version }}
+SCALA_VERSION={{ scala.short_version }}
 ```
 
 ```text
-./gradlew clean releaseTarGz install && \
-tar -zxvf core/build/distributions/kafka_2.13-$KAFKA_VERSION.tgz)
+$ java -version
+openjdk version "11.0.12" 2021-07-20
+OpenJDK Runtime Environment Temurin-11.0.12+7 (build 11.0.12+7)
+OpenJDK 64-Bit Server VM Temurin-11.0.12+7 (build 11.0.12+7, mixed mode)
 ```
 
 ```text
-cd kafka_2.13-$KAFKA_VERSION
+./gradlew clean releaseTarGz install -PskipSigning=true && \
+tar -zxvf core/build/distributions/kafka_$SCALA_VERSION-$KAFKA_VERSION.tgz
 ```
 
 ```text
-$ ./bin/kafka-server-start.sh --version
-[2021-09-12 19:00:12,467] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration$)
-2.8.0 (Commit:ebb1d6e21cc92130)
+cd kafka_$SCALA_VERSION-$KAFKA_VERSION
+```
+
+```text
+$ ./bin/kafka-server-start.sh --version | tail -1
+3.0.0 (Commit:8cb0a5e9d3441962)
 ```
