@@ -16,11 +16,18 @@
 
 ## <span id="isolationLevel"> IsolationLevel
 
-`KafkaConsumer` can be given a group ID using [isolation.level](ConsumerConfig.md#ISOLATION_LEVEL_CONFIG) configuration property (indirectly in the [config](#config)) when [created](#creating-instance).
+`KafkaConsumer` can be given an `IsolationLevel` using [isolation.level](ConsumerConfig.md#ISOLATION_LEVEL_CONFIG) configuration property (indirectly in the [config](#config)) when [created](#creating-instance).
+
+`KafkaConsumer` uses the `IsolationLevel` for the following:
+
+* Creating a [Fetcher](Fetcher.md#isolationLevel) (when [created](#creating-instance))
+* [currentLag](#currentLag)
 
 ## <span id="fetcher"> Fetcher
 
 `KafkaConsumer` creates a [Fetcher](Fetcher.md) when [created](#creating-instance).
+
+One could say that `KafkaConsumer` is a developer-oriented interface to `Fetcher`.
 
 ## <span id="coordinator"> ConsumerCoordinator
 
