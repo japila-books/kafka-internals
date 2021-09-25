@@ -111,12 +111,14 @@ nav:
     - BrokerServer: BrokerServer.md
     - Configurable: Configurable.md
     - DefaultAutoTopicCreationManager: DefaultAutoTopicCreationManager.md
+    - FetchResponseData: FetchResponseData.md
     - InterBrokerSendThread: InterBrokerSendThread.md
     - Kafka: Kafka.md
     - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
     - KafkaServer: KafkaServer.md
     - KafkaRaftServer: KafkaRaftServer.md
+    - PartitionData: PartitionData.md
     - RequestHandlerHelper: RequestHandlerHelper.md
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
