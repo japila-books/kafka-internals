@@ -58,6 +58,17 @@ Map<Node, FetchSessionHandler.FetchRequestData> prepareFetchRequests()
 
 `prepareFetchRequests`...FIXME
 
+### <span id="selectReadReplica"> Preferred Read Replica
+
+```java
+Node selectReadReplica(
+  TopicPartition partition,
+  Node leaderReplica,
+  long currentTimeMs)
+```
+
+`selectReadReplica` requests the [SubscriptionState](#subscriptions) for the [preferredReadReplica](SubscriptionState.md#preferredReadReplica) for the given `TopicPartition`.
+
 ## <span id="offsetsForTimes"> offsetsForTimes
 
 ```java
@@ -197,3 +208,24 @@ RequestFuture<ListOffsetResult> sendListOffsetRequest(
 `sendListOffsetRequest` is used when:
 
 * `Fetcher` is requested to [resetOffsetsIfNeeded](#resetOffsetsIfNeeded) (via [resetOffsetsAsync](#resetOffsetsAsync)) and [fetchOffsetsByTimes](#fetchOffsetsByTimes) (via [sendListOffsetsRequests](#sendListOffsetsRequests))
+
+## <span id="clearBufferedDataForUnassignedTopics"> clearBufferedDataForUnassignedTopics
+
+```java
+void clearBufferedDataForUnassignedTopics(
+  Collection<String> assignedTopics)
+```
+
+`clearBufferedDataForUnassignedTopics`...FIXME
+
+`clearBufferedDataForUnassignedTopics` is used when:
+
+* `KafkaConsumer` is requested to [subscribe](KafkaConsumer.md#subscribe)
+
+## <span id="completedFetches"> CompletedFetch Queue
+
+`Fetcher` creates an empty `ConcurrentLinkedQueue` ([Java]({{ java.api }}/java/util/concurrent/ConcurrentLinkedQueue.html)) of `CompletedFetch`es when [created](#creating-instance).
+
+New `CompletedFetch`es (one per partition) are added to the queue in [sendFetches](#sendFetches) (on a successful receipt of response from a Kafka cluster).
+
+`completedFetches`...FIXME

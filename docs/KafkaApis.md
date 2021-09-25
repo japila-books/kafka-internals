@@ -61,3 +61,20 @@ Otherwise, `handleInitProducerIdRequest` sends an error back.
 `handleInitProducerIdRequest` is used when:
 
 * `KafkaApis` is requested to [handle a INIT_PRODUCER_ID request](#handle)
+
+## <span id="handleFetchRequest"> handleFetchRequest
+
+```scala
+handleFetchRequest(
+  request: RequestChannel.Request): Unit
+```
+
+`handleFetchRequest` assumes that the given `RequestChannel.Request` is an `FetchRequest`.
+
+`handleFetchRequest` authorizes the request.
+
+In the end, `handleFetchRequest` requests the [ReplicaManager](#replicaManager) to [fetchMessages](ReplicaManager.md#fetchMessages).
+
+`handleFetchRequest` is used when:
+
+* `KafkaApis` is requested to [handle a FETCH request](#handle)

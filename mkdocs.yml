@@ -120,6 +120,7 @@ nav:
     - KafkaRaftServer: KafkaRaftServer.md
     - PartitionData: PartitionData.md
     - RequestHandlerHelper: RequestHandlerHelper.md
+    - ReplicaAlterLogDirsThread: ReplicaAlterLogDirsThread.md
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - Utils: Utils.md
@@ -142,6 +143,7 @@ nav:
       - ConsumerNetworkClient: clients/consumer/ConsumerNetworkClient.md
       - Fetcher: clients/consumer/Fetcher.md
       - KafkaConsumer: clients/consumer/KafkaConsumer.md
+      - SubscriptionState: clients/consumer/SubscriptionState.md
     - Producers:
       - clients/producer/index.md
       - BufferPool: clients/producer/BufferPool.md
