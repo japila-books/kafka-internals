@@ -5,7 +5,7 @@
 `Fetcher` takes the following to be created:
 
 * <span id="logContext"> `LogContext`
-* <span id="client"> `ConsumerNetworkClient`
+* <span id="client"> [ConsumerNetworkClient](ConsumerNetworkClient.md)
 * <span id="minBytes"> [fetch.min.bytes](ConsumerConfig.md#FETCH_MIN_BYTES_CONFIG)
 * <span id="maxBytes"> [fetch.max.bytes](ConsumerConfig.md#FETCH_MAX_BYTES_CONFIG)
 * <span id="maxWaitMs"> [fetch.max.wait.ms](ConsumerConfig.md#FETCH_MAX_WAIT_MS_CONFIG)
@@ -33,11 +33,10 @@
 
 `Fetcher` uses the `IsolationLevel` for the following:
 
-* [sendFetches](#sendFetches)
+* [sendFetches](#sendFetches) (and [prepareFetchRequests](#prepareFetchRequests))
 * [fetchOffsetsByTimes](#fetchOffsetsByTimes)
 * [fetchRecords](#fetchRecords)
 * [sendListOffsetRequest](#sendListOffsetRequest)
-* [prepareFetchRequests](#prepareFetchRequests)
 
 ## <span id="sendFetches"> sendFetches
 
@@ -131,6 +130,16 @@ ListOffsetResult fetchOffsetsByTimes(
 
 * `Fetcher` is requested to [offsetsForTimes](#offsetsForTimes) and [beginningOrEndOffset](#beginningOrEndOffset)
 
+### <span id="sendListOffsetsRequests"> sendListOffsetsRequests
+
+```java
+RequestFuture<ListOffsetResult> sendListOffsetsRequests(
+  Map<TopicPartition, Long> timestampsToSearch,
+  boolean requireTimestamps)
+```
+
+`sendListOffsetsRequests`...FIXME
+
 ## <span id="fetchedRecords"> fetchedRecords
 
 ```java
@@ -187,4 +196,4 @@ RequestFuture<ListOffsetResult> sendListOffsetRequest(
 
 `sendListOffsetRequest` is used when:
 
-* `Fetcher` is requested to [resetOffsetsAsync](#resetOffsetsAsync) and [sendListOffsetsRequests](#sendListOffsetsRequests)
+* `Fetcher` is requested to [resetOffsetsIfNeeded](#resetOffsetsIfNeeded) (via [resetOffsetsAsync](#resetOffsetsAsync)) and [fetchOffsetsByTimes](#fetchOffsetsByTimes) (via [sendListOffsetsRequests](#sendListOffsetsRequests))

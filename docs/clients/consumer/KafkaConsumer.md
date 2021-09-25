@@ -27,8 +27,6 @@
 
 `KafkaConsumer` creates a [Fetcher](Fetcher.md) when [created](#creating-instance).
 
-One could say that `KafkaConsumer` is a developer-oriented interface to `Fetcher`.
-
 ## <span id="coordinator"> ConsumerCoordinator
 
 `KafkaConsumer` creates a [ConsumerCoordinator](ConsumerCoordinator.md) when [created](#creating-instance) with the [group.id](#groupId) specified.
