@@ -118,6 +118,9 @@ nav:
     - KafkaConfig: KafkaConfig.md
     - KafkaServer: KafkaServer.md
     - KafkaRaftServer: KafkaRaftServer.md
+    - Log: Log.md
+    - LogSegment: LogSegment.md
+    - Partition: Partition.md
     - PartitionData: PartitionData.md
     - RequestHandlerHelper: RequestHandlerHelper.md
     - ReplicaAlterLogDirsThread: ReplicaAlterLogDirsThread.md
