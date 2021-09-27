@@ -2,327 +2,337 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://books.japila.pl/kafka-internals/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/AbstractConfig/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/AutoTopicCreationManager/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/BrokerServer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Configurable/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/DefaultAutoTopicCreationManager/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/FetchResponseData/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/InterBrokerSendThread/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Kafka/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/KafkaApis/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/KafkaConfig/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/KafkaRaftServer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/KafkaServer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Log/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/LogSegment/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Partition/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/PartitionData/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/ReplicaAlterLogDirsThread/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/ReplicaManager/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/RequestHandlerHelper/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Server/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Utils/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/building-from-sources/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/logging/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/overview/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/CommonClientConfigs/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/KafkaClient/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/Metadata/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/MetadataUpdater/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/NetworkClient/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/NetworkClientUtils/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/admin/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/admin/AdminClientRunnable/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/Consumer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/ConsumerConfig/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/ConsumerCoordinator/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/ConsumerNetworkClient/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/Fetcher/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/KafkaConsumer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/consumer/SubscriptionState/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/clients/consumer/TopicPartitionState/</loc>
+         <lastmod>2021-09-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/clients/consumer/preferred-read-replica/</loc>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/BufferPool/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/Callback/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/DefaultPartitioner/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/KafkaProducer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/Partitioner/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/Producer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/ProducerBatch/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/ProducerConfig/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/ProducerInterceptors/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/RecordAccumulator/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/Sender/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/clients/producer/TransactionManager/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/demo/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/demo/kafka-and-kcat-in-docker/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/demo/transactional-kafka-producer/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/tools/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/tools/ReplicaVerificationTool/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/transactions/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/transactions/TransactionConfig/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/transactions/TransactionCoordinator/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/transactions/TransactionMarkerChannelManager/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/transactions/TransactionStateManager/</loc>
-         <lastmod>2021-09-26</lastmod>
+         <lastmod>2021-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
