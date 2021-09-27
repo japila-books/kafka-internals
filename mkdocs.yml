@@ -146,7 +146,9 @@ nav:
       - ConsumerNetworkClient: clients/consumer/ConsumerNetworkClient.md
       - Fetcher: clients/consumer/Fetcher.md
       - KafkaConsumer: clients/consumer/KafkaConsumer.md
+      - Preferred Read Replica: clients/consumer/preferred-read-replica.md
       - SubscriptionState: clients/consumer/SubscriptionState.md
+      - TopicPartitionState: clients/consumer/TopicPartitionState.md
     - Producers:
       - clients/producer/index.md
       - BufferPool: clients/producer/BufferPool.md

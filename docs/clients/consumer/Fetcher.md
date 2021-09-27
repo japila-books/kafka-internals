@@ -16,7 +16,7 @@
 * <span id="keyDeserializer"> Key `Deserializer`
 * <span id="valueDeserializer"> Value `Deserializer`
 * <span id="metadata"> `ConsumerMetadata`
-* <span id="subscriptions"> `SubscriptionState`
+* <span id="subscriptions"> [SubscriptionState](SubscriptionState.md)
 * <span id="metrics"> `Metrics`
 * <span id="metricsRegistry"> `FetcherMetricsRegistry`
 * <span id="time"> `Time`
@@ -67,7 +67,7 @@ Node selectReadReplica(
   long currentTimeMs)
 ```
 
-`selectReadReplica` requests the [SubscriptionState](#subscriptions) for the [preferredReadReplica](SubscriptionState.md#preferredReadReplica) for the given `TopicPartition`.
+`selectReadReplica` requests the [SubscriptionState](#subscriptions) for the [preferredReadReplica](SubscriptionState.md#preferredReadReplica) of the given `TopicPartition`.
 
 ## <span id="offsetsForTimes"> offsetsForTimes
 
