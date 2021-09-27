@@ -151,13 +151,27 @@ RequestFuture<ListOffsetResult> sendListOffsetsRequests(
 
 `sendListOffsetsRequests`...FIXME
 
-## <span id="fetchedRecords"> fetchedRecords
+## <span id="fetchedRecords"> Fetched Records
 
 ```java
 Map<TopicPartition, List<ConsumerRecord<K, V>>> fetchedRecords()
 ```
 
-`fetchedRecords`...FIXME
+`fetchedRecords` returns up to [max.poll.records](ConsumerConfig.md#max.poll.records) number of records from the [CompletedFetch Queue](#completedFetches).
+
+---
+
+For `nextInLineFetch` unintialized or consumed already, `fetchedRecords` takes a peek at a `CompletedFetch` collection of records (in the [CompletedFetch Queue](#completedFetches)). If uninitialized, `fetchedRecords` [initializeCompletedFetch](#initializeCompletedFetch) with the records. `fetchedRecords` saves the `CompletedFetch` records to the [nextInLineFetch](#nextInLineFetch) internal registry. `fetchedRecords` takes the `CompletedFetch` collection of records out (off the [CompletedFetch Queue](#completedFetches)).
+
+For the partition of the [nextInLineFetch](#nextInLineFetch) collection of records [paused](SubscriptionState.md#isPaused), `fetchedRecords` prints out the following DEBUG message to the logs and `null`s the [nextInLineFetch](#nextInLineFetch) registry.
+
+```text
+Skipping fetching records for assigned partition [p] because it is paused
+```
+
+For all the other cases, `fetchedRecords` [fetches the records](#fetchRecords) out of the [nextInLineFetch](#nextInLineFetch) collection of records (up to the number of records left to fetch).
+
+In the end, `fetchedRecords` returns the `ConsumerRecord`s per `TopicPartition` (out of the [CompletedFetch Queue](#completedFetches)).
 
 `fetchedRecords` is used when:
 
@@ -172,6 +186,15 @@ List<ConsumerRecord<K, V>> fetchRecords(
 ```
 
 `fetchRecords`...FIXME
+
+### <span id="initializeCompletedFetch"> initializeCompletedFetch
+
+```java
+CompletedFetch initializeCompletedFetch(
+  CompletedFetch nextCompletedFetch)
+```
+
+`initializeCompletedFetch`...FIXME
 
 ## <span id="resetOffsetsIfNeeded"> resetOffsetsIfNeeded
 
@@ -227,5 +250,3 @@ void clearBufferedDataForUnassignedTopics(
 `Fetcher` creates an empty `ConcurrentLinkedQueue` ([Java]({{ java.api }}/java/util/concurrent/ConcurrentLinkedQueue.html)) of `CompletedFetch`es when [created](#creating-instance).
 
 New `CompletedFetch`es (one per partition) are added to the queue in [sendFetches](#sendFetches) (on a successful receipt of response from a Kafka cluster).
-
-`completedFetches`...FIXME

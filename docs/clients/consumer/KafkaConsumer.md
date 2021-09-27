@@ -72,18 +72,26 @@ ConsumerRecords<K, V> poll(
 
 `poll` is part of the [Consumer](Consumer.md#poll) abstraction.
 
-### <span id="pollForFetches"> pollForFetches
+### <span id="pollForFetches"> Polling for Fetches
 
 ```java
 Map<TopicPartition, List<ConsumerRecord<K, V>>> pollForFetches(
   Timer timer)
 ```
 
-`pollForFetches` requests the [Fetcher](#fetcher) for [fetchedRecords](Fetcher.md#fetchedRecords) and returns them immediately if available.
+`pollForFetches` requests the [Fetcher](#fetcher) for [fetched records](Fetcher.md#fetchedRecords) and returns them immediately if available.
 
 Otherwise, `pollForFetches` requests the [Fetcher](#fetcher) to [sendFetches](Fetcher.md#sendFetches).
 
-`pollForFetches`...FIXME
+`pollForFetches` prints out the following TRACE message to the logs:
+
+```text
+Polling for fetches with timeout [pollTimeout]
+```
+
+`pollForFetches` requests the [ConsumerNetworkClient](#client) to [poll](ConsumerNetworkClient.md#poll) (with the `pollTimeout` until it expires or the [Fetcher](#fetcher) has some available fetches ready).
+
+In the end, `pollForFetches` requests the [Fetcher](#fetcher) for the [fetched records](Fetcher.md#fetchedRecords) again.
 
 ## <span id="subscribe"> Subscribing to Topics
 
