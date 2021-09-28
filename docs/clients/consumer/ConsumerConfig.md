@@ -1,5 +1,17 @@
 # ConsumerConfig
 
+## <span id="auto.offset.reset"><span id="AUTO_OFFSET_RESET_CONFIG"> auto.offset.reset
+
+What to do when there is no initial offset in Kafka or if the current offset does not exist anymore on a broker (e.g. because that data has been deleted)
+
+Default: `latest`
+
+Supported values:
+
+* `latest` - reset the offset to the latest offset
+* `earliest` - reset the offset to the earliest offset
+* `none` - throw exception to the consumer if no previous offset is found for the consumer's group
+
 ## <span id="check.crcs"><span id="CHECK_CRCS_CONFIG"> check.crcs
 
 ## <span id="client.rack"><span id="CLIENT_RACK_CONFIG"> client.rack

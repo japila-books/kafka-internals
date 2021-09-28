@@ -1,5 +1,7 @@
 # Fetcher
 
+`Fetcher<K, V>` is used by [KafkaConsumer](KafkaConsumer.md#fetcher) for [fetching records](#fetchedRecords).
+
 ## Creating Instance
 
 `Fetcher` takes the following to be created:
@@ -194,7 +196,51 @@ CompletedFetch initializeCompletedFetch(
   CompletedFetch nextCompletedFetch)
 ```
 
-`initializeCompletedFetch`...FIXME
+`initializeCompletedFetch` returns the given `CompletedFetch` if there were no errors. `initializeCompletedFetch` updates the [SubscriptionState](#subscriptions) with the current metadata about the partition.
+
+---
+
+`initializeCompletedFetch` takes the partition, the `PartitionData` and the fetch offset from the given `CompletedFetch`.
+
+`initializeCompletedFetch` prints out the following TRACE message to the logs:
+
+```text
+Preparing to read [n] bytes of data for partition [p] with offset [o]
+```
+
+`initializeCompletedFetch` takes the `RecordBatch`es from the `PartitionData`.
+
+With a high watermark given, `initializeCompletedFetch` prints out the following TRACE message to the logs and requests the [SubscriptionState](#subscriptions) to [updateHighWatermark](SubscriptionState.md#updateHighWatermark) for the partition.
+
+```text
+Updating high watermark for partition [p] to [highWatermark]
+```
+
+With a log start offset given, `initializeCompletedFetch` prints out the following TRACE message to the logs and requests the [SubscriptionState](#subscriptions) to [updateLogStartOffset](SubscriptionState.md#updateLogStartOffset) for the partition.
+
+```text
+Updating log start offset for partition [p] to [logStartOffset]
+```
+
+With a last stable offset given, `initializeCompletedFetch` prints out the following TRACE message to the logs and requests the [SubscriptionState](#subscriptions) to [updateLastStableOffset](SubscriptionState.md#updateLastStableOffset) for the partition.
+
+```text
+Updating last stable offset for partition [p] to [lastStableOffset]
+```
+
+With a preferred read replica given, `initializeCompletedFetch` prints out the following DEBUG message to the logs and requests the [SubscriptionState](#subscriptions) to [updatePreferredReadReplica](SubscriptionState.md#updatePreferredReadReplica) for the partition.
+
+```text
+Updating preferred read replica for partition [p] to [preferredReadReplica] set to expire at [expireTimeMs]
+```
+
+For errors like `NOT_LEADER_OR_FOLLOWER`, `REPLICA_NOT_AVAILABLE`, `FENCED_LEADER_EPOCH`, `KAFKA_STORAGE_ERROR`, `OFFSET_NOT_AVAILABLE`, `initializeCompletedFetch` prints out the following DEBUG message to the logs and requests the [ConsumerMetadata](#metadata) to `requestUpdate`.
+
+```text
+Error in fetch for partition [p]: [exceptionName]
+```
+
+For `OFFSET_OUT_OF_RANGE` error, `initializeCompletedFetch` requests the [SubscriptionState](#subscriptions) to [clearPreferredReadReplica](SubscriptionState.md#clearPreferredReadReplica) for the partition. With no preferred read replica, it is assumed that the fetch came from the leader.
 
 ## <span id="resetOffsetsIfNeeded"> resetOffsetsIfNeeded
 
@@ -250,3 +296,15 @@ void clearBufferedDataForUnassignedTopics(
 `Fetcher` creates an empty `ConcurrentLinkedQueue` ([Java]({{ java.api }}/java/util/concurrent/ConcurrentLinkedQueue.html)) of `CompletedFetch`es when [created](#creating-instance).
 
 New `CompletedFetch`es (one per partition) are added to the queue in [sendFetches](#sendFetches) (on a successful receipt of response from a Kafka cluster).
+
+## Logging
+
+Enable `ALL` logging level for `org.apache.kafka.clients.consumer.internals.Fetcher` logger to see what happens inside.
+
+Add the following line to `log4j.properties`:
+
+```text
+log4j.logger.org.apache.kafka.clients.consumer.internals.Fetcher=ALL
+```
+
+Refer to [Logging](../../logging.md).
