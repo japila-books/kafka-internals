@@ -40,13 +40,30 @@
 * [fetchRecords](#fetchRecords)
 * [sendListOffsetRequest](#sendListOffsetRequest)
 
-## <span id="sendFetches"> sendFetches
+## <span id="sendFetches"> Sending Fetch Requests
 
 ```java
 int sendFetches()
 ```
 
-`sendFetches`...FIXME
+`sendFetches` [prepare fetch requests](#prepareFetchRequests) for the nodes with the assigned partitions (preferred read replicas or leaders).
+
+For every fetch request,  `sendFetches` prints out the following DEBUG message to the logs:
+
+```text
+Sending [isolationLevel] [data] to broker [fetchTarget]
+```
+
+`sendFetches` requests the [ConsumerNetworkClient](#client) to [send the fetch request](ConsumerNetworkClient.md#send) (to the `fetchTarget` ndoe) and registers the node in the [nodesWithPendingFetchRequests](#nodesWithPendingFetchRequests).
+
+On successful response, for every partitions `sendFetches` prints out the following DEBUG message to the logs and adds a new `CompletedFetch` to the [completedFetches](#completedFetches) registry.
+
+```text
+Fetch [isolationLevel] at offset [fetchOffset] for partition [partition]
+returned fetch data [partitionData]
+```
+
+In the end, `sendFetches` removes the request from the [nodesWithPendingFetchRequests](#nodesWithPendingFetchRequests) registry.
 
 `sendFetches` is used when:
 

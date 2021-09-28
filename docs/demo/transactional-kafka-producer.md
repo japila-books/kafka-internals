@@ -9,7 +9,9 @@ This demo shows the internals of transactional [KafkaProducer](../clients/produc
 
 ## KafkaProducer
 
-### Start Up Kafka Producer
+### Start Up
+
+Use `sbt console` for interactive environment (or IntelliJ IDEA).
 
 ```text
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -57,13 +59,18 @@ Next up is starting a transaction using [KafkaProducer.beginTransaction](../clie
 producer.beginTransaction
 ```
 
-### Transactional send
+### Transactional sends
 
 ```text
 import org.apache.kafka.clients.producer.ProducerRecord
 val topic = "txn-demo"
 val record = new ProducerRecord[String, String](topic, "Hello from transactional producer")
 producer.send(record)
+```
+
+```text
+producer.send(
+  new ProducerRecord[String, String](topic, "Another hello from txn producer"))
 ```
 
 ### Logs
@@ -94,11 +101,26 @@ Math.abs(transactionalId.hashCode) % 50
 
 ## Start Up Consumer
 
+### kcat
+
 ```text
 kcat -C -b localhost -t txn-demo
 ```
 
 You should see no records produced yet (since the transaction has not been committed yet).
+
+### kafka-console-consumer
+
+```text
+./bin/kafka-console-consumer.sh \
+  --bootstrap-server :9092 \
+  --topic txn-demo \
+  --from-beginning
+```
+
+Unlike `kcat`, `kafka-console-consumer` uses [read_uncommitted](../clients/consumer/ConsumerConfig.md#isolation.level) isolation level and so there should be records printed out to the console.
+
+Use `--isolation-level` option to set [isolation.level](../clients/consumer/ConsumerConfig.md#isolation.level) configuration property.
 
 ## Commit Transaction
 
@@ -109,14 +131,3 @@ producer.commitTransaction
 ```
 
 Immediately after committing the transaction you should see the record printed out by the Kafka consumer.
-
-## Another Kafka Producer (WIP)
-
-!!! TODO
-    This is a work-in-progress.
-
-```text
-scala> producer.commitTransaction
-[2021-09-23 11:38:29,001] INFO [Producer clientId=txn-demo, transactionalId=my-custom-txnId] Transiting to fatal error state due to org.apache.kafka.common.errors.ProducerFencedException: There is a newer producer with the same transactionalId which fences the current one. (org.apache.kafka.clients.producer.internals.TransactionManager)
-org.apache.kafka.common.errors.ProducerFencedException: There is a newer producer with the same transactionalId which fences the current one.
-```
