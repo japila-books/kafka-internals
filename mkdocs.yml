@@ -149,6 +149,12 @@ nav:
       - Preferred Read Replica: clients/consumer/preferred-read-replica.md
       - SubscriptionState: clients/consumer/SubscriptionState.md
       - TopicPartitionState: clients/consumer/TopicPartitionState.md
+    - CommonClientConfigs: clients/CommonClientConfigs.md
+    - KafkaClient: clients/KafkaClient.md
+    - Metadata: clients/Metadata.md
+    - MetadataUpdater: clients/MetadataUpdater.md
+    - NetworkClient: clients/NetworkClient.md
+    - NetworkClientUtils: clients/NetworkClientUtils.md
     - Producers:
       - clients/producer/index.md
       - BufferPool: clients/producer/BufferPool.md
@@ -163,12 +169,8 @@ nav:
       - RecordAccumulator: clients/producer/RecordAccumulator.md
       - Sender: clients/producer/Sender.md
       - TransactionManager: clients/producer/TransactionManager.md
-    - CommonClientConfigs: clients/CommonClientConfigs.md
-    - KafkaClient: clients/KafkaClient.md
-    - Metadata: clients/Metadata.md
-    - MetadataUpdater: clients/MetadataUpdater.md
-    - NetworkClient: clients/NetworkClient.md
-    - NetworkClientUtils: clients/NetworkClientUtils.md
+    - Serde: Serde.md
+    - Serdes: Serdes.md
   - Tools:
     - tools/index.md
     - ReplicaVerificationTool: tools/ReplicaVerificationTool.md
