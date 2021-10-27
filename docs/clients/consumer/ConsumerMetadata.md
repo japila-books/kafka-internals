@@ -1,0 +1,3 @@
+# ConsumerMetadata
+
+`ConsumerMetadata` is...FIXME

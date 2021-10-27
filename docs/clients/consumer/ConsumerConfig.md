@@ -1,5 +1,7 @@
 # ConsumerConfig
 
+## <span id="auto.commit.interval.ms"><span id="AUTO_COMMIT_INTERVAL_MS_CONFIG"> auto.commit.interval.ms
+
 ## <span id="auto.offset.reset"><span id="AUTO_OFFSET_RESET_CONFIG"> auto.offset.reset
 
 What to do when there is no initial offset in Kafka or if the current offset does not exist anymore on a broker (e.g. because that data has been deleted)
@@ -16,6 +18,18 @@ Supported values:
 
 ## <span id="client.rack"><span id="CLIENT_RACK_CONFIG"> client.rack
 
+## <span id="enable.auto.commit"><span id="ENABLE_AUTO_COMMIT_CONFIG"> enable.auto.commit
+
+Controls whether consumer offsets should be periodically committed in the background or not
+
+Default: `true`
+
+[kafka-console-consumer](../../tools/ConsoleConsumer.md) supports the property using `--consumer-property` or `--consumer.config` options.
+
+Used when:
+
+* `ConsumerConfig` is requested to [maybeOverrideEnableAutoCommit](#maybeOverrideEnableAutoCommit)
+
 ## <span id="fetch.max.bytes"><span id="FETCH_MAX_BYTES_CONFIG"> fetch.max.bytes
 
 ## <span id="fetch.max.wait.ms"><span id="FETCH_MAX_WAIT_MS_CONFIG"> fetch.max.wait.ms
@@ -24,9 +38,9 @@ Supported values:
 
 ## <span id="group.id"><span id="GROUP_ID_CONFIG"> group.id
 
-A unique identifier of the consumer group a consumer belongs to. Required if the consumer uses either the group management functionality by using [Consumer.subscribe](Consumer.md#subscribe) or the Kafka-based offset management strategy.
+See [CommonClientConfigs](../CommonClientConfigs.md#GROUP_ID_CONFIG)
 
-Default: (undefined)
+## <span id="internal.throw.on.fetch.stable.offset.unsupported"><span id="THROW_ON_FETCH_STABLE_OFFSET_UNSUPPORTED"> internal.throw.on.fetch.stable.offset.unsupported
 
 ## <span id="isolation.level"><span id="ISOLATION_LEVEL_CONFIG"> isolation.level
 
@@ -50,7 +64,7 @@ As a result, `read_committed` consumers will not be able to read up to the high 
 
 Further, when in `read_committed` the `seekToEnd` method will return the last stable offset.
 
-`kafka-console-consumer` supports setting the property using `--isolation-level` option.
+[kafka-console-consumer](../../tools/ConsoleConsumer.md) supports the property using `--isolation-level` option.
 
 ## <span id="max.partition.fetch.bytes"><span id="MAX_PARTITION_FETCH_BYTES_CONFIG"> max.partition.fetch.bytes
 
@@ -59,3 +73,23 @@ Further, when in `read_committed` the `seekToEnd` method will return the last st
 ## <span id="request.timeout.ms"><span id="REQUEST_TIMEOUT_MS_CONFIG"> request.timeout.ms
 
 ## <span id="retry.backoff.ms"><span id="RETRY_BACKOFF_MS_CONFIG"> retry.backoff.ms
+
+---
+
+## <span id="maybeOverrideEnableAutoCommit"> maybeOverrideEnableAutoCommit
+
+```java
+boolean maybeOverrideEnableAutoCommit()
+```
+
+`maybeOverrideEnableAutoCommit` returns `false` when neither [group.id](../CommonClientConfigs.md#GROUP_ID_CONFIG) nor [enable.auto.commit](#ENABLE_AUTO_COMMIT_CONFIG) are specified. Otherwise, `maybeOverrideEnableAutoCommit` returns the value of [enable.auto.commit](#ENABLE_AUTO_COMMIT_CONFIG) configuration property.
+
+`maybeOverrideEnableAutoCommit` throws an `InvalidConfigurationException` when no [group.id](../CommonClientConfigs.md#GROUP_ID_CONFIG) is given with [enable.auto.commit](#ENABLE_AUTO_COMMIT_CONFIG) enabled:
+
+```text
+enable.auto.commit cannot be set to true when default group id (null) is used.
+```
+
+`maybeOverrideEnableAutoCommit` is used when:
+
+* `KafkaConsumer` is [created](KafkaConsumer.md) (and creates a [ConsumerCoordinator](ConsumerCoordinator.md#autoCommitEnabled))
