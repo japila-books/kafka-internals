@@ -181,6 +181,11 @@ nav:
     - ReplicaVerificationTool: tools/ReplicaVerificationTool.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
+  - Metrics:
+    - metrics/index.md
+    - MetricConfig: metrics/MetricConfig.md
+    - Metrics: metrics/Metrics.md
+    - MetricsReporter: metrics/MetricsReporter.md
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
