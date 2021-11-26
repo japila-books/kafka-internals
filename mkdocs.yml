@@ -186,6 +186,7 @@ nav:
     - MetricConfig: metrics/MetricConfig.md
     - Metrics: metrics/Metrics.md
     - MetricsReporter: metrics/MetricsReporter.md
+    - Sensor: metrics/Sensor.md
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
