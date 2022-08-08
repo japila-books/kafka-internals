@@ -9,11 +9,23 @@
 * <span id="config"> [KafkaConfig](../KafkaConfig.md)
 * <span id="time"> `Time` (default: `SYSTEM`)
 * <span id="threadNamePrefix"> Optional Thread Name Prefix (default: undefined)
-* <span id="enableForwarding"> `enableForwarding` flag (default: `false`)
+* [enableForwarding](#enableForwarding) flag
 
 `KafkaServer` is created when:
 
 * `Kafka` command-line application is [launched](../Kafka.md#main) (and [builds a server](../Kafka.md#buildServer) with [process.roles](../KafkaConfig.md#processRoles) specified)
+
+### <span id="enableForwarding"> enableForwarding
+
+```scala
+enableForwarding: Boolean
+```
+
+`KafkaServer` can be given `enableForwarding` flag when [created](#creating-instance).
+
+`enableForwarding` is `false` unless specified explicitly that seems never happen.
+
+When enabled, `KafkaServer` creates a [ForwardingManager](#forwardingManager) and uses [BrokerToControllerChannelManager](#clientToControllerChannelManager).
 
 ## <span id="transactionCoordinator"> TransactionCoordinator
 
@@ -54,15 +66,23 @@ startup(): Unit
 starting
 ```
 
-`startup` [initZkClient](#initZkClient) and creates a [ZkConfigRepository](#configRepository).
+`startup` [initZkClient](#initZkClient) and creates a [ZkConfigRepository](#configRepository) (with a new `AdminZkClient`).
 
 `startup`...FIXME
 
-`startup` prints out the following INFO message to the logs:
+`startup` [getOrGenerateClusterId](#getOrGenerateClusterId) (that becomes the [_clusterId](#_clusterId)) and prints out the following INFO message to the logs:
 
 ```text
 Cluster ID = [clusterId]
 ```
+
+`startup` [getBrokerMetadataAndOfflineDirs](../BrokerMetadataCheckpoint.md#getBrokerMetadataAndOfflineDirs) with the [logDirs](../KafkaConfig.md#logDirs).
+
+`startup` [looks up the broker ID](#getOrGenerateBrokerId).
+
+`startup`...FIXME
+
+`startup` creates a [LogManager](#_logManager) that is requested to [start up](../log/LogManager.md#startup).
 
 `startup`...FIXME
 
@@ -73,6 +93,27 @@ Cluster ID = [clusterId]
 ## <span id="KafkaBroker"> KafkaBroker
 
 `KafkaServer` is a [KafkaBroker](KafkaBroker.md).
+
+## <span id="getOrGenerateBrokerId"> Looking Up Broker ID
+
+```scala
+getOrGenerateBrokerId(
+  brokerMetadata: RawMetaProperties): Int
+```
+
+`getOrGenerateBrokerId` takes the [broker.id](../KafkaConfig.md#brokerId) (from the [KafkaConfig](#config)) and makes sure that it matches the `RawMetaProperties`'s (or an `InconsistentBrokerIdException` is thrown).
+
+`getOrGenerateBrokerId` uses the given `RawMetaProperties` for the broker ID if defined.
+
+Otherwise, if `broker.id` (from the [KafkaConfig](../KafkaConfig.md#brokerId)) is negative and [broker.id.generation.enable](../KafkaConfig.md#brokerIdGenerationEnable) is enabled, `getOrGenerateBrokerId` [generates a broker ID](#generateBrokerId).
+
+In the end, when all the earlier attempts "fail", `getOrGenerateBrokerId` uses the [broker.id](../KafkaConfig.md#brokerId) (from the [KafkaConfig](../KafkaConfig.md#brokerId)).
+
+---
+
+`getOrGenerateBrokerId` is used when:
+
+* `KafkaServer` is requested to [start up](#startup)
 
 ## Logging
 

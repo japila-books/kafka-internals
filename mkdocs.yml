@@ -116,6 +116,8 @@ nav:
     - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
     - Log: Log.md
+    - LogManager:
+      - LogManager: log/LogManager.md
     - LogSegment: LogSegment.md
     - Partition: Partition.md
     - PartitionData: PartitionData.md

@@ -1,5 +1,40 @@
 # KafkaConfig
 
+## <span id="brokerId"><span id="BrokerIdProp"><span id="broker.id"> broker.id
+
+The broker ID of this Kafka server.
+
+Default: `-1`
+
+If unset or negative, a unique broker id will be [generated](broker/KafkaServer.md#getOrGenerateBrokerId) (when `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup)).
+
+To avoid conflicts between zookeeper generated broker id's and user configured broker id's, generated broker ids start from [reserved.broker.max.id](#MaxReservedBrokerIdProp) + 1
+
+Use `brokerId` to access the current value.
+
+---
+
+```scala
+import kafka.server.KafkaConfig
+// For some reason zookeeper.connect is required?!
+val m = Map(
+  "zookeeper.connect" -> "xxx"
+)
+val props = new java.util.Properties()
+import scala.jdk.CollectionConverters._
+props.putAll(m.asJava)
+val config = KafkaConfig.fromProps(props)
+assert(config.brokerId == -1)
+```
+
+## <span id="brokerIdGenerationEnable"><span id="BrokerIdGenerationEnableProp"><span id="broker.id.generation.enable"> broker.id.generation.enable
+
+Enables [broker id generation](broker/KafkaServer.md#generateBrokerId) on a server. When enabled, [reserved.broker.max.id](#MaxReservedBrokerIdProp) should be reviewed.
+
+Default: `true`
+
+Use `brokerIdGenerationEnable` to access the current value.
+
 ## <span id="transactionalIdExpirationMs"><span id="TransactionalIdExpirationMsProp"><span id="transactional.id.expiration.ms"> transactional.id.expiration.ms
 
 ## <span id="transactionMaxTimeoutMs"><span id="TransactionsMaxTimeoutMsProp"><span id="transaction.max.timeout.ms"> transaction.max.timeout.ms
