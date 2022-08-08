@@ -7,7 +7,7 @@ repo_name: kafka-internals
 repo_url: https://github.com/japila-books/kafka-internals
 edit_uri: edit/main/docs/
 
-copyright: Copyright &copy; 2021 Jacek Laskowski
+copyright: Copyright &copy; 2022 Jacek Laskowski
 
 theme:
   name: material
@@ -63,7 +63,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tilde
 
 plugins:
@@ -72,9 +73,6 @@ plugins:
       minify_html: true
   - awesome-pages
   - macros
-  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
-  # - tags:
-  #     tags_file: tags.md
 
 extra:
   analytics:
@@ -86,8 +84,8 @@ extra:
   java:
     api: https://docs.oracle.com/en/java/javase/11/docs/api/java.base
   kafka:
-    version: 3.0.0
-    github: https://github.com/apache/kafka/tree/3.0.0
+    version: 3.2.1
+    github: https://github.com/apache/kafka/tree/3.2.1
   scala:
     short_version: 2.13
     api: https://www.scala-lang.org/api/2.13.6
