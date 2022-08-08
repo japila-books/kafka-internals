@@ -107,16 +107,16 @@ nav:
     - Overview: overview.md
     - AbstractConfig: AbstractConfig.md
     - AutoTopicCreationManager: AutoTopicCreationManager.md
-    - BrokerServer: BrokerServer.md
+    - BrokerMetadataCheckpoint: BrokerMetadataCheckpoint.md
     - Configurable: Configurable.md
     - DefaultAutoTopicCreationManager: DefaultAutoTopicCreationManager.md
     - FetchResponseData: FetchResponseData.md
     - InterBrokerSendThread: InterBrokerSendThread.md
     - Kafka: Kafka.md
     - KafkaApis: KafkaApis.md
+    - KafkaBroker: KafkaBroker.md
     - KafkaConfig: KafkaConfig.md
     - KafkaServer: KafkaServer.md
-    - KafkaRaftServer: KafkaRaftServer.md
     - Log: Log.md
     - LogSegment: LogSegment.md
     - Partition: Partition.md
@@ -126,6 +126,15 @@ nav:
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - Utils: Utils.md
+  - KRaft:
+    - raft/index.md
+    - BrokerServer: raft/BrokerServer.md
+    - ControllerServer: raft/ControllerServer.md
+    - KafkaRaftManager: raft/KafkaRaftManager.md
+    - KafkaRaftServer: raft/KafkaRaftServer.md
+    - MetaProperties: raft/MetaProperties.md
+    - RaftConfig: raft/RaftConfig.md
+    - RaftManager: raft/RaftManager.md
   - Transactions:
     - transactions/index.md
     - TransactionConfig: transactions/TransactionConfig.md

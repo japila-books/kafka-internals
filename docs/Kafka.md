@@ -18,4 +18,4 @@ buildServer(
   props: Properties): Server
 ```
 
-`buildServer` creates a [KafkaServer](KafkaServer.md) or [KafkaRaftServer](KafkaRaftServer.md) based on [process.roles](KafkaConfig.md#requiresZookeeper) configuration property (in the given `Properties`).
+`buildServer` creates a [KafkaServer](KafkaServer.md) or [KafkaRaftServer](raft/KafkaRaftServer.md) based on [process.roles](KafkaConfig.md#requiresZookeeper) configuration property (in the given `Properties`).

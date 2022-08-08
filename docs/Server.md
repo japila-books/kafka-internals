@@ -36,5 +36,5 @@ Used when:
 
 ## Implementations
 
-* [KafkaRaftServer](KafkaRaftServer.md)
+* [KafkaRaftServer](raft/KafkaRaftServer.md)
 * [KafkaServer](KafkaServer.md)

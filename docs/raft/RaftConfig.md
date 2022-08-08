@@ -1,0 +1,3 @@
+# RaftConfig
+
+`RaftConfig` is...FIXME

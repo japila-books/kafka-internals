@@ -1,0 +1,3 @@
+# KafkaRaftManager
+
+`KafkaRaftManager` is...FIXME

@@ -1,0 +1,3 @@
+# RaftManager
+
+`RaftManager` is...FIXME

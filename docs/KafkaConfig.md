@@ -26,16 +26,23 @@ Must be at least 1
 
 ## <span id="process.roles"><span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="requiresZookeeper"><span id="usesSelfManagedQuorum"> process.roles
 
-The roles that this process plays: `broker`, `controller`, or `broker,controller`. When undefined or empty the cluster runs with Zookeeper.
-
-Default: (empty)
+A comma-separated list of the roles that this process plays in a Kafka cluster:
 
 Supported values:
 
 * `broker`
 * `controller`
 
-This configuration is only applicable for clusters in KRaft (Kafka Raft) mode (instead of ZooKeeper).
+Default: (empty)
+
+1. When empty, the process requires Zookeeper (runs with Zookeeper).
+1. Only applicable for clusters in KRaft (Kafka Raft) mode
+1. If used, [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG) must contain a parseable set of voters
+1. [advertised.listeners](#AdvertisedListenersProp) config must not contain KRaft controller listeners from [controller.listener.names](#ControllerListenerNamesProp) when `process.roles` contains `broker` role because Kafka clients that send requests via advertised listeners do not send requests to KRaft controllers -- they only send requests to KRaft brokers
+1. If `process.roles` contains `controller` role, the [node.id](KafkaConfig.md#NodeIdProp) must be included in the set of voters [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
+1. If `process.roles` contains just the `broker` role, the [node.id](KafkaConfig.md#NodeIdProp) must not be included in the set of voters [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
+1. If [controller.listener.names](#ControllerListenerNamesProp) has multiple entries; only the first will be used when `process.roles` is `broker`
+1. The advertised listeners ([advertised.listeners](#AdvertisedListenersProp) or [listeners](#ListenersProp)) config must only contain KRaft controller listeners from [controller.listener.names](#ControllerListenerNamesProp) when `process.roles` is `controller`
 
 ## <span id="requestTimeoutMs"><span id="RequestTimeoutMsProp"><span id="request.timeout.ms"> request.timeout.ms
 
