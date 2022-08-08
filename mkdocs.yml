@@ -126,15 +126,6 @@ nav:
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - Utils: Utils.md
-  - KRaft:
-    - raft/index.md
-    - BrokerServer: raft/BrokerServer.md
-    - ControllerServer: raft/ControllerServer.md
-    - KafkaRaftManager: raft/KafkaRaftManager.md
-    - KafkaRaftServer: raft/KafkaRaftServer.md
-    - MetaProperties: raft/MetaProperties.md
-    - RaftConfig: raft/RaftConfig.md
-    - RaftManager: raft/RaftManager.md
   - Transactions:
     - transactions/index.md
     - TransactionConfig: transactions/TransactionConfig.md
@@ -194,6 +185,15 @@ nav:
     - Metrics: metrics/Metrics.md
     - MetricsReporter: metrics/MetricsReporter.md
     - Sensor: metrics/Sensor.md
+  - KRaft:
+    - raft/index.md
+    - BrokerServer: raft/BrokerServer.md
+    - ControllerServer: raft/ControllerServer.md
+    - KafkaRaftManager: raft/KafkaRaftManager.md
+    - KafkaRaftServer: raft/KafkaRaftServer.md
+    - MetaProperties: raft/MetaProperties.md
+    - RaftConfig: raft/RaftConfig.md
+    - RaftManager: raft/RaftManager.md
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
