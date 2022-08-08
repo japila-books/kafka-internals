@@ -51,17 +51,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/KafkaBroker/</loc>
-         <lastmod>2022-08-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/KafkaConfig/</loc>
-         <lastmod>2022-08-08</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://books.japila.pl/kafka-internals/KafkaServer/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -132,6 +122,21 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/overview/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/broker/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/broker/KafkaBroker/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/broker/KafkaServer/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -332,6 +337,11 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/metrics/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/metrics/KafkaMetricsGroup/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
