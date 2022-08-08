@@ -16,7 +16,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/BrokerServer/</loc>
+         <loc>https://books.japila.pl/kafka-internals/BrokerMetadataCheckpoint/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -51,12 +51,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/KafkaConfig/</loc>
+         <loc>https://books.japila.pl/kafka-internals/KafkaBroker/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/KafkaRaftServer/</loc>
+         <loc>https://books.japila.pl/kafka-internals/KafkaConfig/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -352,6 +352,46 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/metrics/Sensor/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/BrokerServer/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/ControllerServer/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/KafkaRaftManager/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/KafkaRaftServer/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/MetaProperties/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/RaftConfig/</loc>
+         <lastmod>2022-08-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/RaftManager/</loc>
          <lastmod>2022-08-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
