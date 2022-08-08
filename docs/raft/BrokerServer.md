@@ -1,6 +1,6 @@
 # BrokerServer
 
-`BrokerServer` is a [KafkaBroker](../KafkaBroker.md) that runs in [KRaft mode](index.md).
+`BrokerServer` is a [KafkaBroker](../broker/KafkaBroker.md) that runs in [KRaft mode](index.md).
 
 ## Creating Instance
 

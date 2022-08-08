@@ -1,6 +1,6 @@
 # TransactionCoordinator
 
-`TransactionCoordinator` runs on every Kafka broker ([BrokerServer](../raft/BrokerServer.md) or [KafkaServer](../KafkaServer.md#)).
+`TransactionCoordinator` runs on every Kafka broker ([BrokerServer](../raft/BrokerServer.md) or [KafkaServer](../broker/KafkaServer.md#)).
 
 ## Creating Instance
 
@@ -47,7 +47,7 @@ In the end, `apply` creates a [TransactionCoordinator](#creating-instance).
 `apply` is used when:
 
 * `BrokerServer` is requested to [start up](../raft/BrokerServer.md#startup)
-* `KafkaServer` is requested to [start up](../KafkaServer.md#startup)
+* `KafkaServer` is requested to [start up](../broker/KafkaServer.md#startup)
 
 ## <span id="startup"> Starting Up
 
@@ -62,7 +62,7 @@ startup(
 `startup` is used when:
 
 * `BrokerServer` is requested to [start up](../raft/BrokerServer.md#startup)
-* `KafkaServer` is requested to [start up](../KafkaServer.md#startup)
+* `KafkaServer` is requested to [start up](../broker/KafkaServer.md#startup)
 
 ## <span id="onElection"> onElection
 

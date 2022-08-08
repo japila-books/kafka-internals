@@ -27,7 +27,7 @@
 `KafkaApis` is created when:
 
 * `BrokerServer` is requested to [startup](raft/BrokerServer.md#startup) (for the [dataPlaneRequestProcessor](raft/BrokerServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](raft/BrokerServer.md#controlPlaneRequestProcessor))
-* `KafkaServer` is requested to [startup](KafkaServer.md#startup) (for the [dataPlaneRequestProcessor](KafkaServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](KafkaServer.md#controlPlaneRequestProcessor))
+* `KafkaServer` is requested to [startup](broker/KafkaServer.md#startup) (for the [dataPlaneRequestProcessor](broker/KafkaServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](broker/KafkaServer.md#controlPlaneRequestProcessor))
 
 ## <span id="txnCoordinator"> TransactionCoordinator
 

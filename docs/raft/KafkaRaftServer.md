@@ -1,6 +1,6 @@
 # KafkaRaftServer
 
-`KafkaRaftServer` is a [Kafka broker](../Server.md) that runs without Zookeeper.
+`KafkaRaftServer` is a [Server](../Server.md) for [KRaft mode](index.md).
 
 ## Creating Instance
 
@@ -12,7 +12,7 @@
 
 `KafkaRaftServer` is created when:
 
-* `Kafka` utility is used to [build a Server](../Kafka.md#buildServer) (with no [processRoles](../KafkaConfig.md#processRoles) and hence no Zookeeper)
+* `Kafka` command-line application is [launched](../Kafka.md#main) (and [builds a server](../Kafka.md#buildServer) with no [process.roles](../KafkaConfig.md#processRoles))
 
 ## <span id="startup"> startup
 

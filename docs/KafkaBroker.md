@@ -1,3 +1,0 @@
-# KafkaBroker
-
-`KafkaBroker` is...FIXME

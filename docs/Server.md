@@ -1,6 +1,6 @@
 # Server
 
-`Server` is an [abstraction](#contract) of [Kafka servers](#implementations) (_brokers_).
+`Server` is an [abstraction](#contract) of [Kafka servers](#implementations) (_brokers_) for [Kafka](Kafka.md) utility.
 
 ## Contract
 
@@ -10,15 +10,19 @@
 awaitShutdown(): Unit
 ```
 
+Awaits termination signal (and keeps this server alive)
+
 Used when:
 
-* FIXME
+* `Kafka` utility is [executed](Kafka.md#main) (on command line)
 
-### <span id="startup"> startup
+### <span id="startup"> Starting Up
 
 ```scala
 startup(): Unit
 ```
+
+Starts up this server
 
 Used when:
 
@@ -30,11 +34,13 @@ Used when:
 shutdown(): Unit
 ```
 
+Shuts down this server (as part of `kafka-shutdown-hook` shutdown hook)
+
 Used when:
 
-* FIXME
+* `Kafka` utility is [executed](Kafka.md#main) (on command line and handles termination signals)
 
 ## Implementations
 
 * [KafkaRaftServer](raft/KafkaRaftServer.md)
-* [KafkaServer](KafkaServer.md)
+* [KafkaServer](broker/KafkaServer.md)

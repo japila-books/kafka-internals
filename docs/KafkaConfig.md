@@ -24,7 +24,7 @@ Must be at least 1
 
 ## <span id="transactionRemoveExpiredTransactionalIdCleanupIntervalMs"><span id="TransactionsRemoveExpiredTransactionalIdCleanupIntervalMsProp"><span id="transaction.remove.expired.transaction.cleanup.interval.ms"> transaction.remove.expired.transaction.cleanup.interval.ms
 
-## <span id="process.roles"><span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="requiresZookeeper"><span id="usesSelfManagedQuorum"> process.roles
+## <span id="process.roles"><span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="usesSelfManagedQuorum"> process.roles
 
 A comma-separated list of the roles that this process plays in a Kafka cluster:
 
@@ -47,3 +47,13 @@ Default: (empty)
 ## <span id="requestTimeoutMs"><span id="RequestTimeoutMsProp"><span id="request.timeout.ms"> request.timeout.ms
 
 [request.timeout.ms](clients/CommonClientConfigs.md#REQUEST_TIMEOUT_MS_CONFIG)
+
+## Utilities
+
+### <span id="requiresZookeeper"> requiresZookeeper
+
+```scala
+requiresZookeeper: Boolean
+```
+
+`requiresZookeeper` is `true` when [process.roles](#processRoles) is empty.

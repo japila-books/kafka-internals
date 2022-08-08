@@ -25,7 +25,7 @@ shutdown(): Unit
 Used when:
 
 * `BrokerServer` is requested to [shutdown](raft/BrokerServer.md#shutdown)
-* `KafkaServer` is requested to [shutdown](KafkaServer.md#shutdown)
+* `KafkaServer` is requested to [shutdown](broker/KafkaServer.md#shutdown)
 
 ### <span id="start"> start
 
@@ -36,7 +36,7 @@ start(): Unit
 Used when:
 
 * `BrokerServer` is requested to [startup](raft/BrokerServer.md#startup)
-* `KafkaServer` is requested to [startup](KafkaServer.md#startup)
+* `KafkaServer` is requested to [startup](broker/KafkaServer.md#startup)
 
 ## Implementations
 
@@ -62,4 +62,4 @@ apply(
 
 `apply` is used when:
 
-* `KafkaServer` is requested to [startup](KafkaServer.md#autoTopicCreationManager)
+* `KafkaServer` is requested to [startup](broker/KafkaServer.md#autoTopicCreationManager)

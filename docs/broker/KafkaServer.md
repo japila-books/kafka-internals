@@ -1,34 +1,34 @@
 # KafkaServer
 
-`KafkaServer` is a [Server](Server.md) that [Kafka](Kafka.md) command-line application uses in Zookeeper mode (when executed with the [process.roles](KafkaConfig.md#process.roles) configuration property undefined).
+`KafkaServer` is a [Server](../Server.md) for Zookeeper mode (non-[KRaft mode](../raft/index.md)).
 
 ## Creating Instance
 
 `KafkaServer` takes the following to be created:
 
-* <span id="config"> [KafkaConfig](KafkaConfig.md)
+* <span id="config"> [KafkaConfig](../KafkaConfig.md)
 * <span id="time"> `Time` (default: `SYSTEM`)
 * <span id="threadNamePrefix"> Optional Thread Name Prefix (default: undefined)
 * <span id="enableForwarding"> `enableForwarding` flag (default: `false`)
 
 `KafkaServer` is created when:
 
-* `Kafka` command-line application is [launched](Kafka.md#main) (and [builds a server](Kafka.md#buildServer))
+* `Kafka` command-line application is [launched](../Kafka.md#main) (and [builds a server](../Kafka.md#buildServer) with [process.roles](../KafkaConfig.md#processRoles) specified)
 
 ## <span id="transactionCoordinator"> TransactionCoordinator
 
-`KafkaServer` creates and starts a [TransactionCoordinator](transactions/TransactionCoordinator.md) when [created](#creating-instance).
+`KafkaServer` creates and starts a [TransactionCoordinator](../transactions/TransactionCoordinator.md) when [created](#creating-instance).
 
 `KafkaServer` uses the `TransactionCoordinator` to create the following:
 
 * [data-plane](#dataPlaneRequestProcessor) and the [control-plane](#controlPlaneRequestProcessor) request processors
-* [AutoTopicCreationManager](AutoTopicCreationManager.md)
+* [AutoTopicCreationManager](../AutoTopicCreationManager.md)
 
-The `TransactionCoordinator` is requested to [shutdown](transactions/TransactionCoordinator.md#shutdown) along with [KafkaServer](#shutdown).
+The `TransactionCoordinator` is requested to [shutdown](../transactions/TransactionCoordinator.md#shutdown) along with [KafkaServer](#shutdown).
 
 ## <span id="dataPlaneRequestProcessor"> Data-Plane Request Processor
 
-`KafkaServer` creates a [KafkaApis](KafkaApis.md) for data-related communication.
+`KafkaServer` creates a [KafkaApis](../KafkaApis.md) for data-related communication.
 
 `KafkaApis` is used to create [data-plane request handler pool](#dataPlaneRequestHandlerPool).
 
@@ -36,13 +36,17 @@ The `TransactionCoordinator` is requested to [shutdown](transactions/Transaction
 
 ## <span id="controlPlaneRequestProcessor"> Control-Plane Request Processor
 
-`KafkaServer` creates a [KafkaApis](KafkaApis.md) for control-related communication.
+`KafkaServer` creates a [KafkaApis](../KafkaApis.md) for control-related communication.
 
-## <span id="startup"> startup
+## <span id="startup"> Starting Up
 
 ```scala
 startup(): Unit
 ```
+
+`startup` is part of the [Server](../Server.md#startup) abstraction.
+
+---
 
 `startup` prints out the following INFO message to the logs:
 
@@ -62,11 +66,13 @@ Cluster ID = [clusterId]
 
 `startup`...FIXME
 
-`startup` creates a [TransactionCoordinator](#transactionCoordinator) (with the [ReplicaManager](#replicaManager)) and requests it to [startup](transactions/TransactionCoordinator.md#startup).
+`startup` creates a [TransactionCoordinator](#transactionCoordinator) (with the [ReplicaManager](#replicaManager)) and requests it to [startup](../transactions/TransactionCoordinator.md#startup).
 
 `startup`...FIXME
 
-`startup` is part of the [Server](Server.md#startup) abstraction.
+## <span id="KafkaBroker"> KafkaBroker
+
+`KafkaServer` is a [KafkaBroker](KafkaBroker.md).
 
 ## Logging
 
@@ -78,4 +84,4 @@ Add the following line to `log4j.properties`:
 log4j.logger.kafka.server.KafkaServer=ALL
 ```
 
-Refer to [Logging](logging.md).
+Refer to [Logging](../logging.md).

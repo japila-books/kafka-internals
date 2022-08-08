@@ -114,9 +114,7 @@ nav:
     - InterBrokerSendThread: InterBrokerSendThread.md
     - Kafka: Kafka.md
     - KafkaApis: KafkaApis.md
-    - KafkaBroker: KafkaBroker.md
     - KafkaConfig: KafkaConfig.md
-    - KafkaServer: KafkaServer.md
     - Log: Log.md
     - LogSegment: LogSegment.md
     - Partition: Partition.md
@@ -126,6 +124,10 @@ nav:
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - Utils: Utils.md
+  - Broker:
+    - broker/index.md
+    - KafkaBroker: broker/KafkaBroker.md
+    - KafkaServer: broker/KafkaServer.md
   - Transactions:
     - transactions/index.md
     - TransactionConfig: transactions/TransactionConfig.md
@@ -181,6 +183,7 @@ nav:
       - ConsoleConsumer: tools/ConsoleConsumer.md
   - Metrics:
     - metrics/index.md
+    - KafkaMetricsGroup: metrics/KafkaMetricsGroup.md
     - MetricConfig: metrics/MetricConfig.md
     - Metrics: metrics/Metrics.md
     - MetricsReporter: metrics/MetricsReporter.md

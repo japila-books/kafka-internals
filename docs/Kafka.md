@@ -1,8 +1,8 @@
 # Kafka Utility
 
-`Kafka` is a [command-line application](#main).
+`kafka.Kafka` is a [command-line application](#main) that is executed using `kafka-server-start` shell script.
 
-## <span id="main"> main
+## <span id="main"> Launching Kafka Server
 
 ```scala
 main(
@@ -18,4 +18,9 @@ buildServer(
   props: Properties): Server
 ```
 
-`buildServer` creates a [KafkaServer](KafkaServer.md) or [KafkaRaftServer](raft/KafkaRaftServer.md) based on [process.roles](KafkaConfig.md#requiresZookeeper) configuration property (in the given `Properties`).
+`buildServer` [creates a KafkaConfig](KafkaConfig.md#fromProps) (from the given `Properties`).
+
+`buildServer` creates a [Server](Server.md) based on [process.roles](KafkaConfig.md#requiresZookeeper) configuration property:
+
+* [KafkaServer](broker/KafkaServer.md) if [empty](KafkaConfig.md#requiresZookeeper)
+* [KafkaRaftServer](raft/KafkaRaftServer.md), otherwise
