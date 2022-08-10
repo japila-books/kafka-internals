@@ -1,5 +1,7 @@
 # KafkaConfig
 
+`KafkaConfig` is configuration properties of a Kafka broker.
+
 ## <span id="brokerId"><span id="BrokerIdProp"><span id="broker.id"> broker.id
 
 The broker ID of this Kafka server.

@@ -115,6 +115,15 @@ In the end, when all the earlier attempts "fail", `getOrGenerateBrokerId` uses t
 
 * `KafkaServer` is requested to [start up](#startup)
 
+## <span id="logManager"><span id="_logManager"> LogManager
+
+`KafkaServer` creates a [LogManager](../log/LogManager.md) at [startup](#startup).
+
+The `LogManager` is used when:
+
+* `DynamicBrokerConfig` is requested to `addReconfigurables`
+* `DynamicThreadPool` is requested to `reconfigure`
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.server.KafkaServer` logger to see what happens inside.
