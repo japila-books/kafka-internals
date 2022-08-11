@@ -137,7 +137,9 @@ nav:
       - dynamic-broker-configuration/DynamicThreadPool.md
   - LogManager:
     - log/index.md
-    - LogCleaner: log/LogCleaner.md
+    - LogCleaner:
+      - log/LogCleaner.md
+      - log/CleanerConfig.md
     - LogConfig: log/LogConfig.md
     - LogManager: log/LogManager.md
   - Broker:

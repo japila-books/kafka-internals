@@ -37,6 +37,19 @@ Default: `true`
 
 Use `brokerIdGenerationEnable` to access the current value.
 
+## <span id="logCleanerEnable"><span id="LogCleanerEnableProp"><span id="log.cleaner.enable"> log.cleaner.enable
+
+Enables [LogCleaner](log/LogCleaner.md)
+
+Default: `true`
+
+* Should be enabled if using any topics with a cleanup.policy=compact including the internal offsets topic
+* If disabled those topics will not be compacted and continually grow in size.
+
+Used when:
+
+* `CleanerConfig` is [created](log/CleanerConfig.md#enableCleaner)
+
 ## <span id="transactionalIdExpirationMs"><span id="TransactionalIdExpirationMsProp"><span id="transactional.id.expiration.ms"> transactional.id.expiration.ms
 
 ## <span id="transactionMaxTimeoutMs"><span id="TransactionsMaxTimeoutMsProp"><span id="transaction.max.timeout.ms"> transaction.max.timeout.ms

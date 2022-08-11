@@ -1,3 +1,3 @@
 # LogManager
 
-`LogManager` is...FIXME
+[LogManager](LogManager.md)
