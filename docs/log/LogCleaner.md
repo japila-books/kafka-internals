@@ -36,7 +36,9 @@ startup(): Unit
 Starting the log cleaner
 ```
 
-`startup`...FIXME
+`startup` creates [log.cleaner.threads](../KafkaConfig.md#logCleanerThreads) of [CleanerThread](CleanerThread.md)s that are immediately [started](CleanerThread.md#doWork).
+
+`startup` adds the `CleanerThread`s to the [cleaners](#cleaners) registry.
 
 ---
 
@@ -60,6 +62,17 @@ cleanerConfig(
 
 * `LogCleaner` is requested to [validateReconfiguration](#validateReconfiguration) and [reconfigure](#reconfigure)
 * `LogManager` utility is used to [create a LogManager](LogManager.md#apply)
+
+## <span id="cleaners"> CleanerThreads
+
+`LogCleaner` uses [CleanerThread](CleanerThread.md)s for log cleaning.
+
+`LogCleaner` creates [log.cleaner.threads](../KafkaConfig.md#logCleanerThreads) of [CleanerThread](CleanerThread.md)s when [started up](#startup). They are [shut down](CleanerThread.md#shutdown) when [shutdown](#shutdown).
+
+Use the following metrics to monitor the threads:
+
+* [cleaner-recopy-percent](#cleaner-recopy-percent)
+* [DeadThreadCount](#DeadThreadCount)
 
 ## Logging
 

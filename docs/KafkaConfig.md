@@ -50,6 +50,34 @@ Used when:
 
 * `CleanerConfig` is [created](log/CleanerConfig.md#enableCleaner)
 
+## <span id="logCleanerThreads"><span id="LogCleanerThreadsProp"><span id="log.cleaner.threads"> log.cleaner.threads
+
+The number of background threads to use for log cleaning (by [LogCleaner](log/LogCleaner.md))
+
+Default: `1`
+
+Must be at least `0`
+
+[Reconfigurable Config](log/LogCleaner.md#ReconfigurableConfigs)
+
+Used when:
+
+* `CleanerConfig` is [created](log/CleanerConfig.md#numThreads)
+
+## <span id="logCleanerBackoffMs"><span id="LogCleanerBackoffMsProp"><span id="log.cleaner.backoff.ms"> log.cleaner.backoff.ms
+
+How long to pause a [CleanerThread](log/CleanerThread.md) (until next log cleaning attempt) when there are no logs to clean
+
+Default: `15 * 1000`
+
+Must be at least `0`
+
+[Reconfigurable Config](log/LogCleaner.md#ReconfigurableConfigs)
+
+Used when:
+
+* `CleanerConfig` is [created](log/CleanerConfig.md#backOffMs)
+
 ## <span id="transactionalIdExpirationMs"><span id="TransactionalIdExpirationMsProp"><span id="transactional.id.expiration.ms"> transactional.id.expiration.ms
 
 ## <span id="transactionMaxTimeoutMs"><span id="TransactionsMaxTimeoutMsProp"><span id="transaction.max.timeout.ms"> transaction.max.timeout.ms

@@ -123,6 +123,7 @@ nav:
     - ReplicaAlterLogDirsThread: ReplicaAlterLogDirsThread.md
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
+    - TopicConfig: TopicConfig.md
     - Utils: Utils.md
     - Zookeeper:
       - zk/AdminZkClient.md
@@ -135,13 +136,17 @@ nav:
       - dynamic-broker-configuration/ConfigHandler.md
       - dynamic-broker-configuration/DynamicBrokerConfig.md
       - dynamic-broker-configuration/DynamicThreadPool.md
+    - Log Cleaning: log-cleaning.md
   - LogManager:
     - log/index.md
     - LogCleaner:
       - log/LogCleaner.md
+      - log/LogCleanerManager.md
       - log/CleanerConfig.md
+      - log/CleanerThread.md
     - LogConfig: log/LogConfig.md
     - LogManager: log/LogManager.md
+    - UnifiedLog: log/UnifiedLog.md
   - Broker:
     - broker/index.md
     - KafkaBroker: broker/KafkaBroker.md
