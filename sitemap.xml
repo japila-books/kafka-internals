@@ -106,12 +106,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/TopicConfig/</loc>
+         <lastmod>2022-08-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/Utils/</loc>
          <lastmod>2022-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/building-from-sources/</loc>
+         <lastmod>2022-08-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/log-cleaning/</loc>
          <lastmod>2022-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -376,7 +386,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/log/CleanerThread/</loc>
+         <lastmod>2022-08-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/log/LogCleaner/</loc>
+         <lastmod>2022-08-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/log/LogCleanerManager/</loc>
          <lastmod>2022-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -387,6 +407,11 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/log/LogManager/</loc>
+         <lastmod>2022-08-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/log/UnifiedLog/</loc>
          <lastmod>2022-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
