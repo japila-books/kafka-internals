@@ -371,6 +371,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/log/CleanerConfig/</loc>
+         <lastmod>2022-08-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/log/LogCleaner/</loc>
          <lastmod>2022-08-11</lastmod>
          <changefreq>daily</changefreq>
