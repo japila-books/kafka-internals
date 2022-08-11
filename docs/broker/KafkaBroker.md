@@ -1,8 +1,23 @@
 # KafkaBroker
 
-`KafkaBroker` is an [extension](#contract) of the [KafkaMetricsGroup](../metrics/KafkaMetricsGroup.md) abstraction for [Kafka brokers](#implementations).
+`KafkaBroker` is an [abstraction](#contract) of [Kafka brokers](#implementations).
+
+Every `KafkaBroker` is a [KafkaMetricsGroup](../metrics/KafkaMetricsGroup.md).
 
 ## Contract
+
+### <span id="logManager"> LogManager
+
+```scala
+logManager: LogManager
+```
+
+[LogManager](../log/LogManager.md)
+
+Used when:
+
+* `DynamicBrokerConfig` is requested to `addReconfigurables`
+* `DynamicThreadPool` is requested to `reconfigure`
 
 ### <span id="startup"> Starting Up
 

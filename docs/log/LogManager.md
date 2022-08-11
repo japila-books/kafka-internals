@@ -62,7 +62,7 @@ In the end, `apply` creates a [LogManager](#creating-instance) based on some [co
 
 Enable `ALL` logging level for `kafka.log.LogManager` logger to see what happens inside.
 
-Add the following line to `conf/log4j.properties`:
+Add the following line to `config/log4j.properties`:
 
 ```text
 log4j.logger.kafka.log.LogManager=ALL

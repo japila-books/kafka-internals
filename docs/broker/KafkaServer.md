@@ -117,12 +117,15 @@ In the end, when all the earlier attempts "fail", `getOrGenerateBrokerId` uses t
 
 ## <span id="logManager"><span id="_logManager"> LogManager
 
+```scala
+logManager: LogManager
+```
+
+`logManager` is part of the [KafkaBroker](KafkaBroker.md#logManager) abstraction.
+
+---
+
 `KafkaServer` creates a [LogManager](../log/LogManager.md) at [startup](#startup).
-
-The `LogManager` is used when:
-
-* `DynamicBrokerConfig` is requested to `addReconfigurables`
-* `DynamicThreadPool` is requested to `reconfigure`
 
 ## Logging
 

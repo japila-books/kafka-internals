@@ -1,0 +1,3 @@
+# LogManager
+
+`LogManager` is...FIXME

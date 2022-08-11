@@ -116,10 +116,6 @@ nav:
     - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
     - Log: Log.md
-    - LogManager:
-      - LogCleaner: log/LogCleaner.md
-      - LogConfig: log/LogConfig.md
-      - LogManager: log/LogManager.md
     - LogSegment: LogSegment.md
     - Partition: Partition.md
     - PartitionData: PartitionData.md
@@ -128,6 +124,22 @@ nav:
     - ReplicaManager: ReplicaManager.md
     - Server: Server.md
     - Utils: Utils.md
+    - Zookeeper:
+      - zk/AdminZkClient.md
+      - zk/KafkaZkClient.md
+  - Features:
+    - Dynamic Broker Configuration:
+      - dynamic-broker-configuration/index.md
+      - dynamic-broker-configuration/BrokerConfigHandler.md
+      - dynamic-broker-configuration/BrokerReconfigurable.md
+      - dynamic-broker-configuration/ConfigHandler.md
+      - dynamic-broker-configuration/DynamicBrokerConfig.md
+      - dynamic-broker-configuration/DynamicThreadPool.md
+  - LogManager:
+    - log/index.md
+    - LogCleaner: log/LogCleaner.md
+    - LogConfig: log/LogConfig.md
+    - LogManager: log/LogManager.md
   - Broker:
     - broker/index.md
     - KafkaBroker: broker/KafkaBroker.md

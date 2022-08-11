@@ -79,7 +79,7 @@ Sensor getSensor(
 
 Enable `ALL` logging level for `org.apache.kafka.common.metrics.Metrics` logger to see what happens inside.
 
-Add the following line to `conf/log4j.properties`:
+Add the following line to `config/log4j.properties`:
 
 ```text
 log4j.logger.org.apache.kafka.common.metrics.Metrics=ALL
