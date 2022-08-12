@@ -8,13 +8,17 @@
 
 * <span id="initialConfig"> [CleanerConfig](CleanerConfig.md)
 * <span id="logDirs"> Log directories
-* <span id="logs"> Logs (`Pool[TopicPartition, UnifiedLog]`)
+* <span id="logs"> [UnifiedLog](UnifiedLog.md)s by `TopicPartition` (`Pool[TopicPartition, UnifiedLog]`)
 * <span id="logDirFailureChannel"> `LogDirFailureChannel`
 * <span id="time"> `Time`
 
 `LogCleaner` is created when:
 
 * `LogManager` is requested to [startupWithConfigOverrides](LogManager.md#startupWithConfigOverrides) (with [log.cleaner.enable](../KafkaConfig.md#log.cleaner.enable) enabled)
+
+## <span id="cleanerManager"> LogCleanerManager
+
+`LogCleaner` creates a [LogCleanerManager](LogCleanerManager.md) (with the [log directories](#logDirs) and [UnifiedLogs](#logs)) when [created](#creating-instance).
 
 ## <span id="KafkaMetricsGroup"> KafkaMetricsGroup
 
@@ -36,7 +40,7 @@ startup(): Unit
 Starting the log cleaner
 ```
 
-`startup` creates [log.cleaner.threads](../KafkaConfig.md#logCleanerThreads) of [CleanerThread](CleanerThread.md)s that are immediately [started](CleanerThread.md#doWork).
+`startup` creates [log.cleaner.threads](../KafkaConfig.md#logCleanerThreads) of [CleanerThread](CleanerThread.md)s that are [started](CleanerThread.md#doWork) immediately.
 
 `startup` adds the `CleanerThread`s to the [cleaners](#cleaners) registry.
 

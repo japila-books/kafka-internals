@@ -136,7 +136,9 @@ nav:
       - dynamic-broker-configuration/ConfigHandler.md
       - dynamic-broker-configuration/DynamicBrokerConfig.md
       - dynamic-broker-configuration/DynamicThreadPool.md
-    - Log Cleaning: log-cleaning.md
+    - Log Cleanup:
+      - log-cleanup/index.md
+      - Log Cleanup Policies: log-cleanup/log-cleanup-policies.md
   - LogManager:
     - log/index.md
     - LogCleaner:

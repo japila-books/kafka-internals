@@ -57,13 +57,23 @@ Marking its partition ([topicPartition]) as uncleanable
 
 `doWork` requests the [LogCleanerManager](LogCleaner.md#cleanerManager) to [maintainUncleanablePartitions](LogCleanerManager.md#maintainUncleanablePartitions) and returns `false`.
 
-### <span id="cleanFilthiestLog"> cleanFilthiestLog
+### <span id="cleanFilthiestLog"> Cleaning Filthiest Log
 
 ```scala
 cleanFilthiestLog(): Boolean
 ```
 
-`cleanFilthiestLog`...FIXME
+`cleanFilthiestLog` returns `cleaned` flag to indicate whether a log to clean was found or not.
+
+---
+
+`cleanFilthiestLog` requests the [LogCleanerManager](LogCleaner.md#cleanerManager) to [grabFilthiestCompactedLog](LogCleanerManager.md#grabFilthiestCompactedLog).
+
+If there is no log to clean up, `cleanFilthiestLog` "returns" `false` (as `cleaned` flag). Otherwise, `cleanFilthiestLog` [cleanLog](#cleanLog) and "returns" `true`.
+
+`cleanFilthiestLog` requests the [LogCleanerManager](LogCleaner.md#cleanerManager) for [deletableLogs](LogCleanerManager.md#deletableLogs) and then every [UnifiedLog](UnifiedLog.md) to [deleteOldSegments](UnifiedLog.md#deleteOldSegments).
+
+In the end, `cleanFilthiestLog` requests the [LogCleanerManager](LogCleaner.md#cleanerManager) to [doneDeleting](LogCleanerManager.md#doneDeleting) (with the `TopicPartition`s).
 
 ## Logging
 

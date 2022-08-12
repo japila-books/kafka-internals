@@ -8,6 +8,8 @@
 
 `compact` is `true` when [cleanup.policy](#CleanupPolicyProp) contains `compact` policy.
 
+---
+
 `compact` is used when:
 
 * `LogCleanerManager` is requested to [grabFilthiestCompactedLog](LogCleanerManager.md#grabFilthiestCompactedLog), [pauseCleaningForNonCompactedPartitions](LogCleanerManager.md#pauseCleaningForNonCompactedPartitions), [deletableLogs](LogCleanerManager.md#deletableLogs), [maybeTruncateCheckpoint](LogCleanerManager.md#maybeTruncateCheckpoint), [isCompactAndDelete](LogCleanerManager.md#isCompactAndDelete)
