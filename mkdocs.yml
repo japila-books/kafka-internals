@@ -115,6 +115,7 @@ nav:
     - Kafka: Kafka.md
     - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
+    - KafkaController: KafkaController.md
     - Log: Log.md
     - LogManager:
       - log/index.md
@@ -135,6 +136,7 @@ nav:
     - Server: Server.md
     - TopicConfig: TopicConfig.md
     - Utils: Utils.md
+    - ZkAdminManager: ZkAdminManager.md
     - Zookeeper:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md

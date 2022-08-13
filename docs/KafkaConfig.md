@@ -37,6 +37,8 @@ Default: `true`
 
 Use `brokerIdGenerationEnable` to access the current value.
 
+## <span id="defaultReplicationFactor"><span id="DefaultReplicationFactorProp"><span id="default.replication.factor"> default.replication.factor
+
 ## <span id="logCleanerEnable"><span id="LogCleanerEnableProp"><span id="log.cleaner.enable"> log.cleaner.enable
 
 Enables [LogCleaner](log/LogCleaner.md)
@@ -78,29 +80,28 @@ Used when:
 
 * `CleanerConfig` is [created](log/CleanerConfig.md#backOffMs)
 
-## <span id="transactionalIdExpirationMs"><span id="TransactionalIdExpirationMsProp"><span id="transactional.id.expiration.ms"> transactional.id.expiration.ms
+## <span id="numPartitions"><span id="NumPartitionsProp"><span id="num.partitions"> num.partitions
 
-## <span id="transactionMaxTimeoutMs"><span id="TransactionsMaxTimeoutMsProp"><span id="transaction.max.timeout.ms"> transaction.max.timeout.ms
+## <span id="offsetsTopicPartitions"><span id="OffsetsTopicPartitionsProp"><span id="offsets.topic.num.partitions"> offsets.topic.num.partitions
 
-## <span id="transactionTopicPartitions"><span id="TransactionsTopicPartitionsProp"><span id="transaction.state.log.num.partitions"> transaction.state.log.num.partitions
+The number of partitions for `__consumer_offsets` offset commit topic (should not change after deployment)
 
-The number of partitions for the [transaction topic](transactions/index.md#TRANSACTION_STATE_TOPIC_NAME)
+For every partition there is a `GroupCoordinator` [elected](consumer-groups/GroupCoordinator.md#onElection) to handle consumer groups that are "assigned" to this partition.
 
-Default: 50
+Default: `50`
 
 Must be at least 1
 
-## <span id="transactionTopicReplicationFactor"><span id="TransactionsTopicReplicationFactorProp"><span id="transaction.state.log.replication.factor"> transaction.state.log.replication.factor
+Use `offsetsTopicPartitions` to access the current value.
 
-## <span id="transactionTopicSegmentBytes"><span id="TransactionsTopicSegmentBytesProp"><span id="transaction.state.log.segment.bytes"> transaction.state.log.segment.bytes
+Used when:
 
-## <span id="transactionsLoadBufferSize"><span id="TransactionsLoadBufferSizeProp"><span id="transaction.state.log.load.buffer.size"> transaction.state.log.load.buffer.size
+* `GroupCoordinator` is requested to [create an OffsetConfig](consumer-groups/GroupCoordinator.md#offsetConfig-KafkaConfig)
+* `DefaultAutoTopicCreationManager` is requested to [creatableTopic](DefaultAutoTopicCreationManager.md#creatableTopic)
+* `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup) (and starts up the [GroupCoordinator](broker/KafkaServer.md#groupCoordinator))
+* `BrokerMetadataPublisher` is requested to `initializeManagers` (and starts up the `GroupCoordinator`)
 
-## <span id="transactionTopicMinISR"><span id="TransactionsTopicMinISRProp"><span id="transaction.state.log.min.isr"> transaction.state.log.min.isr
-
-## <span id="transactionAbortTimedOutTransactionCleanupIntervalMs"><span id="TransactionsAbortTimedOutTransactionCleanupIntervalMsProp"><span id="transaction.abort.timed.out.transaction.cleanup.interval.ms"> transaction.abort.timed.out.transaction.cleanup.interval.ms
-
-## <span id="transactionRemoveExpiredTransactionalIdCleanupIntervalMs"><span id="TransactionsRemoveExpiredTransactionalIdCleanupIntervalMsProp"><span id="transaction.remove.expired.transaction.cleanup.interval.ms"> transaction.remove.expired.transaction.cleanup.interval.ms
+## <span id="offsetsTopicReplicationFactor"><span id="OffsetsTopicReplicationFactorProp"><span id="offsets.topic.replication.factor"> offsets.topic.replication.factor
 
 ## <span id="process.roles"><span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="usesSelfManagedQuorum"> process.roles
 
@@ -125,6 +126,30 @@ Default: (empty)
 ## <span id="requestTimeoutMs"><span id="RequestTimeoutMsProp"><span id="request.timeout.ms"> request.timeout.ms
 
 [request.timeout.ms](clients/CommonClientConfigs.md#REQUEST_TIMEOUT_MS_CONFIG)
+
+## <span id="transactionAbortTimedOutTransactionCleanupIntervalMs"><span id="TransactionsAbortTimedOutTransactionCleanupIntervalMsProp"><span id="transaction.abort.timed.out.transaction.cleanup.interval.ms"> transaction.abort.timed.out.transaction.cleanup.interval.ms
+
+## <span id="transactionalIdExpirationMs"><span id="TransactionalIdExpirationMsProp"><span id="transactional.id.expiration.ms"> transactional.id.expiration.ms
+
+## <span id="transactionMaxTimeoutMs"><span id="TransactionsMaxTimeoutMsProp"><span id="transaction.max.timeout.ms"> transaction.max.timeout.ms
+
+## <span id="transactionRemoveExpiredTransactionalIdCleanupIntervalMs"><span id="TransactionsRemoveExpiredTransactionalIdCleanupIntervalMsProp"><span id="transaction.remove.expired.transaction.cleanup.interval.ms"> transaction.remove.expired.transaction.cleanup.interval.ms
+
+## <span id="transactionTopicPartitions"><span id="TransactionsTopicPartitionsProp"><span id="transaction.state.log.num.partitions"> transaction.state.log.num.partitions
+
+The number of partitions for the [transaction topic](transactions/index.md#TRANSACTION_STATE_TOPIC_NAME)
+
+Default: 50
+
+Must be at least 1
+
+## <span id="transactionTopicReplicationFactor"><span id="TransactionsTopicReplicationFactorProp"><span id="transaction.state.log.replication.factor"> transaction.state.log.replication.factor
+
+## <span id="transactionTopicSegmentBytes"><span id="TransactionsTopicSegmentBytesProp"><span id="transaction.state.log.segment.bytes"> transaction.state.log.segment.bytes
+
+## <span id="transactionsLoadBufferSize"><span id="TransactionsLoadBufferSizeProp"><span id="transaction.state.log.load.buffer.size"> transaction.state.log.load.buffer.size
+
+## <span id="transactionTopicMinISR"><span id="TransactionsTopicMinISRProp"><span id="transaction.state.log.min.isr"> transaction.state.log.min.isr
 
 ## Utilities
 
