@@ -9,7 +9,7 @@
 `GroupCoordinator` takes the following to be created:
 
 * <span id="brokerId"> [broker.id](../KafkaConfig.md#brokerId)
-* <span id="groupConfig"> [GroupConfig](GroupConfig.md)
+* [GroupConfig](#groupConfig)
 * <span id="offsetConfig"> [OffsetConfig](OffsetConfig.md)
 * <span id="groupManager"> [GroupMetadataManager](GroupMetadataManager.md)
 * <span id="heartbeatPurgatory"> `DelayedOperationPurgatory[DelayedHeartbeat]`
@@ -18,6 +18,17 @@
 * <span id="metrics"> [Metrics](../metrics/Metrics.md)
 
 `GroupCoordinator` is created using [apply](#apply) factory.
+
+## <span id="groupConfig"><span id="GroupConfig"> GroupConfig
+
+`GroupCoordinator` is given a `GroupConfig` when [created](#creating-instance).
+
+`GroupConfig` is a collection of the configuration properties:
+
+* [groupMinSessionTimeoutMs](../KafkaConfig.md#groupMinSessionTimeoutMs)
+* [groupMaxSessionTimeoutMs](../KafkaConfig.md#groupMaxSessionTimeoutMs)
+* [groupMaxSize](../KafkaConfig.md#groupMaxSize)
+* [groupInitialRebalanceDelay](../KafkaConfig.md#groupInitialRebalanceDelay)
 
 ## <span id="apply"> Creating GroupCoordinator Instance
 
@@ -43,12 +54,7 @@ apply(
 
 `apply` [creates an OffsetConfig](#offsetConfig-KafkaConfig) (based on the given [KafkaConfig](../KafkaConfig.md)).
 
-`apply` creates a [GroupConfig](GroupConfig.md) based on the following configuration properties (in the [KafkaConfig](../KafkaConfig.md)):
-
-* [groupMinSessionTimeoutMs](../KafkaConfig.md#groupMinSessionTimeoutMs)
-* [groupMaxSessionTimeoutMs](../KafkaConfig.md#groupMaxSessionTimeoutMs)
-* [groupMaxSize](../KafkaConfig.md#groupMaxSize)
-* [groupInitialRebalanceDelay](../KafkaConfig.md#groupInitialRebalanceDelay)
+`apply` creates a [GroupConfig](#GroupConfig).
 
 `apply` creates a [GroupMetadataManager](GroupMetadataManager.md) based on the following configuration properties (in the [KafkaConfig](../KafkaConfig.md)):
 

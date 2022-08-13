@@ -1,3 +1,0 @@
-# GroupConfig
-
-`GroupConfig` is...FIXME

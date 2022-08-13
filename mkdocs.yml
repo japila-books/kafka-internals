@@ -142,7 +142,6 @@ nav:
       - zk/KafkaZkClient.md
   - Consumer Groups:
     - consumer-groups/index.md
-    - consumer-groups/GroupConfig.md
     - consumer-groups/GroupCoordinator.md
     - consumer-groups/GroupMetadataManager.md
     - consumer-groups/OffsetConfig.md
