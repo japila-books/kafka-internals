@@ -56,6 +56,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/KafkaController/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/Log/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
@@ -112,6 +117,11 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/Utils/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/ZkAdminManager/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
