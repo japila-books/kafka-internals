@@ -1,0 +1,3 @@
+# MetadataCache
+
+`MetadataCache` is...FIXME

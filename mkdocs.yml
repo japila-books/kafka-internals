@@ -230,8 +230,10 @@ nav:
     - RaftConfig: raft/RaftConfig.md
     - RaftManager: raft/RaftManager.md
   - Misc:
+    - Authorizer: Authorizer.md
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
+    - MetadataCache: MetadataCache.md
     - RequestHandlerHelper: RequestHandlerHelper.md
   - Demos:
     - demo/index.md

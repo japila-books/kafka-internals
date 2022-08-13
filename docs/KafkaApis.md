@@ -13,9 +13,9 @@
 * <span id="brokerId"> Broker ID
 * <span id="config"> [KafkaConfig](KafkaConfig.md)
 * <span id="configRepository"> `ConfigRepository`
-* <span id="metadataCache"> `MetadataCache`
+* <span id="metadataCache"> [MetadataCache](MetadataCache.md)
 * <span id="metrics"> [Metrics](metrics/Metrics.md)
-* <span id="authorizer"> Optional `Authorizer`
+* <span id="authorizer"> Optional [Authorizer](Authorizer.md)
 * <span id="quotas"> `QuotaManagers`
 * <span id="fetchManager"> `FetchManager`
 * <span id="brokerTopicStats"> `BrokerTopicStats`
@@ -67,6 +67,83 @@ The `TransactionCoordinator` is used for the following:
 * [handleLeaderAndIsrRequest](#handleLeaderAndIsrRequest)
 * [handleStopReplicaRequest](#handleStopReplicaRequest)
 
+## <span id="handleFetchRequest"> handleFetchRequest
+
+```scala
+handleFetchRequest(
+  request: RequestChannel.Request): Unit
+```
+
+`handleFetchRequest` assumes that the given `RequestChannel.Request` is an `FetchRequest`.
+
+`handleFetchRequest` authorizes the request.
+
+In the end, `handleFetchRequest` requests the [ReplicaManager](#replicaManager) to [fetchMessages](ReplicaManager.md#fetchMessages).
+
+`handleFetchRequest` is used when:
+
+* `KafkaApis` is requested to [handle a FETCH request](#handle)
+
+## <span id="handleFindCoordinatorRequest"><span id="handleFindCoordinatorRequestV4AndAbove"> handleFindCoordinatorRequest
+
+```scala
+handleFindCoordinatorRequest(
+  request: RequestChannel.Request): Unit
+```
+
+`handleFindCoordinatorRequest` converts the given `RequestChannel.Request` to an `FindCoordinatorRequest`.
+
+`handleFindCoordinatorRequest` [finds the group or transaction coordinator](#getCoordinator).
+
+In the end, `handleFindCoordinatorRequest` prints out the following TRACE message to the logs:
+
+```text
+Sending FindCoordinator response [response] for correlation id [correlationId] to client [clientId].
+```
+
+---
+
+`handleFindCoordinatorRequest` is used when:
+
+* `KafkaApis` is requested to [handle a FIND_COORDINATOR request](#handle)
+
+### <span id="getCoordinator"> Finding Group or Transaction Coordinator
+
+```scala
+getCoordinator(
+  request: RequestChannel.Request,
+  keyType: Byte,
+  key: String): (Errors, Node)
+```
+
+#### <span id="getCoordinator-authorize"> Authorization
+
+For `GROUP` coordinator (by the `keyType`), `getCoordinator` requests the [AuthHelper](#authHelper) to [authorize](AuthHelper.md#authorize):
+
+* `DESCRIBE` operation
+* `GROUP` resource type
+* `key` resource name
+
+For `TRANSACTION` coordinator (by the `keyType`), `getCoordinator` requests the [AuthHelper](#authHelper) to [authorize](AuthHelper.md#authorize):
+
+* `DESCRIBE` operation
+* `TRANSACTIONAL_ID` resource type
+* `key` resource name
+
+If either fails, `getCoordinator` returns the `Errors`.
+
+#### <span id="getCoordinator-partition"> Partition
+
+For `GROUP` coordinator (by the `keyType`), `getCoordinator` requests the [GroupCoordinator](#groupCoordinator) for the [partition](consumer-groups/GroupCoordinator.md#partitionFor) of the `key` group.
+
+For `TRANSACTION` coordinator (by the `keyType`), `getCoordinator` requests the [TransactionCoordinator](#txnCoordinator) for the [partition](transactions/TransactionCoordinator.md#partitionFor) of the `key` transactional ID.
+
+#### <span id="getCoordinator-topicMetadata"> Topic Metadata
+
+`getCoordinator` requests the [MetadataCache](#metadataCache) to [getTopicMetadata](MetadataCache.md#getTopicMetadata) with the name of the internal topic and then to [getAliveBrokerNode](MetadataCache.md#getAliveBrokerNode).
+
+Possible errors are `COORDINATOR_NOT_AVAILABLE`s.
+
 ## <span id="handleInitProducerIdRequest"> handleInitProducerIdRequest
 
 ```scala
@@ -85,23 +162,6 @@ Otherwise, `handleInitProducerIdRequest` sends an error back.
 `handleInitProducerIdRequest` is used when:
 
 * `KafkaApis` is requested to [handle a INIT_PRODUCER_ID request](#handle)
-
-## <span id="handleFetchRequest"> handleFetchRequest
-
-```scala
-handleFetchRequest(
-  request: RequestChannel.Request): Unit
-```
-
-`handleFetchRequest` assumes that the given `RequestChannel.Request` is an `FetchRequest`.
-
-`handleFetchRequest` authorizes the request.
-
-In the end, `handleFetchRequest` requests the [ReplicaManager](#replicaManager) to [fetchMessages](ReplicaManager.md#fetchMessages).
-
-`handleFetchRequest` is used when:
-
-* `KafkaApis` is requested to [handle a FETCH request](#handle)
 
 ## <span id="handleLeaderAndIsrRequest"> handleLeaderAndIsrRequest
 
