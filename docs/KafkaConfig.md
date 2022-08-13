@@ -39,6 +39,12 @@ Use `brokerIdGenerationEnable` to access the current value.
 
 ## <span id="defaultReplicationFactor"><span id="DefaultReplicationFactorProp"><span id="default.replication.factor"> default.replication.factor
 
+## <span id="interBrokerProtocolVersionString"><span id="InterBrokerProtocolVersionProp"><span id="inter.broker.protocol.version"> inter.broker.protocol.version
+
+Specify which version of the inter-broker protocol to use. Typically bumped up after all brokers were upgraded to a new version.
+
+Default: The latest version of `ApiVersion` of the broker
+
 ## <span id="logCleanerEnable"><span id="LogCleanerEnableProp"><span id="log.cleaner.enable"> log.cleaner.enable
 
 Enables [LogCleaner](log/LogCleaner.md)
@@ -152,6 +158,14 @@ Must be at least 1
 ## <span id="transactionTopicMinISR"><span id="TransactionsTopicMinISRProp"><span id="transaction.state.log.min.isr"> transaction.state.log.min.isr
 
 ## Utilities
+
+### <span id="interBrokerProtocolVersion"> interBrokerProtocolVersion
+
+```scala
+interBrokerProtocolVersion: ApiVersion
+```
+
+`interBrokerProtocolVersion` creates a `ApiVersion` for the [inter.broker.protocol.version](#interBrokerProtocolVersionString).
 
 ### <span id="requiresZookeeper"> requiresZookeeper
 

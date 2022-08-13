@@ -11,7 +11,7 @@
 * <span id="brokerId"> [broker.id](../KafkaConfig.md#brokerId)
 * [GroupConfig](#groupConfig)
 * <span id="offsetConfig"> [OffsetConfig](OffsetConfig.md)
-* <span id="groupManager"> [GroupMetadataManager](GroupMetadataManager.md)
+* [GroupMetadataManager](#groupManager)
 * <span id="heartbeatPurgatory"> `DelayedOperationPurgatory[DelayedHeartbeat]`
 * <span id="rebalancePurgatory"> `DelayedOperationPurgatory[DelayedRebalance]`
 * <span id="time"> `Time`
@@ -19,7 +19,11 @@
 
 `GroupCoordinator` is created using [apply](#apply) factory.
 
-## <span id="groupConfig"><span id="GroupConfig"> GroupConfig
+### <span id="groupManager"> GroupMetadataManager
+
+`GroupCoordinator` is given a [GroupMetadataManager](GroupMetadataManager.md) when [created](#creating-instance).
+
+### <span id="groupConfig"><span id="GroupConfig"> GroupConfig
 
 `GroupCoordinator` is given a `GroupConfig` when [created](#creating-instance).
 
@@ -113,11 +117,40 @@ Elected as the group coordinator for partition [offsetTopicPartitionId] in epoch
 * `RequestHandlerHelper` is requested to `onLeadershipChange` for [__consumer_offsets](index.md#__consumer_offsets)
 * `BrokerMetadataPublisher` is requested to `publish` metadata for [__consumer_offsets](index.md#__consumer_offsets)
 
+## <span id="startup"> Starting Up
+
+```scala
+startup(
+  retrieveGroupMetadataTopicPartitionCount: () => Int,
+  enableMetadataExpiration: Boolean = true): Unit
+```
+
+`startup` prints out the following INFO message to the logs:
+
+```text
+Starting up.
+```
+
+`startup` requests the [GroupMetadataManager](#groupManager) to [start up](GroupMetadataManager.md#startup).
+
+In the end, `startup` prints out the following INFO message to the logs:
+
+```text
+Startup complete.
+```
+
+---
+
+`startup` is used when:
+
+* `KafkaServer` is requested to [start up](../broker/KafkaServer.md#startup)
+* `BrokerMetadataPublisher` is requested to `initializeManagers`
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.coordinator.group.GroupCoordinator` logger to see what happens inside.
 
-Add the following line to `conf/log4j.properties`:
+Add the following line to `config/log4j.properties`:
 
 ```text
 log4j.logger.kafka.coordinator.group.GroupCoordinator=ALL

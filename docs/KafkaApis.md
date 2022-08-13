@@ -78,3 +78,20 @@ In the end, `handleFetchRequest` requests the [ReplicaManager](#replicaManager) 
 `handleFetchRequest` is used when:
 
 * `KafkaApis` is requested to [handle a FETCH request](#handle)
+
+## <span id="handleLeaderAndIsrRequest"> handleLeaderAndIsrRequest
+
+```scala
+handleLeaderAndIsrRequest(
+  request: RequestChannel.Request): Unit
+```
+
+`handleLeaderAndIsrRequest` assumes that the given `RequestChannel.Request` is an `LeaderAndIsrRequest`.
+
+`handleLeaderAndIsrRequest` requests the [AuthHelper](#authHelper) to [authorize](AuthHelper.md#authorizeClusterOperation) `CLUSTER_ACTION` operation.
+
+In the end, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaManager) to [becomeLeaderOrFollower](ReplicaManager.md#becomeLeaderOrFollower) (with a `correlationId` and [onLeadershipChange](RequestHandlerHelper.md#onLeadershipChange) handler).
+
+`handleLeaderAndIsrRequest` is used when:
+
+* `KafkaApis` is requested to [handle a LEADER_AND_ISR request](#handle)

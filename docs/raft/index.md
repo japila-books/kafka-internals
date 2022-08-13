@@ -4,3 +4,5 @@
 
 !!! important "Preview and Not for Production Deployments"
     KRaft mode is currently _PREVIEW AND SHOULD NOT BE USED IN PRODUCTION_.
+
+## Raft-Based Metadata Quorum
