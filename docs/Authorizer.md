@@ -1,3 +1,0 @@
-# Authorizer
-
-`Authorizer` is...FIXME

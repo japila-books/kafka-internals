@@ -127,6 +127,18 @@ logManager: LogManager
 
 `KafkaServer` creates a [LogManager](../log/LogManager.md) at [startup](#startup).
 
+## <span id="authorizer"> Authorizer
+
+```scala
+authorizer: Option[Authorizer]
+```
+
+`authorizer` is part of the [KafkaBroker](KafkaBroker.md#authorizer) abstraction.
+
+---
+
+`KafkaServer` is given an [Authorizer](../authorization/Authorizer.md) at [startup](#startup) based on [authorizer.class.name](../KafkaConfig.md#authorizer) configuration property.
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.server.KafkaServer` logger to see what happens inside.

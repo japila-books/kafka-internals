@@ -2,6 +2,20 @@
 
 `KafkaConfig` is configuration properties of a Kafka broker.
 
+## <span id="authorizer.class.name"><span id="AuthorizerClassNameProp"><span id="authorizer"> authorizer.class.name
+
+The fully-qualified name of a class that implements [Authorizer](authorization/Authorizer.md) interface, which is used by the broker for [request authorization](authorization/index.md).
+
+Default: empty
+
+Use `KafkaConfig.authorizerClassName` to access the current value.
+
+Used when:
+
+* `BrokerServer` is requested to [start up](raft/BrokerServer.md#startup)
+* `ControllerServer` is requested to [start up](raft/ControllerServer.md#startup)
+* `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup)
+
 ## <span id="brokerId"><span id="BrokerIdProp"><span id="broker.id"> broker.id
 
 The broker ID of this Kafka server.
@@ -12,7 +26,7 @@ If unset or negative, a unique broker id will be [generated](broker/KafkaServer.
 
 To avoid conflicts between zookeeper generated broker id's and user configured broker id's, generated broker ids start from [reserved.broker.max.id](#MaxReservedBrokerIdProp) + 1
 
-Use `brokerId` to access the current value.
+Use `KafkaConfig.brokerId` to access the current value.
 
 ---
 

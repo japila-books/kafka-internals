@@ -106,7 +106,6 @@ nav:
   - Internals:
     - Overview: overview.md
     - AbstractConfig: AbstractConfig.md
-    - AuthHelper: AuthHelper.md
     - AutoTopicCreationManager: AutoTopicCreationManager.md
     - BrokerMetadataCheckpoint: BrokerMetadataCheckpoint.md
     - Configurable: Configurable.md
@@ -141,12 +140,24 @@ nav:
     - Zookeeper:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md
-  - Consumer Groups:
-    - consumer-groups/index.md
-    - consumer-groups/GroupCoordinator.md
-    - consumer-groups/GroupMetadataManager.md
-    - consumer-groups/OffsetConfig.md
   - Features:
+    - Authorization:
+      - authorization/index.md
+      - AclApis: authorization/AclApis.md
+      - AclAuthorizer: authorization/AclAuthorizer.md
+      - AuthHelper: authorization/AuthHelper.md
+      - Authorizer: authorization/Authorizer.md
+      - kafka-acls:
+        - AclCommand: authorization/AclCommand.md
+        - AclCommandOptions: authorization/AclCommandOptions.md
+        - AclCommandService: authorization/AclCommandService.md
+        - AdminClientService: authorization/AdminClientService.md
+        - AuthorizerService: authorization/AuthorizerService.md
+    - Consumer Groups:
+      - consumer-groups/index.md
+      - consumer-groups/GroupCoordinator.md
+      - consumer-groups/GroupMetadataManager.md
+      - consumer-groups/OffsetConfig.md
     - Dynamic Broker Configuration:
       - dynamic-broker-configuration/index.md
       - dynamic-broker-configuration/BrokerConfigHandler.md
@@ -230,7 +241,6 @@ nav:
     - RaftConfig: raft/RaftConfig.md
     - RaftManager: raft/RaftManager.md
   - Misc:
-    - Authorizer: Authorizer.md
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
     - MetadataCache: MetadataCache.md

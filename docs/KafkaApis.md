@@ -15,7 +15,7 @@
 * <span id="configRepository"> `ConfigRepository`
 * <span id="metadataCache"> [MetadataCache](MetadataCache.md)
 * <span id="metrics"> [Metrics](metrics/Metrics.md)
-* <span id="authorizer"> Optional [Authorizer](Authorizer.md)
+* <span id="authorizer"> Optional [Authorizer](authorization/Authorizer.md)
 * <span id="quotas"> `QuotaManagers`
 * <span id="fetchManager"> `FetchManager`
 * <span id="brokerTopicStats"> `BrokerTopicStats`
@@ -118,13 +118,13 @@ getCoordinator(
 
 #### <span id="getCoordinator-authorize"> Authorization
 
-For `GROUP` coordinator (by the `keyType`), `getCoordinator` requests the [AuthHelper](#authHelper) to [authorize](AuthHelper.md#authorize):
+For `GROUP` coordinator (by the `keyType`), `getCoordinator` requests the [AuthHelper](#authHelper) to [authorize](authorization/AuthHelper.md#authorize):
 
 * `DESCRIBE` operation
 * `GROUP` resource type
 * `key` resource name
 
-For `TRANSACTION` coordinator (by the `keyType`), `getCoordinator` requests the [AuthHelper](#authHelper) to [authorize](AuthHelper.md#authorize):
+For `TRANSACTION` coordinator (by the `keyType`), `getCoordinator` requests the [AuthHelper](#authHelper) to [authorize](authorization/AuthHelper.md#authorize):
 
 * `DESCRIBE` operation
 * `TRANSACTIONAL_ID` resource type
@@ -172,7 +172,7 @@ handleLeaderAndIsrRequest(
 
 `handleLeaderAndIsrRequest` assumes that the given `RequestChannel.Request` is an `LeaderAndIsrRequest`.
 
-`handleLeaderAndIsrRequest` requests the [AuthHelper](#authHelper) to [authorize](AuthHelper.md#authorizeClusterOperation) `CLUSTER_ACTION` operation.
+`handleLeaderAndIsrRequest` requests the [AuthHelper](#authHelper) to [authorize](authorization/AuthHelper.md#authorizeClusterOperation) `CLUSTER_ACTION` operation.
 
 In the end, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaManager) to [becomeLeaderOrFollower](ReplicaManager.md#becomeLeaderOrFollower) (with a `correlationId` and [onLeadershipChange](RequestHandlerHelper.md#onLeadershipChange) handler).
 
