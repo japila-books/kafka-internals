@@ -116,6 +116,16 @@ nav:
     - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
     - Log: Log.md
+    - LogManager:
+      - log/index.md
+      - LogCleaner:
+        - log/LogCleaner.md
+        - log/LogCleanerManager.md
+        - log/CleanerConfig.md
+        - log/CleanerThread.md
+      - LogConfig: log/LogConfig.md
+      - LogManager: log/LogManager.md
+      - UnifiedLog: log/UnifiedLog.md
     - LogSegment: LogSegment.md
     - Partition: Partition.md
     - PartitionData: PartitionData.md
@@ -128,6 +138,12 @@ nav:
     - Zookeeper:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md
+  - Consumer Groups:
+    - consumer-groups/index.md
+    - consumer-groups/GroupConfig.md
+    - consumer-groups/GroupCoordinator.md
+    - consumer-groups/GroupMetadataManager.md
+    - consumer-groups/OffsetConfig.md
   - Features:
     - Dynamic Broker Configuration:
       - dynamic-broker-configuration/index.md
@@ -138,26 +154,16 @@ nav:
       - dynamic-broker-configuration/DynamicThreadPool.md
     - Log Cleanup:
       - log-cleanup/index.md
-  - LogManager:
-    - log/index.md
-    - LogCleaner:
-      - log/LogCleaner.md
-      - log/LogCleanerManager.md
-      - log/CleanerConfig.md
-      - log/CleanerThread.md
-    - LogConfig: log/LogConfig.md
-    - LogManager: log/LogManager.md
-    - UnifiedLog: log/UnifiedLog.md
+    - Transactions:
+      - transactions/index.md
+      - TransactionConfig: transactions/TransactionConfig.md
+      - TransactionCoordinator: transactions/TransactionCoordinator.md
+      - TransactionMarkerChannelManager: transactions/TransactionMarkerChannelManager.md
+      - TransactionStateManager: transactions/TransactionStateManager.md
   - Broker:
     - broker/index.md
     - KafkaBroker: broker/KafkaBroker.md
     - KafkaServer: broker/KafkaServer.md
-  - Transactions:
-    - transactions/index.md
-    - TransactionConfig: transactions/TransactionConfig.md
-    - TransactionCoordinator: transactions/TransactionCoordinator.md
-    - TransactionMarkerChannelManager: transactions/TransactionMarkerChannelManager.md
-    - TransactionStateManager: transactions/TransactionStateManager.md
   - Clients:
     - clients/index.md
     - Admin:
