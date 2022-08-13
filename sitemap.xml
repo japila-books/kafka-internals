@@ -341,11 +341,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/consumer-groups/GroupConfig/</loc>
-         <lastmod>2022-08-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/consumer-groups/GroupCoordinator/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
