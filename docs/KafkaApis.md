@@ -6,15 +6,15 @@
 
 * <span id="requestChannel"> `RequestChannel`
 * <span id="metadataSupport"> `MetadataSupport`
-* <span id="replicaManager"> `ReplicaManager`
-* <span id="groupCoordinator"> `GroupCoordinator`
+* <span id="replicaManager"> [ReplicaManager](ReplicaManager.md)
+* [GroupCoordinator](#groupCoordinator)
 * [TransactionCoordinator](#txnCoordinator)
 * <span id="autoTopicCreationManager"> [AutoTopicCreationManager](AutoTopicCreationManager.md)
 * <span id="brokerId"> Broker ID
 * <span id="config"> [KafkaConfig](KafkaConfig.md)
 * <span id="configRepository"> `ConfigRepository`
 * <span id="metadataCache"> `MetadataCache`
-* <span id="metrics"> `Metrics`
+* <span id="metrics"> [Metrics](metrics/Metrics.md)
 * <span id="authorizer"> Optional `Authorizer`
 * <span id="quotas"> `QuotaManagers`
 * <span id="fetchManager"> `FetchManager`
@@ -26,8 +26,32 @@
 
 `KafkaApis` is created when:
 
-* `BrokerServer` is requested to [startup](raft/BrokerServer.md#startup) (for the [dataPlaneRequestProcessor](raft/BrokerServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](raft/BrokerServer.md#controlPlaneRequestProcessor))
-* `KafkaServer` is requested to [startup](broker/KafkaServer.md#startup) (for the [dataPlaneRequestProcessor](broker/KafkaServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](broker/KafkaServer.md#controlPlaneRequestProcessor))
+* `BrokerServer` is requested to [start up](raft/BrokerServer.md#startup) (for the [dataPlaneRequestProcessor](raft/BrokerServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](raft/BrokerServer.md#controlPlaneRequestProcessor))
+* `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup) (for the [dataPlaneRequestProcessor](broker/KafkaServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](broker/KafkaServer.md#controlPlaneRequestProcessor))
+
+## <span id="groupCoordinator"> GroupCoordinator
+
+`KafkaApis` is given a [GroupCoordinator](consumer-groups/GroupCoordinator.md) when [created](#creating-instance).
+
+The `GroupCoordinator` is used for the following:
+
+* [handleAddOffsetsToTxnRequest](#handleAddOffsetsToTxnRequest)
+* [handleDeleteGroupsRequest](#handleDeleteGroupsRequest)
+* [handleDescribeGroupRequest](#handleDescribeGroupRequest)
+* [handleFindCoordinatorRequest](#handleFindCoordinatorRequest)
+* [handleHeartbeatRequest](#handleHeartbeatRequest)
+* [handleJoinGroupRequest](#handleJoinGroupRequest)
+* [handleLeaderAndIsrRequest](#handleLeaderAndIsrRequest)
+* [handleLeaveGroupRequest](#handleLeaveGroupRequest)
+* [handleListGroupsRequest](#handleListGroupsRequest)
+* [handleOffsetCommitRequest](#handleOffsetCommitRequest)
+* [handleOffsetDeleteRequest](#handleOffsetDeleteRequest)
+* [handleOffsetFetchRequest](#handleOffsetFetchRequest)
+* [handleStopReplicaRequest](#handleStopReplicaRequest)
+* [handleSyncGroupRequest](#handleSyncGroupRequest)
+* [handleTxnOffsetCommitRequest](#handleTxnOffsetCommitRequest)
+* [handleUpdateMetadataRequest](#handleUpdateMetadataRequest)
+* [handleWriteTxnMarkersRequest](#handleWriteTxnMarkersRequest)
 
 ## <span id="txnCoordinator"> TransactionCoordinator
 
