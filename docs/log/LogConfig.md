@@ -2,7 +2,7 @@
 
 ## <span id="CleanupPolicyProp"><span id="cleanup.policy"> cleanup.policy
 
-[cleanup.policy](../TopicConfig.md#CLEANUP_POLICY_CONFIG)
+[TopicConfig](../TopicConfig.md#CLEANUP_POLICY_CONFIG)
 
 ### <span id="compact"> compact
 

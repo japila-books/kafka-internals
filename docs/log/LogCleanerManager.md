@@ -52,7 +52,7 @@ isCompactAndDelete(
 
 ---
 
-`isCompactAndDelete` holds true only when both [compact](../log-cleanup/log-cleanup-policies.md#compact) and [delete](../log-cleanup/log-cleanup-policies.md#delete) cleanup policies are included in the [cleanup.policy](../log-cleanup/log-cleanup-policies.md#cleanup.policy) configuration property. Otherwise, `isCompactAndDelete` flag is disabled (`false`).
+`isCompactAndDelete` holds true only when both [compact](../log-cleanup/index.md#compact) and [delete](../log-cleanup/index.md#delete) cleanup policies are included in the [cleanup.policy](../log-cleanup/index.md#cleanup.policy) configuration property. Otherwise, `isCompactAndDelete` flag is disabled (`false`).
 
 ## Logging
 
