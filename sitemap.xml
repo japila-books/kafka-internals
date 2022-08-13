@@ -11,16 +11,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/AuthHelper/</loc>
-         <lastmod>2022-08-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://books.japila.pl/kafka-internals/Authorizer/</loc>
-         <lastmod>2022-08-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/AutoTopicCreationManager/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
@@ -152,6 +142,56 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/overview/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AclApis/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AclAuthorizer/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AclCommand/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AclCommandOptions/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AclCommandService/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AdminClientService/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AuthHelper/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/Authorizer/</loc>
+         <lastmod>2022-08-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/authorization/AuthorizerService/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
