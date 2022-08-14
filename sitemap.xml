@@ -426,6 +426,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/demo/secure-inter-broker-communication/</loc>
+         <lastmod>2022-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/demo/securing-communication-between-clients-and-brokers/</loc>
+         <lastmod>2022-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/demo/ssl-authentication/</loc>
          <lastmod>2022-08-14</lastmod>
          <changefreq>daily</changefreq>
