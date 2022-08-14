@@ -248,6 +248,8 @@ nav:
   - Demos:
     - demo/index.md
     - ACL Authorization: demo/acl-authorization.md
-    - SSL Authentication: demo/ssl-authentication.md
     - Kafka and kcat in Docker: demo/kafka-and-kcat-in-docker.md
+    - Secure Inter-Broker Communication: demo/secure-inter-broker-communication.md
+    - Securing Communication Between Clients and Brokers Using SSL: demo/securing-communication-between-clients-and-brokers.md
+    - SSL Authentication: demo/ssl-authentication.md
     - Transactional Kafka Producer: demo/transactional-kafka-producer.md
