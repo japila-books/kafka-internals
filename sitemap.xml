@@ -426,6 +426,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/demo/ssl-authentication/</loc>
+         <lastmod>2022-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/demo/transactional-kafka-producer/</loc>
          <lastmod>2022-08-14</lastmod>
          <changefreq>daily</changefreq>
