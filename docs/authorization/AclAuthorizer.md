@@ -42,7 +42,7 @@ Default: [zookeeper.connect](../KafkaConfig.md#zookeeper.connect)
 
 ### <span id="superUsers"><span id="super.users"> super.users
 
-A `:`-separated list of `KafkaPrincipal`s (in format `type:name`) of super users who [are allowed to execute operations without checking ACLs](#isSuperUser) (e.g., have access to all the resources for all actions from all hosts).
+A `;`-separated list of `KafkaPrincipal`s (in format `type:name`) of super users who [are allowed to execute operations without checking ACLs](#isSuperUser) (e.g., have access to all the resources for all actions from all hosts).
 
 Default: (empty)
 
