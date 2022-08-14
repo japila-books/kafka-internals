@@ -247,5 +247,6 @@ nav:
     - RequestHandlerHelper: RequestHandlerHelper.md
   - Demos:
     - demo/index.md
+    - ACL Authorization: demo/acl-authorization.md
     - Kafka and kcat in Docker: demo/kafka-and-kcat-in-docker.md
     - Transactional Kafka Producer: demo/transactional-kafka-producer.md
