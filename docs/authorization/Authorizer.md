@@ -35,7 +35,7 @@ Used when:
 * `AuthorizerService` is requested to [getAcls](AuthorizerService.md#getAcls)
 * `AclApis` is requested to [handleDescribeAcls](AclApis.md#handleDescribeAcls)
 
-### <span id="authorize"> authorize
+### <span id="authorize"> Authorizing Request to Execute Actions
 
 ```java
 List<AuthorizationResult> authorize(
@@ -115,7 +115,9 @@ AuthorizationResult authorizeByResourceType(
   ResourceType resourceType)
 ```
 
-`authorizeByResourceType`...FIXME
+`authorizeByResourceType` [authorizes](#authorize) access to the `resourceType` by super users.
+
+`authorizeByResourceType` creates a `KafkaPrincipal` (based on the `PrincipalType` and `Name` from the `requestContext`) and reads the request's host address. `authorizeByResourceType` tries to authorize the request based on the [ACL bindings](#acls) (with a `AclBindingFilter` for the `resourceType` and `ANY` pattern).
 
 ---
 

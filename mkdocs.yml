@@ -141,18 +141,6 @@ nav:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md
   - Features:
-    - Authorization:
-      - authorization/index.md
-      - AclApis: authorization/AclApis.md
-      - AclAuthorizer: authorization/AclAuthorizer.md
-      - AuthHelper: authorization/AuthHelper.md
-      - Authorizer: authorization/Authorizer.md
-      - kafka-acls:
-        - AclCommand: authorization/AclCommand.md
-        - AclCommandOptions: authorization/AclCommandOptions.md
-        - AclCommandService: authorization/AclCommandService.md
-        - AdminClientService: authorization/AdminClientService.md
-        - AuthorizerService: authorization/AuthorizerService.md
     - Consumer Groups:
       - consumer-groups/index.md
       - consumer-groups/GroupCoordinator.md
@@ -167,6 +155,20 @@ nav:
       - dynamic-broker-configuration/DynamicThreadPool.md
     - Log Cleanup:
       - log-cleanup/index.md
+    - Security:
+      - Authentication: authentication.md
+      - Authorization:
+        - authorization/index.md
+        - AclApis: authorization/AclApis.md
+        - AclAuthorizer: authorization/AclAuthorizer.md
+        - AuthHelper: authorization/AuthHelper.md
+        - Authorizer: authorization/Authorizer.md
+        - kafka-acls:
+          - AclCommand: authorization/AclCommand.md
+          - AclCommandOptions: authorization/AclCommandOptions.md
+          - AclCommandService: authorization/AclCommandService.md
+          - AdminClientService: authorization/AdminClientService.md
+          - AuthorizerService: authorization/AuthorizerService.md
     - Transactions:
       - transactions/index.md
       - TransactionConfig: transactions/TransactionConfig.md
