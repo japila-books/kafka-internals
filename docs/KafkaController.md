@@ -1,3 +1,0 @@
-# KafkaController
-
-`KafkaController` is...FIXME

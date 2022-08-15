@@ -9,7 +9,7 @@
 * <span id="config"> [KafkaConfig](KafkaConfig.md)
 * <span id="channelManager"> Optional `BrokerToControllerChannelManager`
 * <span id="adminManager"> Optional [ZkAdminManager](ZkAdminManager.md)
-* <span id="controller"> Optional [KafkaController](KafkaController.md)
+* <span id="controller"> Optional [KafkaController](controller/KafkaController.md)
 * <span id="groupCoordinator"> [GroupCoordinator](consumer-groups/GroupCoordinator.md)
 * [TransactionCoordinator](#txnCoordinator)
 

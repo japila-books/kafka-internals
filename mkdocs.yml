@@ -115,7 +115,6 @@ nav:
     - Kafka: Kafka.md
     - KafkaApis: KafkaApis.md
     - KafkaConfig: KafkaConfig.md
-    - KafkaController: KafkaController.md
     - Log: Log.md
     - LogManager:
       - log/index.md
@@ -140,6 +139,14 @@ nav:
     - Zookeeper:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md
+  - Controller Broker:
+    - controller/index.md
+    - Controller Election: controller/controller-election.md
+    - controller/ControllerContext.md
+    - controller/ControllerEvent.md
+    - controller/ControllerState.md
+    - controller/ControllerEventThread.md
+    - KafkaController: controller/KafkaController.md
   - Features:
     - Consumer Groups:
       - consumer-groups/index.md
@@ -250,6 +257,7 @@ nav:
   - Demos:
     - demo/index.md
     - ACL Authorization: demo/acl-authorization.md
+    - Controller Election: demo/controller-election.md
     - Kafka and kcat in Docker: demo/kafka-and-kcat-in-docker.md
     - Secure Inter-Broker Communication: demo/secure-inter-broker-communication.md
     - Securing Communication Between Clients and Brokers Using SSL: demo/securing-communication-between-clients-and-brokers.md

@@ -8,6 +8,7 @@ hide:
 The following demos are available:
 
 - [ACL Authorization](acl-authorization.md)
+- [Controller Election](controller-election.md)
 - [Kafka and kcat in Docker](kafka-and-kcat-in-docker.md)
 - [Secure Inter-Broker Communication](secure-inter-broker-communication.md)
 - [Securing Communication Between Clients and Brokers Using SSL](securing-communication-between-clients-and-brokers.md)

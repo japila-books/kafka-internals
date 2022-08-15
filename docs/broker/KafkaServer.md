@@ -139,6 +139,24 @@ authorizer: Option[Authorizer]
 
 `KafkaServer` is given an [Authorizer](../authorization/Authorizer.md) at [startup](#startup) based on [authorizer.class.name](../KafkaConfig.md#authorizer) configuration property.
 
+## <span id="KafkaController"><span id="_kafkaController"><span id="kafkaController"> KafkaController
+
+`KafkaServer` creates a [KafkaController](../controller/KafkaController.md) at [startup](#startup).
+
+The `KafkaController` is requested to [start up](../controller/KafkaController.md#startup) immediately and [shut down](../controller/KafkaController.md#shutdown) alongside the [KafkaServer](#shutdown).
+
+The `KafkaController` is used when:
+
+* Creating a `TopicConfigHandler` (in the [dynamicConfigHandlers](#dynamicConfigHandlers))
+* [controlledShutdown](#controlledShutdown) (for the [brokerEpoch](../controller/KafkaController.md#brokerEpoch))
+* `DynamicLogConfig` is requested to `reconfigure`
+* `DynamicListenerConfig` is requested to `reconfigure`
+* `KafkaServer` is requested to [startup](#startup)
+    * for the [brokerEpoch](../controller/KafkaController.md#brokerEpoch) for [AlterIsrManager](#alterIsrManager)
+    * for the [brokerEpoch](../controller/KafkaController.md#brokerEpoch) for [ProducerIdManager](#alterIsrManager)
+    * [AutoTopicCreationManager](autoTopicCreationManager)
+    * `ZkSupport`
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.server.KafkaServer` logger to see what happens inside.
