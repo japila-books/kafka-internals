@@ -56,11 +56,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/KafkaController/</loc>
-         <lastmod>2022-08-15</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/Log/</loc>
          <lastmod>2022-08-15</lastmod>
          <changefreq>daily</changefreq>
@@ -416,12 +411,52 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ControllerContext/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ControllerEvent/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ControllerEventThread/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ControllerState/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/KafkaController/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/controller-election/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/demo/</loc>
          <lastmod>2022-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/demo/acl-authorization/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/demo/controller-election/</loc>
          <lastmod>2022-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
