@@ -131,6 +131,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/authentication/</loc>
+         <lastmod>2022-08-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/building-from-sources/</loc>
          <lastmod>2022-08-15</lastmod>
          <changefreq>daily</changefreq>
