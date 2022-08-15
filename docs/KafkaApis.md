@@ -15,7 +15,7 @@
 * <span id="configRepository"> `ConfigRepository`
 * <span id="metadataCache"> [MetadataCache](MetadataCache.md)
 * <span id="metrics"> [Metrics](metrics/Metrics.md)
-* <span id="authorizer"> Optional [Authorizer](authorization/Authorizer.md)
+* [Authorizer](#authorizer)
 * <span id="quotas"> `QuotaManagers`
 * <span id="fetchManager"> `FetchManager`
 * <span id="brokerTopicStats"> `BrokerTopicStats`
@@ -28,6 +28,26 @@
 
 * `BrokerServer` is requested to [start up](raft/BrokerServer.md#startup) (for the [dataPlaneRequestProcessor](raft/BrokerServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](raft/BrokerServer.md#controlPlaneRequestProcessor))
 * `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup) (for the [dataPlaneRequestProcessor](broker/KafkaServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](broker/KafkaServer.md#controlPlaneRequestProcessor))
+
+## <span id="authorizer"> Authorizer
+
+`KafkaApis` can be given an [Authorizer](authorization/Authorizer.md) when [created](#creating-instance). The `Authorizer` instance is given right from the creator (based on [authorizer.class.name](KafkaConfig.md#authorizer.class.name) configuration property):
+
+* [BrokerServer](raft/BrokerServer.md#authorizer)
+* [KafkaServer](broker/KafkaServer.md#authorizer)
+
+The `Authorizer` is used only to create the following:
+
+* [AuthHelper](#authHelper)
+* [AclApis](#aclApis)
+
+## <span id="authHelper"> AuthHelper
+
+`KafkaApis` creates an [AuthHelper](authorization/AuthHelper.md) when [created](#creating-instance).
+
+The `AuthHelper` is given the optional [Authorizer](#authorizer).
+
+The `AuthHelper` is used to create the [AclApis](#aclApis) and authorize operations.
 
 ## <span id="groupCoordinator"> GroupCoordinator
 

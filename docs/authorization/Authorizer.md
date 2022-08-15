@@ -105,3 +105,20 @@ Used when:
 ## <span id="Configurable"> Configurable
 
 `Authorizer` is a [Configurable](../Configurable.md).
+
+## <span id="authorizeByResourceType"> authorizeByResourceType
+
+```java
+AuthorizationResult authorizeByResourceType(
+  AuthorizableRequestContext requestContext,
+  AclOperation op,
+  ResourceType resourceType)
+```
+
+`authorizeByResourceType`...FIXME
+
+---
+
+`authorizeByResourceType` is used when:
+
+* `AuthHelper` is requested to [authorizeByResourceType](AuthHelper.md#authorizeByResourceType)
