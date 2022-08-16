@@ -2,7 +2,7 @@
 
 **Kafka Authorization** is based on the following:
 
-* [kafka-acls.sh](AclCommand.md) utility for ACL management
+* [kafka-acls.sh](../tools/kafka-acls/index.md) utility for ACL management
 * [authorizer.class.name](../KafkaConfig.md#authorizer.class.name) configuration property
 * [Authorizer](Authorizer.md) (and [AclAuthorizer](AclAuthorizer.md))
 

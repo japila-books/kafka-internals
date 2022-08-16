@@ -32,7 +32,7 @@ ACL bindings for the provided `filter` (synchronously)
 Used when:
 
 * `Authorizer` is requested to [authorizeByResourceType](Authorizer.md#authorizeByResourceType)
-* `AuthorizerService` is requested to [getAcls](AuthorizerService.md#getAcls)
+* `AuthorizerService` is requested to [getAcls](../tools/kafka-acls/AuthorizerService.md#getAcls)
 * `AclApis` is requested to [handleDescribeAcls](AclApis.md#handleDescribeAcls)
 
 ### <span id="authorize"> Authorizing Request to Execute Actions
@@ -62,7 +62,7 @@ Creates new ACL bindings (asynchronously)
 
 Used when:
 
-* `AuthorizerService` is requested to [addAcls](AuthorizerService.md#addAcls)
+* `AuthorizerService` is requested to [addAcls](../tools/kafka-acls/AuthorizerService.md#addAcls)
 * `AclApis` is requested to [handleCreateAcls](AclApis.md#handleCreateAcls)
 
 ### <span id="deleteAcls"> deleteAcls
@@ -77,7 +77,7 @@ Deletes all ACL bindings matching the `aclBindingFilters` filters (asynchronousl
 
 Used when:
 
-* `AuthorizerService` is requested to [removeAcls](AuthorizerService.md#removeAcls)
+* `AuthorizerService` is requested to [removeAcls](../tools/kafka-acls/AuthorizerService.md#removeAcls)
 * `AclApis` is requested to [handleDeleteAcls](AclApis.md#handleDeleteAcls)
 
 ### <span id="start"> start

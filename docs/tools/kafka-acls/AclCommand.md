@@ -6,7 +6,7 @@
 
 ## <span id="SecurityDisabledException"> SecurityDisabledException
 
-`kafka-acls.sh` requires [Authorizer](Authorizer.md) to be configured on a broker (when executed with `--bootstrap-server` option) or throws a `SecurityDisabledException`.
+`kafka-acls.sh` requires [Authorizer](../../authorization/Authorizer.md) to be configured on a broker (when executed with `--bootstrap-server` option) or throws a `SecurityDisabledException`.
 
 ``` console
 $ ./bin/kafka-acls.sh --list --bootstrap-server :9092
@@ -18,7 +18,7 @@ SecurityDisabledException: No Authorizer is configured on the broker
 `main` selects the [AclCommandService](AclCommandService.md):
 
 * `AdminClientService` when `--bootstrap-server` option is used
-* [AuthorizerService](AuthorizerService.md) with [AclAuthorizer](AclAuthorizer.md) otherwise
+* [AuthorizerService](AuthorizerService.md) with [AclAuthorizer](../../authorization/AclAuthorizer.md) otherwise
 
 In the end, `main` executes the operation:
 

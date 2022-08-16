@@ -170,12 +170,6 @@ nav:
         - AclAuthorizer: authorization/AclAuthorizer.md
         - AuthHelper: authorization/AuthHelper.md
         - Authorizer: authorization/Authorizer.md
-        - kafka-acls:
-          - AclCommand: authorization/AclCommand.md
-          - AclCommandOptions: authorization/AclCommandOptions.md
-          - AclCommandService: authorization/AclCommandService.md
-          - AdminClientService: authorization/AdminClientService.md
-          - AuthorizerService: authorization/AuthorizerService.md
     - Transactions:
       - transactions/index.md
       - TransactionConfig: transactions/TransactionConfig.md
@@ -230,6 +224,13 @@ nav:
     - Serdes: Serdes.md
   - Tools:
     - tools/index.md
+    - kafka-acls:
+      - tools/kafka-acls/index.md
+      - AclCommand: tools/kafka-acls/AclCommand.md
+      - AclCommandOptions: tools/kafka-acls/AclCommandOptions.md
+      - AclCommandService: tools/kafka-acls/AclCommandService.md
+      - AdminClientService: tools/kafka-acls/AdminClientService.md
+      - AuthorizerService: tools/kafka-acls/AuthorizerService.md
     - ReplicaVerificationTool: tools/ReplicaVerificationTool.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md

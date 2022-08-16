@@ -170,7 +170,7 @@ Edit `config/server-ssl.properties` and restart the broker.
 
 ## List ACLs
 
-Use [kafka-acls](../authorization/AclCommand.md) utility to list the access control list (ACL). There should be none.
+Use [kafka-acls](../tools/kafka-acls/index.md) utility to list the access control list (ACL). There should be none.
 
 Create `root.properties` as a minimal configuration of a Kafka client to identify itself as `CN=root`.
 
@@ -335,7 +335,7 @@ Certificate reply was installed in keystore
 
 ## Restrict Topic Operations -- Write for CN=produce
 
-Use [kafka-acls](../authorization/AclCommand.md) utility to restrict `Write` operation on any topic to `CN=produce` user (and super users).
+Use [kafka-acls](../tools/kafka-acls/index.md) utility to restrict `Write` operation on any topic to `CN=produce` user (and super users).
 
 ```shell
 kafka-acls.sh \
@@ -360,7 +360,7 @@ Current ACLs for resource `ResourcePattern(resourceType=TOPIC, name=*, patternTy
 
 ## Restrict Topic Operations -- Read for CN=consumer
 
-Use [kafka-acls](../authorization/AclCommand.md) utility to restrict `Write` operation on any topic to `CN=consumer` user (and super users).
+Use [kafka-acls](../tools/kafka-acls/index.md) utility to restrict `Write` operation on any topic to `CN=consumer` user (and super users).
 
 ```shell
 kafka-acls.sh \
