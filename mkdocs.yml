@@ -141,18 +141,18 @@ nav:
       - zk/KafkaZkClient.md
   - Controller Broker:
     - controller/index.md
-    - Controller Election: controller/controller-election.md
     - controller/ControllerContext.md
     - controller/ControllerEvent.md
     - controller/ControllerState.md
     - controller/ControllerEventThread.md
-    - KafkaController: controller/KafkaController.md
+    - controller/KafkaController.md
   - Features:
     - Consumer Groups:
       - consumer-groups/index.md
       - consumer-groups/GroupCoordinator.md
       - consumer-groups/GroupMetadataManager.md
       - consumer-groups/OffsetConfig.md
+    - Controller Election: controller/controller-election.md
     - Dynamic Broker Configuration:
       - dynamic-broker-configuration/index.md
       - dynamic-broker-configuration/BrokerConfigHandler.md

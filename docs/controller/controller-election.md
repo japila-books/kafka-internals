@@ -1,24 +1,25 @@
-# Kafka Controller Election
+# Controller Election
 
-A Kafka broker can be elected as the controller in the process known as *Kafka Controller Election*.
+**Controller Election** is a process to elect a Kafka broker as the controller in a Kafka cluster.
 
-Kafka Controller Election process relies heavily on the features of Apache ZooKeeper that acts as the source of truth and guarantees that only one broker can ever be elected (due to how *ephemeral nodes* work).
+Kafka Controller Election process relies heavily on the features of Apache ZooKeeper that acts as the source of truth and guarantees that only one broker can ever be elected (due to how **ephemeral nodes** work).
 
-From https://zookeeper.apache.org/doc/current/zookeeperOver.html#Nodes+and+ephemeral+nodes[Nodes and ephemeral nodes] in the official documentation of Apache ZooKeeper:
+!!! quote "[Nodes and ephemeral nodes](https://zookeeper.apache.org/doc/current/zookeeperOver.html#Nodes+and+ephemeral+nodes)"
 
-> ZooKeeper also has the notion of ephemeral nodes. These znodes exists as long as the session that created the znode is active. When the session ends the znode is deleted.
+    ZooKeeper also has the notion of ephemeral nodes. These znodes exists as long as the session that created the znode is active. When the session ends the znode is deleted.
 
-From https://zookeeper.apache.org/doc/current/recipes.html#sc_leaderElection[Leader Election] in the official documentation of Apache ZooKeeper:
+!!! quote "[Leader Election](https://zookeeper.apache.org/doc/current/recipes.html#sc_leaderElection)"
 
-> A simple way of doing leader election with ZooKeeper is to use the SEQUENCE|EPHEMERAL flags when creating znodes that represent "proposals" of clients. The idea is to have a znode, say "/election"
+    A simple way of doing leader election with ZooKeeper is to use the SEQUENCE|EPHEMERAL flags when creating znodes that represent "proposals" of clients. The idea is to have a znode, say "/election"
 
-When `ControllerEventThread` is requested to process <<kafka-controller-ControllerEvent.adoc#Startup, Startup>> and <<kafka-controller-ControllerEvent.adoc#Reelect, Reelect>> controller events, `KafkaController` (instance that runs on every Kafka broker) is requested to <<kafka-controller-KafkaController.adoc#elect, elect>>.
+When `ControllerEventThread` is requested to process [Startup](ControllerEvent.md#Startup) and [Reelect](ControllerEvent.md#Reelect) controller events, `KafkaController` (instance that runs on every Kafka broker) is requested to [elect](KafkaController.md#elect).
 
-TIP: Consult <<kafka-demo-controller-election.adoc#, Demo: Kafka Controller Election>> to learn about the process.
+!!! tip
+    Consult [Demo: Kafka Controller Election](../demo/controller-election.md) to learn about the process.
 
 Given that all the state is in ZooKeeper use `zookeeper-shell` script to know which broker is the active controller.
 
-```
+``` console
 $ ./bin/zookeeper-shell.sh :2181 get /controller
 Connecting to :2181
 
@@ -40,7 +41,7 @@ If you receive `Node does not exist: /controller` error message, that means that
 
 You could also use `nc` to talk to ZooKeeper in a more direct way (that allows for `dump` command).
 
-```
+``` console
 $ nc localhost 2181
 dump
 SessionTracker dump:
@@ -55,19 +56,18 @@ Sessions with Ephemerals (1):
   /brokers/ids/0
 ```
 
-From http://kafka.apache.org/documentation/#upgrade_1010_notable[Notable changes in 0.10.1.0] in the official documentation of Apache Kafka:
+From [Notable changes in 0.10.1.0](http://kafka.apache.org/documentation/#upgrade_1010_notable) in the official documentation of Apache Kafka:
 
 > The recommended way to detect if a given broker is the controller is via the `kafka.controller:type=KafkaController,name=ActiveControllerCount` metric.
 
-.Active KafkaController in jconsole
-image::images/kafka-controller-jconsole.png[align="center"]
+![Active KafkaController in jconsole](../images/kafka-controller-jconsole.png)
 
-=== Controller ID Registered (in ZooKeeper)
+## Controller ID Registered (in ZooKeeper)
 
-The election process stops when <<kafka-controller-KafkaController.adoc#elect, there is a controller ID registered in Zookeeper>> (using `KafkaZkClient` that <<kafka-zk-KafkaZkClient.adoc#getControllerId, gets the ID of the active controller>> and the ID is any number but `-1`).
+The election process stops when [there is a controller ID registered in Zookeeper](KafkaController.md#elect) (using `KafkaZkClient` that [gets the ID of the active controller](../zk/KafkaZkClient.md#getControllerId) and the ID is any number but `-1`).
 
-=== No Controller ID Registered (in ZooKeeper)
+## No Controller ID Registered (in ZooKeeper)
 
-If there is no controller ID registered, every `KafkaController` instance tries to <<kafka-controller-KafkaController.adoc#elect, register itself as the controller (in Zookeeper) and increment the controller epoch>> (using <<kafka-zk-KafkaZkClient.adoc#registerControllerAndIncrementControllerEpoch, KafkaZkClient>>).
+If there is no controller ID registered, every `KafkaController` instance tries to [register itself as the controller (in Zookeeper) and increment the controller epoch](KafkaController.md#elect) (using [KafkaZkClient](../zk/KafkaZkClient.md#registerControllerAndIncrementControllerEpoch)).
 
-In the end, the active `KafkaController` is requested to <<kafka-controller-KafkaController.adoc#onControllerFailover, onControllerFailover>>.
+In the end, the active `KafkaController` is requested to [onControllerFailover](KafkaController.md#onControllerFailover).
