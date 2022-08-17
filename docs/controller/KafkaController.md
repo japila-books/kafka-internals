@@ -4,6 +4,10 @@
 
 ![KafkaController](../images/KafkaController.png)
 
+`KafkaController` uses [listeners](#listeners) as a notification system to react to changes in Zookeeper.
+
+`KafkaController` is a state machine (using [controller events](#controller-events)).
+
 ## Creating Instance
 
 `KafkaController` takes the following to be created:
@@ -42,6 +46,32 @@
 ## Performance Metrics
 
 `KafkaController` is a [KafkaMetricsGroup](../metrics/KafkaMetricsGroup.md).
+
+### <span id="ActiveControllerCount"> ActiveControllerCount
+
+`1` if [isActive](#isActive). `0` otherwise.
+
+### <span id="OfflinePartitionsCount"> OfflinePartitionsCount
+
+### <span id="PreferredReplicaImbalanceCount"> PreferredReplicaImbalanceCount
+
+### <span id="ControllerState"> ControllerState
+
+### <span id="GlobalTopicCount"> GlobalTopicCount
+
+### <span id="GlobalPartitionCount"> GlobalPartitionCount
+
+### <span id="TopicsToDeleteCount"> TopicsToDeleteCount
+
+### <span id="ReplicasToDeleteCount"> ReplicasToDeleteCount
+
+### <span id="TopicsIneligibleToDeleteCount"> TopicsIneligibleToDeleteCount
+
+### <span id="ReplicasIneligibleToDeleteCount"> ReplicasIneligibleToDeleteCount
+
+### <span id="ActiveBrokerCount"> ActiveBrokerCount
+
+### <span id="FencedBrokerCount"> FencedBrokerCount
 
 ## <span id="ControllerEventProcessor"> ControllerEventProcessor
 
@@ -122,6 +152,149 @@ processExpire(): Unit
 
 * `KafkaController` is requested to [process Expire event](#process)
 
+## <span id="onBrokerStartup"> onBrokerStartup
+
+```scala
+onBrokerStartup(
+  newBrokers: Seq[Int]): Unit
+```
+
+`onBrokerStartup` prints out the following INFO message to the logs:
+
+```text
+New broker startup callback for [comma-separated list of newBrokers]
+```
+
+`onBrokerStartup` removes the `newBrokers` from the [replicasOnOfflineDirs](ControllerContext.md#replicasOnOfflineDirs) of the [ControllerContext](#controllerContext).
+
+`onBrokerStartup` [sends update metadata request](#sendUpdateMetadataRequest) to [all the existing brokers in the cluster](ControllerContext.md#liveOrShuttingDownBrokerIds) (of the [ControllerContext](#controllerContext)).
+
+`onBrokerStartup` [sends update metadata request](#sendUpdateMetadataRequest) to the new brokers with the [full set of partition states](ControllerContext.md#partitionsWithLeaders) (for initialization).
+
+`onBrokerStartup` requests the [ControllerContext](#controllerContext) for the [replicas](ControllerContext.md#replicasOnBrokers) on the given `newBrokers` (the entire list of partitions that it is supposed to host).
+
+`onBrokerStartup` requests the [ReplicaStateMachine](#replicaStateMachine) to `handleStateChanges` with the replicas on the new brokers and `OnlineReplica` target state.
+
+`onBrokerStartup` requests the [PartitionStateMachine](#partitionStateMachine) to `triggerOnlinePartitionStateChange`.
+
+`onBrokerStartup` checks if topic deletion can be resumed. `onBrokerStartup` collects replicas (on the new brokers) that are scheduled to be deleted by requesting the [TopicDeletionManager](#topicDeletionManager) to `isTopicQueuedUpForDeletion`. If there are any, `onBrokerStartup` prints out the following INFO message to the logs and requests the [TopicDeletionManager](#topicDeletionManager) to `resumeDeletionForTopics`.
+
+```text
+Some replicas [replicasForTopicsToBeDeleted] for topics scheduled for deletion [topicsToBeDeleted]
+are on the newly restarted brokers [newBrokers].
+Signaling restart of topic deletion for these topics
+```
+
+In the end, `onBrokerStartup` [registerBrokerModificationsHandler](#registerBrokerModificationsHandler) with the new brokers.
+
+---
+
+`onBrokerStartup` is used when:
+
+* `KafkaController` is requested to [process a BrokerChange controller event](#processBrokerChange)
+
+## <span id="shutdown"> Shutting Down
+
+```scala
+shutdown(): Unit
+```
+
+`shutdown` requests the [ControllerEventManager](#eventManager) to close followed by [onControllerResignation](#onControllerResignation).
+
+---
+
+`shutdown` is used when:
+
+* `KafkaServer` is requested to [shut down](../broker/KafkaServer.md#shutdown).
+
+## <span id="eventManager"> ControllerEventManager
+
+`KafkaController` creates a [ControllerEventManager](ControllerEventManager.md) when [created](#creating-instance) (with [broker.id](../KafkaConfig.md#brokerId) configuration property).
+
+The `ControllerEventManager` is used to create the following services:
+
+* [ControllerBrokerRequestBatch](#brokerRequestBatch)
+* [ZkReplicaStateMachine](#replicaStateMachine)
+* [ZkPartitionStateMachine](#partitionStateMachine)
+* [ControllerChangeHandler](#controllerChangeHandler)
+* [BrokerChangeHandler](#brokerChangeHandler)
+* [TopicChangeHandler](#topicChangeHandler)
+* [TopicDeletionHandler](#topicDeletionHandler)
+* [PartitionReassignmentHandler](#partitionReassignmentHandler)
+* [PreferredReplicaElectionHandler](#preferredReplicaElectionHandler)
+* [IsrChangeNotificationHandler](#isrChangeNotificationHandler)
+* [LogDirEventNotificationHandler](#logDirEventNotificationHandler)
+* `BrokerModificationsHandler` (in [registerBrokerModificationsHandler](#registerBrokerModificationsHandler))
+* `PartitionReassignmentIsrChangeHandler` (in [updateCurrentReassignment](#updateCurrentReassignment))
+* `PartitionModificationsHandler` (in [registerPartitionModificationsHandlers](#registerPartitionModificationsHandlers))
+
+## <span id="process"> Processing Controller Events
+
+```scala
+process(
+  event: ControllerEvent): Unit
+```
+
+`process` is part of the [ControllerEventProcessor](ControllerEventProcessor.md#process) abstraction.
+
+---
+
+`process` handles the input [ControllerEvent](ControllerEvent.md) and [updates the metrics](#updateMetrics).
+
+ControllerEvent | Handler
+----------------|--------
+ AllocateProducerIds | [processAllocateProducerIds](#processAllocateProducerIds)
+ AlterPartitionReceived | [processAlterPartition](#processAlterPartition)
+ ApiPartitionReassignment | [processApiPartitionReassignment](#processApiPartitionReassignment)
+ AutoPreferredReplicaLeaderElection | [processAutoPreferredReplicaLeaderElection](#processAutoPreferredReplicaLeaderElection)
+ BrokerChange | [processBrokerChange](#processBrokerChange)
+ BrokerModifications | [processBrokerModification](#processBrokerModification)
+ ControlledShutdown | [processControlledShutdown](#processControlledShutdown)
+ ControllerChange | [processControllerChange](#processControllerChange)
+ Expire | [processExpire](#processExpire)
+ IsrChangeNotification | [processIsrChangeNotification](#processIsrChangeNotification)
+ LeaderAndIsrResponseReceived | [processLeaderAndIsrResponseReceived](#processLeaderAndIsrResponseReceived)
+ ListPartitionReassignments | [processListPartitionReassignments](#processListPartitionReassignments)
+ LogDirEventNotification | [processLogDirEventNotification](#processLogDirEventNotification)
+ PartitionModifications | [processPartitionModifications](#processPartitionModifications)
+ PartitionReassignmentIsrChange | [processPartitionReassignmentIsrChange](#processPartitionReassignmentIsrChange)
+ Reelect | [processReelect](#processReelect)
+ RegisterBrokerAndReelect | [processRegisterBrokerAndReelect](#processRegisterBrokerAndReelect)
+ ReplicaLeaderElection | [processReplicaLeaderElection](#processReplicaLeaderElection)
+ Startup | [processStartup](#processStartup)
+ TopicChange | [processTopicChange](#processTopicChange)
+ TopicDeletion | [processTopicDeletion](#processTopicDeletion)
+ TopicDeletionStopReplicaResponseReceived | [processTopicDeletionStopReplicaResponseReceived](#processTopicDeletionStopReplicaResponseReceived)
+ TopicUncleanLeaderElectionEnable | [processTopicUncleanLeaderElectionEnable](#processTopicUncleanLeaderElectionEnable)
+ UncleanLeaderElectionEnable | [processUncleanLeaderElectionEnable](#processUncleanLeaderElectionEnable)
+ UpdateFeatures | [processFeatureUpdates](#processFeatureUpdates)
+ UpdateMetadataResponseReceived | [processUpdateMetadataResponseReceived](#processUpdateMetadataResponseReceived)
+ ZkPartitionReassignment | [processZkPartitionReassignment](#processZkPartitionReassignment)
+
+### <span id="updateMetrics"> updateMetrics
+
+```scala
+updateMetrics(): Unit
+```
+
+`updateMetrics` updates the [metrics](#performance-metrics) (using the [ControllerContext](#controllerContext)).
+
+### <span id="process-ControllerMovedException"> ControllerMovedException
+
+In case of a `ControllerMovedException`, `process` prints out the following INFO message to the logs and [maybeResign](#maybeResign).
+
+```text
+Controller moved to another broker when processing [event].
+```
+
+### <span id="process-Throwable"> Throwable
+
+In case of any other error (`Throwable`), `process` simply prints out the following ERROR message to the logs:
+
+```text
+Error processing event [event]
+```
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.controller.KafkaController` logger to see what happens inside.
@@ -160,223 +333,6 @@ Refer to [Logging](../logging.md)
 `KafkaController` is in one of the <<kafka-controller-ControllerState.adoc#, ControllerStates>> (that is the <<kafka-controller-ControllerEventManager.adoc#state, state>> of the <<eventManager, ControllerEventManager>>).
 
 `KafkaController` uses the <<zkClient, KafkaZkClient>> to be notified about changes in the state of a Kafka cluster (that are reflected in changes in znodes of Apache Zookeeper) and propagate the state changes to other brokers.
-
-`KafkaController` uses <<listeners, listeners>> as a notification system to monitor znodes in Zookeeper and react accordingly.
-
-`KafkaController` emulates a state machine using <<controller-events, controller events>>.
-
-[[controller-events]]
-.KafkaController's Controller Events
-[cols="1,1,2",options="header",width="100%"]
-|===
-| Event
-| ControllerState
-| process Handler
-
-| ApiPartitionReassignment
-|
-| [[ApiPartitionReassignment]] <<processApiPartitionReassignment, processApiPartitionReassignment>>
-
-| AutoPreferredReplicaLeaderElection
-|
-| [[AutoPreferredReplicaLeaderElection]] <<processAutoPreferredReplicaLeaderElection, processAutoPreferredReplicaLeaderElection>>
-
-| BrokerChange
-| <<kafka-controller-ControllerState.adoc#BrokerChange, BrokerChange>>
-| [[BrokerChange]] <<processBrokerChange, processBrokerChange>>
-
-| BrokerModifications
-|
-| [[BrokerModifications]] <<processBrokerModification, processBrokerModification>>
-
-a| ControlledShutdown
-
-* `ID`
-
-* `controlledShutdownCallback`: Try[Set[TopicAndPartition]] => Unit
-
-| <<kafka-controller-ControllerState.adoc#ControlledShutdown, ControlledShutdown>>
-| [[ControlledShutdown]] <<processControlledShutdown, processControlledShutdown>>
-
-a| ControllerChange
-
-* `newControllerId`: Int
-
-| <<kafka-controller-ControllerState.adoc#ControllerChange, ControllerChange>>
-a| [[ControllerChange]] <<processControllerChange, processControllerChange>>
-
-1. Assigns the <<getControllerID, current controller ID>> as the input `newControllerId`
-1. (only when the broker is no longer an <<isActive, active controller>>) <<onControllerResignation, Resigns as the active controller>>
-
-NOTE:  Similar to <<Reelect, Reelect>> event with the only difference that it does *not* trigger <<elect, election>>
-
-| Expire
-|
-| [[Expire]] <<processExpire, processExpire>>
-
-| <<kafka-controller-ControllerEvent.adoc#IsrChangeNotification, IsrChangeNotification>>
-|
-| [[IsrChangeNotification]] <<processIsrChangeNotification, processIsrChangeNotification>>
-
-| <<kafka-controller-ControllerEvent-LeaderAndIsrResponseReceived.adoc#, LeaderAndIsrResponseReceived>>
-|
-| [[LeaderAndIsrResponseReceived]] <<processLeaderAndIsrResponseReceived, processLeaderAndIsrResponseReceived>>
-
-| ListPartitionReassignments
-|
-| [[ListPartitionReassignments]] <<processListPartitionReassignments, processListPartitionReassignments>>
-
-| LogDirEventNotification
-|
-| [[LogDirEventNotification]] <<processLogDirEventNotification, processLogDirEventNotification>>
-
-| PartitionModifications
-|
-| [[PartitionModifications]] <<processPartitionModifications, processPartitionModifications>>
-
-| PartitionReassignmentIsrChange
-|
-| [[PartitionReassignmentIsrChange]] <<processPartitionReassignmentIsrChange, processPartitionReassignmentIsrChange>>
-
-| Reelect
-| <<kafka-controller-ControllerState.adoc#ControllerChange, ControllerChange>>
-a| [[Reelect]] <<processReelect, processReelect>>
-
-1. Assigns the <<getControllerID, current controller ID>> as <<activeControllerId, activeControllerId>>
-1. (only when the broker is no longer an <<isActive, active controller>>) <<onControllerResignation, Resigns as the active controller>>
-1. <<elect, elect>>
-
-| RegisterBrokerAndReelect
-|
-| [[RegisterBrokerAndReelect]] <<processRegisterBrokerAndReelect, processRegisterBrokerAndReelect>>
-
-| ReplicaLeaderElection
-|
-| [[ReplicaLeaderElection]] <<processReplicaLeaderElection, processReplicaLeaderElection>>
-
-| ShutdownEventThread
-|
-| [[ShutdownEventThread]]
-
-| Startup
-| <<kafka-controller-ControllerState.adoc#ControllerChange, ControllerChange>>
-a| [[Startup]] <<processStartup, processStartup>>
-
-1. <<registerSessionExpirationListener, registerSessionExpirationListener>>
-1. <<registerControllerChangeListener, registerControllerChangeListener>>
-1. <<elect, elect>>
-
-| TopicChange
-|
-| [[TopicChange]] <<processTopicChange, processTopicChange>>
-
-| TopicDeletion
-|
-| [[TopicDeletion]] <<processTopicDeletion, processTopicDeletion>>
-
-| TopicDeletionStopReplicaResponseReceived
-|
-| [[TopicDeletionStopReplicaResponseReceived]] <<processTopicDeletionStopReplicaResponseReceived, processTopicDeletionStopReplicaResponseReceived>>
-
-| TopicUncleanLeaderElectionEnable
-|
-| [[TopicUncleanLeaderElectionEnable]] <<processTopicUncleanLeaderElectionEnable, processTopicUncleanLeaderElectionEnable>>
-
-| UncleanLeaderElectionEnable
-|
-| [[UncleanLeaderElectionEnable]] <<processUncleanLeaderElectionEnable, processUncleanLeaderElectionEnable>>
-
-| ZkPartitionReassignment
-|
-| [[ZkPartitionReassignment]] <<processZkPartitionReassignment, processZkPartitionReassignment>>
-
-|===
-
-[[znode-change-handlers]]
-.KafkaController's ZNodeChangeHandler and ZNodeChildChangeHandlers
-[cols="1m,2",options="header",width="100%"]
-|===
-| Name
-| Description
-
-| brokerChangeHandler
-| [[brokerChangeHandler]][[BrokerChangeHandler]] `ZNodeChildChangeHandler` of `/brokers/ids` path
-
-On `handleChildChange`, `brokerChangeHandler` simply sends <<BrokerChange, BrokerChange>> event to the <<eventManager, ControllerEventManager>>.
-
-| isrChangeNotificationHandler
-| [[isrChangeNotificationHandler]] `ZNodeChildChangeHandler` of `/isr_change_notification` path
-
-On `handleChildChange`, `isrChangeNotificationHandler` simply sends <<IsrChangeNotification, IsrChangeNotification>> event to the <<eventManager, ControllerEventManager>>.
-
-| logDirEventNotificationHandler
-| [[logDirEventNotificationHandler]] `ZNodeChildChangeHandler` of `/log_dir_event_notification` path
-
-On `handleChildChange`, `logDirEventNotificationHandler` simply sends <<LogDirEventNotification, LogDirEventNotification>> event to the <<eventManager, ControllerEventManager>>.
-
-| partitionModificationsHandlers
-a| [[partitionModificationsHandlers]] `ZNodeChangeHandlers` per topic of `/brokers/topics/[topic]` path
-
-On `handleDataChange`, `partitionModificationsHandlers` simply send <<PartitionModifications, PartitionModifications>> event to the <<eventManager, ControllerEventManager>>.
-
-| partitionReassignmentHandler
-| [[partitionReassignmentHandler]] `ZNodeChangeHandler` of `/admin/reassign_partitions` path
-
-On `handleCreation`, `partitionReassignmentHandler` simply sends <<PartitionReassignment, PartitionReassignment>> event to the <<eventManager, ControllerEventManager>>.
-
-| preferredReplicaElectionHandler
-| [[preferredReplicaElectionHandler]][[PreferredReplicaElectionHandler]] `ZNodeChangeHandler` of `/admin/preferred_replica_election` path
-
-On `handleCreation`, `preferredReplicaElectionHandler` simply sends <<PreferredReplicaLeaderElection, PreferredReplicaLeaderElection>> event to the <<eventManager, ControllerEventManager>>.
-
-| topicChangeHandler
-| [[topicChangeHandler]] `ZNodeChildChangeHandler` of `/brokers/topics` path
-
-On `handleChildChange`, `topicChangeHandler` simply sends <<TopicChange, TopicChange>> event to the <<eventManager, ControllerEventManager>>.
-
-| topicDeletionHandler
-| [[topicDeletionHandler]] `ZNodeChildChangeHandler` of `/admin/delete_topics` path
-
-On `handleChildChange`, `topicDeletionHandler` simply sends <<TopicDeletion, TopicDeletion>> event to the <<eventManager, ControllerEventManager>>.
-
-|===
-
-[[listeners]]
-.KafkaController's Listeners
-[cols="1,2",options="header",width="100%"]
-|===
-| Listener
-| Description
-
-| [[brokerChangeListener]] `brokerChangeListener`
-| `BrokerChangeListener` for this `KafkaController` and <<eventManager, eventManager>>
-
-| [[isrChangeNotificationListener]] `isrChangeNotificationListener`
-| `IsrChangeNotificationListener` for this `KafkaController` and <<eventManager, eventManager>>
-
-Registered in <<registerIsrChangeNotificationListener, registerIsrChangeNotificationListener>> when `KafkaController` does <<onControllerFailover, onControllerFailover>>.
-
-De-registered in <<unregisterZNodeChildChangeHandler, unregisterZNodeChildChangeHandler>> when `KafkaController` <<onControllerResignation, resigns as the active controller>>.
-
-| [[logDirEventNotificationListener]] `logDirEventNotificationListener`
-| `LogDirEventNotificationListener`
-
-| [[partitionModificationsListeners]] `partitionModificationsListeners`
-| `PartitionModificationsListener` by name
-
-| [[partitionReassignmentListener]] `partitionReassignmentListener`
-| `PartitionReassignmentListener` for this `KafkaController` and <<eventManager, ControllerEventManager>>
-
-| [[preferredReplicaElectionListener]] `preferredReplicaElectionListener`
-| `PreferredReplicaElectionListener` for this `KafkaController` and <<eventManager, ControllerEventManager>>
-
-| [[topicDeletionListener]] `topicDeletionListener`
-| `TopicDeletionListener` (for this `KafkaController` and <<eventManager, ControllerEventManager>>)
-
-Registered in <<registerTopicDeletionListener, registerTopicDeletionListener>> when `KafkaController` does <<onControllerFailover, onControllerFailover>>.
-
-De-registered in <<deregisterTopicDeletionListener, deregisterTopicDeletionListener>> when `KafkaController` <<onControllerResignation, resigns as the active controller>>.
-|===
 
 ## <span id="replicaStateMachine"> ReplicaStateMachine
 
@@ -433,112 +389,6 @@ When <<creating-instance, created>>, `KafkaController` creates a new link:kafka-
 * <<doControlledShutdown, doControlledShutdown>> to transition partitions to `OnlinePartition` state
 
 `KafkaController` uses the `ZkPartitionStateMachine` to create the <<topicDeletionManager, TopicDeletionManager>>.
-
-## <span id="process"> Processing Controller Events
-
-```scala
-process(
-  event: ControllerEvent): Unit
-```
-
-NOTE: `process` is part of the <<kafka-controller-ControllerEventProcessor.adoc#process, ControllerEventProcessor Contract>> to process <<kafka-controller-ControllerEvent.adoc#, controller events>>.
-
-`process` handles the <<kafka-controller-ControllerEvent.adoc#, ControllerEvent>> using <<handlers, ControllerEvent handlers>>.
-
-[[handlers]]
-.ControllerEvent Handlers
-[cols="30m,70",options="header",width="100%"]
-|===
-| Name
-| Description
-
-| <<ShutdownEventThread, ShutdownEventThread>>
-|
-
-| <<AutoPreferredReplicaLeaderElection, AutoPreferredReplicaLeaderElection>>
-| <<processAutoPreferredReplicaLeaderElection, processAutoPreferredReplicaLeaderElection>>
-
-| <<ReplicaLeaderElection, ReplicaLeaderElection>>
-| <<processReplicaLeaderElection, processReplicaLeaderElection>>
-
-| <<UncleanLeaderElectionEnable, UncleanLeaderElectionEnable>>
-| <<processUncleanLeaderElectionEnable, processUncleanLeaderElectionEnable>>
-
-| <<TopicUncleanLeaderElectionEnable, TopicUncleanLeaderElectionEnable>>
-| <<processTopicUncleanLeaderElectionEnable, processTopicUncleanLeaderElectionEnable>>
-
-| <<ControlledShutdown, ControlledShutdown>>
-| <<processControlledShutdown, processControlledShutdown>>
-
-| <<kafka-controller-ControllerEvent-LeaderAndIsrResponseReceived.adoc#, LeaderAndIsrResponseReceived>>
-| <<processLeaderAndIsrResponseReceived, processLeaderAndIsrResponseReceived>>
-
-| <<TopicDeletionStopReplicaResponseReceived, TopicDeletionStopReplicaResponseReceived>>
-| <<processTopicDeletionStopReplicaResponseReceived, processTopicDeletionStopReplicaResponseReceived>>
-
-| <<BrokerChange, BrokerChange>>
-| <<processBrokerChange, processBrokerChange>>
-
-| <<BrokerModifications, BrokerModifications>>
-| <<processBrokerModification, processBrokerModification>>
-
-| <<ControllerChange, ControllerChange>>
-| <<processControllerChange, processControllerChange>>
-
-| <<Reelect, Reelect>>
-| <<processReelect, processReelect>>
-
-| <<RegisterBrokerAndReelect, RegisterBrokerAndReelect>>
-| <<processRegisterBrokerAndReelect, processRegisterBrokerAndReelect>>
-
-| <<Expire, Expire>>
-| <<processExpire, processExpire>>
-
-| <<TopicChange, TopicChange>>
-| <<processTopicChange, processTopicChange>>
-
-| <<LogDirEventNotification, LogDirEventNotification>>
-| <<processLogDirEventNotification, processLogDirEventNotification>>
-
-| <<PartitionModifications, PartitionModifications>>
-| <<processPartitionModifications, processPartitionModifications>>
-
-| <<TopicDeletion, TopicDeletion>>
-| <<processTopicDeletion, processTopicDeletion>>
-
-| <<ApiPartitionReassignment, ApiPartitionReassignment>>
-| <<processApiPartitionReassignment, processApiPartitionReassignment>>
-
-| <<ZkPartitionReassignment, ZkPartitionReassignment>>
-| <<processZkPartitionReassignment, processZkPartitionReassignment>>
-
-| <<ListPartitionReassignments, ListPartitionReassignments>>
-| <<processListPartitionReassignments, processListPartitionReassignments>>
-
-| <<PartitionReassignmentIsrChange, PartitionReassignmentIsrChange>>
-| <<processPartitionReassignmentIsrChange, processPartitionReassignmentIsrChange>>
-
-| <<IsrChangeNotification, IsrChangeNotification>>
-| <<processIsrChangeNotification, processIsrChangeNotification>>
-
-| <<Startup, Startup>>
-| <<processStartup, processStartup>>
-
-|===
-
-In the end, `process` <<updateMetrics, updateMetrics>>.
-
-In case of a `ControllerMovedException`, `process` prints out the following INFO message to the logs and <<maybeResign, maybeResign>>.
-
-```
-Controller moved to another broker when processing [event].
-```
-
-In case of any error (`Throwable`), `process` simply prints out the following ERROR message to the logs:
-
-```
-Error processing event [event]
-```
 
 ## <span id="unregisterZNodeChildChangeHandler"> Unsubscribing from Child Changes to /isr_change_notification ZNode
 
@@ -636,6 +486,8 @@ updateLeaderEpochAndSendRequest(
 [[updateLeaderEpochAndSendRequest-updateLeaderEpoch]]
 `updateLeaderEpochAndSendRequest` <<updateLeaderEpoch, updates leader epoch for the partition>> and branches off per result: a <<updateLeaderEpochAndSendRequest-updateLeaderEpoch-LeaderIsrAndControllerEpoch, LeaderIsrAndControllerEpoch>> or <<updateLeaderEpochAndSendRequest-updateLeaderEpoch-None, none at all>>.
 
+NOTE: `updateLeaderEpochAndSendRequest` is used when `KafkaController` is requested to <<onPartitionReassignment, onPartitionReassignment>> and <<moveReassignedPartitionLeaderIfRequired, moveReassignedPartitionLeaderIfRequired>>.
+
 ### <span id="updateLeaderEpochAndSendRequest-updateLeaderEpoch-LeaderIsrAndControllerEpoch"> LeaderIsrAndControllerEpoch
 
 When <<updateLeaderEpoch, updating leader epoch for the partition>> returns a `LeaderIsrAndControllerEpoch`, `updateLeaderEpochAndSendRequest` requests the <<brokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#newBatch, prepare a new batch>>. `updateLeaderEpochAndSendRequest` requests the <<brokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#addLeaderAndIsrRequestForBrokers, addLeaderAndIsrRequestForBrokers>> followed by <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#sendRequestsToBrokers, sendRequestsToBrokers>>.
@@ -646,7 +498,7 @@ In the end, `updateLeaderEpochAndSendRequest` prints out the following TRACE mes
 Sent LeaderAndIsr request [updatedLeaderIsrAndControllerEpoch] with new assigned replica list [newAssignedReplicas] to leader [leader] for partition being reassigned [partition]
 ```
 
-==== [[updateLeaderEpochAndSendRequest-updateLeaderEpoch-None]] `updateLeaderEpochAndSendRequest` and No LeaderIsrAndControllerEpoch
+### <span id="updateLeaderEpochAndSendRequest-updateLeaderEpoch-None"> No LeaderIsrAndControllerEpoch
 
 When <<updateLeaderEpoch, updating leader epoch for the partition>> returns `None`, `updateLeaderEpochAndSendRequest` prints out the following ERROR message to the logs:
 
@@ -654,79 +506,7 @@ When <<updateLeaderEpoch, updating leader epoch for the partition>> returns `Non
 Failed to send LeaderAndIsr request with new assigned replica list [newAssignedReplicas] to leader for partition being reassigned [partition]
 ```
 
-NOTE: `updateLeaderEpochAndSendRequest` is used when `KafkaController` is requested to <<onPartitionReassignment, onPartitionReassignment>> and <<moveReassignedPartitionLeaderIfRequired, moveReassignedPartitionLeaderIfRequired>>.
-
-## <span id="shutdown"> Shutting Down
-
-```scala
-shutdown(): Unit
-```
-
-`shutdown` requests the [ControllerEventManager](#eventManager) to close followed by [onControllerResignation](#onControllerResignation).
-
----
-
-`shutdown` is used when:
-
-* `KafkaServer` is requested to [shut down](../broker/KafkaServer.md#shutdown).
-
-## <span id="eventManager"> ControllerEventManager
-
-`KafkaController` creates a [ControllerEventManager](ControllerEventManager.md) when [created](#creating-instance) (with [broker.id](../KafkaConfig.md#brokerId) configuration property).
-
-The `ControllerEventManager` is used to create the following services:
-
-* [ControllerBrokerRequestBatch](#brokerRequestBatch)
-* [ZkReplicaStateMachine](#replicaStateMachine)
-* [ZkPartitionStateMachine](#partitionStateMachine)
-* [ControllerChangeHandler](#controllerChangeHandler)
-* [BrokerChangeHandler](#brokerChangeHandler)
-* [TopicChangeHandler](#topicChangeHandler)
-* [TopicDeletionHandler](#topicDeletionHandler)
-* [PartitionReassignmentHandler](#partitionReassignmentHandler)
-* [PreferredReplicaElectionHandler](#preferredReplicaElectionHandler)
-* [IsrChangeNotificationHandler](#isrChangeNotificationHandler)
-* [LogDirEventNotificationHandler](#logDirEventNotificationHandler)
-* `BrokerModificationsHandler` (in [registerBrokerModificationsHandler](#registerBrokerModificationsHandler))
-* `PartitionReassignmentIsrChangeHandler` (in [updateCurrentReassignment](#updateCurrentReassignment))
-* `PartitionModificationsHandler` (in [registerPartitionModificationsHandlers](#registerPartitionModificationsHandlers))
-
-## <span id="onBrokerStartup"> onBrokerStartup
-
-```scala
-onBrokerStartup(
-  newBrokers: Seq[Int]): Unit
-```
-
-`onBrokerStartup` prints out the following INFO message to the logs:
-
-```text
-New broker startup callback for [newBrokers]
-```
-
-`onBrokerStartup` requests the <<controllerContext, ControllerContext>> for the <<kafka-controller-ControllerContext.adoc#replicasOnOfflineDirs, replicasOnOfflineDirs>> and removes the given broker IDs (in `newBrokers`).
-
-`onBrokerStartup` <<sendUpdateMetadataRequest, sendUpdateMetadataRequest>> to the <<kafka-controller-ControllerContext.adoc#liveOrShuttingDownBrokerIds, liveOrShuttingDownBrokerIds>> (of the <<controllerContext, ControllerContext>>).
-
-`onBrokerStartup` requests the <<controllerContext, ControllerContext>> for the <<kafka-controller-ControllerContext.adoc#replicasOnBrokers, replicas>> on the given `newBrokers`.
-
-`onBrokerStartup` requests the <<replicaStateMachine, ReplicaStateMachine>> to <<kafka-controller-ReplicaStateMachine.adoc#handleStateChanges, handleStateChanges>> for the replicas on the new brokers and `OnlineReplica` target state.
-
-`onBrokerStartup` requests the <<partitionStateMachine, PartitionStateMachine>> to <<kafka-controller-PartitionStateMachine.adoc#triggerOnlinePartitionStateChange, triggerOnlinePartitionStateChange>>.
-
-`onBrokerStartup` requests the <<controllerContext, ControllerContext>> for the <<kafka-controller-ControllerContext.adoc#partitionsBeingReassigned, partitionsBeingReassigned>> and collects the partitions that have replicas on the new brokers. For every partition with a replica on the new brokers, `onBrokerStartup` <<onPartitionReassignment, onPartitionReassignment>>.
-
-`onBrokerStartup` collects replicas (on the new brokers) that are scheduled to be deleted by requesting the <<topicDeletionManager, TopicDeletionManager>> to <<kafka-controller-TopicDeletionManager.adoc#isTopicQueuedUpForDeletion, see whether isTopicQueuedUpForDeletion>>. If there are any, `onBrokerStartup` prints out the following INFO message to the logs and requests the <<topicDeletionManager, TopicDeletionManager>> to <<kafka-controller-TopicDeletionManager.adoc#resumeDeletionForTopics, resumeDeletionForTopics>>.
-
-```
-Some replicas [replicasForTopicsToBeDeleted] for topics scheduled for deletion [topicsToBeDeleted] are on the newly restarted brokers [newBrokers]. Signaling restart of topic deletion for these topics
-```
-
-In the end, `onBrokerStartup` <<registerBrokerModificationsHandler, registerBrokerModificationsHandler>> for the new brokers.
-
-NOTE: `onBrokerStartup` is used exclusively when `KafkaController` is requested to process a <<BrokerChange, BrokerChange>> controller event.
-
-=== [[elect]] Controller Election -- `elect` Method
+=== [[elect]] Controller Election
 
 ```scala
 elect(): Unit
@@ -769,7 +549,7 @@ Broker [activeControllerId] was elected as controller instead of broker [brokerI
 A controller has been elected but just resigned, this will result in another round of election
 ```
 
-=== [[isActive]] Is Broker The Active Controller? -- `isActive` Method
+=== [[isActive]] Is Broker The Active Controller?
 
 ```scala
 isActive: Boolean
@@ -790,7 +570,7 @@ NOTE: `isActive` is on (`true`) after the `KafkaController` of a Kafka broker ha
 * `KafkaApis` is requested to <<kafka-server-KafkaApis.adoc#handleCreateTopicsRequest, handleCreateTopicsRequest>>, <<kafka-server-KafkaApis.adoc#handleCreatePartitionsRequest, handleCreatePartitionsRequest>> and <<kafka-server-KafkaApis.adoc#handleDeleteTopicsRequest, handleDeleteTopicsRequest>>
 ====
 
-=== [[startup]] Starting Up -- `startup` Method
+=== [[startup]] Starting Up
 
 [source, scala]
 ----
