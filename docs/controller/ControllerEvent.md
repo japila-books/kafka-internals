@@ -1,27 +1,66 @@
 # ControllerEvent
 
-`ControllerEvent` is the <<contract, contract>> of the <<implementations, events>> in the lifecycle of <<kafka-controller-KafkaController.adoc#, KafkaController>> (state machine) that trigger <<state, state>> change.
+`ControllerEvent` is an [abstraction](#contract) of [events](#implementations) in the lifecycle of [KafkaController](KafkaController.md) (state machine) that trigger [state](#state) change.
 
-`ControllerEvent` events are managed by <<kafka-controller-ControllerEventManager.adoc#, ControllerEventManager>>.
+`ControllerEvent` events are managed by [ControllerEventManager](ControllerEventManager.md).
 
-[[contract]]
-.ControllerEvent Contract
-[cols="30m,70",options="header",width="100%"]
-|===
-| Method
-| Description
+## Contract
 
-| state
-a| [[state]]
+### <span id="preempt"> preempt
 
-[source, scala]
-----
+```scala
+preempt(): Unit
+```
+
+Used when:
+
+* FIXME
+
+### <span id="state"> ControllerState
+
+```scala
 state: ControllerState
-----
+```
 
-Requested <<kafka-controller-ControllerState.adoc#, ControllerState>> of the <<kafka-controller-ControllerEventManager.adoc#, ControllerEventManager>> (while <<kafka-controller-ControllerEventThread.adoc#doWork, processing a controller event>>)
+[ControllerState](ControllerState.md) of the [ControllerEventManager](ControllerEventManager.md) (while [processing controller events](ControllerEventThread.md#doWork))
 
-|===
+Used when:
+
+* FIXME
+
+## Implementations
+
+* AllocateProducerIds
+* AlterPartitionReceived
+* ApiPartitionReassignment
+* [AutoPreferredReplicaLeaderElection](events/AutoPreferredReplicaLeaderElection.md)
+* BrokerChange
+* BrokerModifications
+* ControlledShutdown
+* ControllerChange
+* Expire
+* IsrChangeNotification
+* LeaderAndIsrResponseReceived
+* ListPartitionReassignments
+* LogDirEventNotification
+* MockEvent
+* PartitionModifications
+* PartitionReassignmentIsrChange
+* Reelect
+* RegisterBrokerAndReelect
+* ReplicaLeaderElection
+* ShutdownEventThread
+* Startup
+* TopicChange
+* TopicDeletion
+* TopicDeletionStopReplicaResponseReceived
+* TopicUncleanLeaderElectionEnable
+* UncleanLeaderElectionEnable
+* UpdateFeatures
+* UpdateMetadataResponseReceived
+* ZkPartitionReassignment
+
+## Review Me
 
 [[implementations]]
 .ControllerEvents

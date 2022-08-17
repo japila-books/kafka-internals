@@ -141,11 +141,17 @@ nav:
       - zk/KafkaZkClient.md
   - Controller Broker:
     - controller/index.md
+    - ControllerBrokerRequestBatch: controller/ControllerBrokerRequestBatch.md
     - controller/ControllerContext.md
-    - controller/ControllerEvent.md
+    - ControllerEvents:
+      - ControllerEvent: controller/ControllerEvent.md
+      - AutoPreferredReplicaLeaderElection: controller/events/AutoPreferredReplicaLeaderElection.md
+    - controller/ControllerEventManager.md
+    - ControllerEventProcessor: controller/ControllerEventProcessor.md
     - controller/ControllerState.md
     - controller/ControllerEventThread.md
     - controller/KafkaController.md
+    - QueuedEvent: controller/QueuedEvent.md
   - Features:
     - Consumer Groups:
       - consumer-groups/index.md

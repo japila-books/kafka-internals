@@ -1,8 +1,14 @@
 # ControllerEventThread
 
-`ControllerEventThread` is a <<kafka-ShutdownableThread.adoc#, ShutdownableThread>> that is <<creating-instance, created>> for <<kafka-controller-ControllerEventManager.adoc#, ControllerEventManager>> (with the <<name, name>> being *controller-event-thread*).
+`ControllerEventThread` is a `ShutdownableThread` that [ControllerEventManager](ControllerEventManager.md#thread) uses to [process QueuedEvents](#doWork) (asynchronously on a separate thread).
 
-```
+![ControllerEventThread is Started Alongside ControllerEventManager](../images/ControllerEventThread-doWork.png)
+
+## Review Me
+
+`ControllerEventThread` is a `ShutdownableThread` that is <<creating-instance, created>> for <<kafka-controller-ControllerEventManager.adoc#, >> (with the <<name, name>> being *controller-event-thread*).
+
+```text
 // jstack [brokerPid]
 "controller-event-thread" #42 prio=5 os_prio=31 cpu=387,10ms elapsed=82679,68s tid=0x00007f920e489800 nid=0x14703 waiting on condition  [0x000070000fcea000]
    java.lang.Thread.State: WAITING (parking)
@@ -16,9 +22,6 @@
 ```
 
 `ControllerEventThread` is <<doWork, started>> with <<kafka-controller-ControllerEventManager.adoc#start, ControllerEventManager>>.
-
-.ControllerEventThread is Started Alongside ControllerEventManager
-image::images/ControllerEventThread-doWork.png[align="center"]
 
 [[creating-instance]][[name]]
 `ControllerEventThread` takes the name of the thread to be created.

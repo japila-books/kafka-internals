@@ -108,6 +108,20 @@ Resigned
 
 * `KafkaController` is requested to [shutdown](#shutdown), [triggerControllerMove](#triggerControllerMove), [maybeResign](#maybeResign), [processExpire](#processExpire)
 
+## <span id="processExpire"> Processing Expire Event
+
+```scala
+processExpire(): Unit
+```
+
+`processExpire` sets the [activeControllerId](#activeControllerId) to `-1` followed by [onControllerResignation](#onControllerResignation).
+
+---
+
+`processExpire` is used when:
+
+* `KafkaController` is requested to [process Expire event](#process)
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.controller.KafkaController` logger to see what happens inside.
@@ -655,6 +669,27 @@ shutdown(): Unit
 `shutdown` is used when:
 
 * `KafkaServer` is requested to [shut down](../broker/KafkaServer.md#shutdown).
+
+## <span id="eventManager"> ControllerEventManager
+
+`KafkaController` creates a [ControllerEventManager](ControllerEventManager.md) when [created](#creating-instance) (with [broker.id](../KafkaConfig.md#brokerId) configuration property).
+
+The `ControllerEventManager` is used to create the following services:
+
+* [ControllerBrokerRequestBatch](#brokerRequestBatch)
+* [ZkReplicaStateMachine](#replicaStateMachine)
+* [ZkPartitionStateMachine](#partitionStateMachine)
+* [ControllerChangeHandler](#controllerChangeHandler)
+* [BrokerChangeHandler](#brokerChangeHandler)
+* [TopicChangeHandler](#topicChangeHandler)
+* [TopicDeletionHandler](#topicDeletionHandler)
+* [PartitionReassignmentHandler](#partitionReassignmentHandler)
+* [PreferredReplicaElectionHandler](#preferredReplicaElectionHandler)
+* [IsrChangeNotificationHandler](#isrChangeNotificationHandler)
+* [LogDirEventNotificationHandler](#logDirEventNotificationHandler)
+* `BrokerModificationsHandler` (in [registerBrokerModificationsHandler](#registerBrokerModificationsHandler))
+* `PartitionReassignmentIsrChangeHandler` (in [updateCurrentReassignment](#updateCurrentReassignment))
+* `PartitionModificationsHandler` (in [registerPartitionModificationsHandlers](#registerPartitionModificationsHandlers))
 
 ## <span id="onBrokerStartup"> onBrokerStartup
 
