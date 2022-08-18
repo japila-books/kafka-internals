@@ -2,7 +2,7 @@
 
 `ControllerBrokerRequestBatch` is an [AbstractControllerBrokerRequestBatch](AbstractControllerBrokerRequestBatch.md).
 
-Every time `ControllerBrokerRequestBatch` is used it is first requested to [prepare a new batch](AbstractControllerBrokerRequestBatch.md#newBatch) (of controller requests) that is then [send out to selected brokers](AbstractControllerBrokerRequestBatch.md#sendRequestsToBrokers).
+Every time `ControllerBrokerRequestBatch` is used it is first requested to [prepare a new batch](AbstractControllerBrokerRequestBatch.md#newBatch) (of controller requests) followed by [sending them out to brokers](AbstractControllerBrokerRequestBatch.md#sendRequestsToBrokers).
 
 ## Creating Instance
 

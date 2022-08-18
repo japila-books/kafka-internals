@@ -155,6 +155,7 @@ nav:
     - controller/KafkaController.md
     - ReplicaStateMachine: controller/ReplicaStateMachine.md
     - QueuedEvent: controller/QueuedEvent.md
+    - ZkPartitionStateMachine: controller/ZkPartitionStateMachine.md
     - ZkReplicaStateMachine: controller/ZkReplicaStateMachine.md
   - Features:
     - Consumer Groups:
