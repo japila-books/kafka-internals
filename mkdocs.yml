@@ -151,7 +151,9 @@ nav:
     - controller/ControllerState.md
     - controller/ControllerEventThread.md
     - controller/KafkaController.md
+    - ReplicaStateMachine: controller/ReplicaStateMachine.md
     - QueuedEvent: controller/QueuedEvent.md
+    - ZkReplicaStateMachine: controller/ZkReplicaStateMachine.md
   - Features:
     - Consumer Groups:
       - consumer-groups/index.md

@@ -193,6 +193,32 @@ In the end, `onBrokerStartup` [registerBrokerModificationsHandler](#registerBrok
 
 * `KafkaController` is requested to [process a BrokerChange controller event](#processBrokerChange)
 
+## <span id="replicaStateMachine"> ReplicaStateMachine
+
+`KafkaController` creates a [ZkReplicaStateMachine](ZkReplicaStateMachine.md) when [created](#creating-instance).
+
+`ZkReplicaStateMachine` is requested to <<kafka-controller-ReplicaStateMachine.adoc#startup, start up>> at <<onControllerFailover, onControllerFailover>> (when a broker is successfully <<elect, elected as the controller>>) and <<kafka-controller-ReplicaStateMachine.adoc#shutdown, shut down>> at <<onControllerResignation, controller resignation>>.
+
+`ZkReplicaStateMachine` is requested to <<kafka-controller-ZkReplicaStateMachine.adoc#handleStateChanges, handle state changes of partition replicas>> at the following events:
+
+* <<onBrokerLogDirFailure, onBrokerLogDirFailure>> to transition replicas to `OnlineReplica` state
+
+* <<onBrokerStartup, onBrokerStartup>> to transition replicas to `OnlineReplica` state
+
+* <<onReplicasBecomeOffline, onReplicasBecomeOffline>> to transition replicas to `OfflineReplica` state
+
+* <<onNewPartitionCreation, onNewPartitionCreation>> to transition replicas to `NewReplica` state first and then to `OnlineReplica`
+
+* <<onPartitionReassignment, onPartitionReassignment>> to transition replicas to `OnlineReplica` state
+
+* <<stopOldReplicasOfReassignedPartition, stopOldReplicasOfReassignedPartition>> to transition replicas to `OfflineReplica` state first and then to `ReplicaDeletionStarted`, `ReplicaDeletionSuccessful`, and `NonExistentReplica` in the end
+
+* <<startNewReplicasForReassignedPartition, startNewReplicasForReassignedPartition>> to transition replicas to `NewReplica` state
+
+* <<doControlledShutdown, doControlledShutdown>> to transition replicas to `OfflineReplica` state
+
+`KafkaController` uses the `ZkReplicaStateMachine` to create the <<topicDeletionManager, TopicDeletionManager>>.
+
 ## <span id="shutdown"> Shutting Down
 
 ```scala
@@ -333,32 +359,6 @@ Refer to [Logging](../logging.md)
 `KafkaController` is in one of the <<kafka-controller-ControllerState.adoc#, ControllerStates>> (that is the <<kafka-controller-ControllerEventManager.adoc#state, state>> of the <<eventManager, ControllerEventManager>>).
 
 `KafkaController` uses the <<zkClient, KafkaZkClient>> to be notified about changes in the state of a Kafka cluster (that are reflected in changes in znodes of Apache Zookeeper) and propagate the state changes to other brokers.
-
-## <span id="replicaStateMachine"> ReplicaStateMachine
-
-When <<creating-instance, created>>, `KafkaController` creates a new <<kafka-controller-ZkReplicaStateMachine.adoc#, ZkReplicaStateMachine>>.
-
-`ZkReplicaStateMachine` is requested to <<kafka-controller-ReplicaStateMachine.adoc#startup, start up>> at <<onControllerFailover, onControllerFailover>> (when a broker is successfully <<elect, elected as the controller>>) and <<kafka-controller-ReplicaStateMachine.adoc#shutdown, shut down>> at <<onControllerResignation, controller resignation>>.
-
-`ZkReplicaStateMachine` is requested to <<kafka-controller-ZkReplicaStateMachine.adoc#handleStateChanges, handle state changes of partition replicas>> at the following events:
-
-* <<onBrokerLogDirFailure, onBrokerLogDirFailure>> to transition replicas to `OnlineReplica` state
-
-* <<onBrokerStartup, onBrokerStartup>> to transition replicas to `OnlineReplica` state
-
-* <<onReplicasBecomeOffline, onReplicasBecomeOffline>> to transition replicas to `OfflineReplica` state
-
-* <<onNewPartitionCreation, onNewPartitionCreation>> to transition replicas to `NewReplica` state first and then to `OnlineReplica`
-
-* <<onPartitionReassignment, onPartitionReassignment>> to transition replicas to `OnlineReplica` state
-
-* <<stopOldReplicasOfReassignedPartition, stopOldReplicasOfReassignedPartition>> to transition replicas to `OfflineReplica` state first and then to `ReplicaDeletionStarted`, `ReplicaDeletionSuccessful`, and `NonExistentReplica` in the end
-
-* <<startNewReplicasForReassignedPartition, startNewReplicasForReassignedPartition>> to transition replicas to `NewReplica` state
-
-* <<doControlledShutdown, doControlledShutdown>> to transition replicas to `OfflineReplica` state
-
-`KafkaController` uses the `ZkReplicaStateMachine` to create the <<topicDeletionManager, TopicDeletionManager>>.
 
 ## <span id="partitionStateMachine"> PartitionStateMachine
 

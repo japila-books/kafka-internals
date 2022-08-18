@@ -4,10 +4,9 @@
 
 The process of promoting a broker to be the active controller is called [Kafka Controller Election](controller-election.md).
 
-!!! quote "Kafka Controller Internals"
-    Quoting [Kafka Controller Internals](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals):
+!!! quote "[Kafka Controller Internals](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals)"
 
-    > In a Kafka cluster, one of the brokers serves as the controller, which is responsible for managing the states of partitions and replicas and for performing administrative tasks like reassigning partitions.
+    In a Kafka cluster, one of the brokers serves as the controller, which is responsible for managing the states of partitions and replicas and for performing administrative tasks like reassigning partitions.
 
 Kafka Controller registers [handlers](KafkaController.md#znode-change-handlers) to be notified about changes in Zookeeper and propagate them across brokers in a Kafka cluster.
 
