@@ -391,7 +391,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/AbstractControllerBrokerRequestBatch/</loc>
+         <lastmod>2022-08-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/controller/ControllerBrokerRequestBatch/</loc>
+         <lastmod>2022-08-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ControllerChannelManager/</loc>
          <lastmod>2022-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -432,6 +442,16 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/controller/QueuedEvent/</loc>
+         <lastmod>2022-08-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ReplicaStateMachine/</loc>
+         <lastmod>2022-08-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ZkReplicaStateMachine/</loc>
          <lastmod>2022-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
