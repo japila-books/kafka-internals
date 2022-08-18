@@ -451,6 +451,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/controller/ZkPartitionStateMachine/</loc>
+         <lastmod>2022-08-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/controller/ZkReplicaStateMachine/</loc>
          <lastmod>2022-08-18</lastmod>
          <changefreq>daily</changefreq>
