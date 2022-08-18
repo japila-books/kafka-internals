@@ -141,8 +141,10 @@ nav:
       - zk/KafkaZkClient.md
   - Controller Broker:
     - controller/index.md
+    - AbstractControllerBrokerRequestBatch: controller/AbstractControllerBrokerRequestBatch.md
     - ControllerBrokerRequestBatch: controller/ControllerBrokerRequestBatch.md
-    - controller/ControllerContext.md
+    - ControllerChannelManager: controller/ControllerChannelManager.md
+    - ControllerContext: controller/ControllerContext.md
     - ControllerEvents:
       - ControllerEvent: controller/ControllerEvent.md
       - AutoPreferredReplicaLeaderElection: controller/events/AutoPreferredReplicaLeaderElection.md
