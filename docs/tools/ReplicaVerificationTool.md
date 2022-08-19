@@ -1,3 +1,0 @@
-# ReplicaVerificationTool
-
-`ReplicaVerificationTool` is...FIXME

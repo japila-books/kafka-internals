@@ -248,9 +248,12 @@ nav:
       - AdminClientService: tools/kafka-acls/AdminClientService.md
       - AuthorizerService: tools/kafka-acls/AuthorizerService.md
     - ReassignPartitionsCommand: tools/ReassignPartitionsCommand.md
-    - ReplicaVerificationTool: tools/ReplicaVerificationTool.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
+    - kafka-replica-verification:
+      - tools/kafka-replica-verification/index.md
+      - ReplicaFetcher: tools/kafka-replica-verification/ReplicaFetcher.md
+      - ReplicaVerificationTool: tools/kafka-replica-verification/ReplicaVerificationTool.md
   - Metrics:
     - metrics/index.md
     - KafkaMetricsGroup: metrics/KafkaMetricsGroup.md

@@ -58,7 +58,6 @@ Used when:
 * `Sender` is requested to [run](producer/Sender.md#run)
 * `KafkaServer` is requested to `controlledShutdown`
 * `ReplicaFetcherBlockingSend` is requested to `sendRequest`
-* [ReplicaVerificationTool](../tools/ReplicaVerificationTool.md) is used
 
 ### <span id="poll"> poll
 
