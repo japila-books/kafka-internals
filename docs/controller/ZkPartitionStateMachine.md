@@ -1,40 +1,44 @@
 # ZkPartitionStateMachine
 
-## Review Me
+`ZkPartitionStateMachine` is a [PartitionStateMachine](PartitionStateMachine.md) of a [KafkaController](KafkaController.md#partitionStateMachine).
 
-`ZkPartitionStateMachine` is a <<kafka-controller-PartitionStateMachine.adoc#, PartitionStateMachine>> (with a given <<controllerContext, ControllerContext>>) for link:kafka-controller-KafkaController.adoc#partitionStateMachine[KafkaController] (for every link:kafka-server-KafkaServer.adoc[KafkaServer]).
+![ZkPartitionStateMachine and KafkaController](../images/ZkPartitionStateMachine.png)
 
-.ZkPartitionStateMachine and KafkaController
-image::images/ZkPartitionStateMachine.png[align="center"]
-
-When requested to <<handleStateChanges, handle partition state changes>>, `ZkPartitionStateMachine` uses the <<controllerBrokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#sendRequestsToBrokers, propagate them to all brokers in a cluster>>.
-
-[[logIdent]]
-`ZkPartitionStateMachine` uses *[PartitionStateMachine controllerId=[brokerId]]* as the logging prefix (aka `logIdent`).
-
-[[logging]]
-[TIP]
-====
-Enable `ALL` logging levels for `kafka.controller.ZkPartitionStateMachine` logger to see what happens inside.
-
-Add the following line to `config/log4j.properties`:
-
-```
-log4j.logger.kafka.controller.ZkPartitionStateMachine=ALL
-```
-
-Refer to <<kafka-logging.adoc#, Logging>>.
-====
-
-=== [[creating-instance]] Creating ZkPartitionStateMachine Instance
+## Creating Instance
 
 `ZkPartitionStateMachine` takes the following to be created:
 
-* [[config]] link:kafka-server-KafkaConfig.adoc[KafkaConfig]
-* [[stateChangeLogger]] link:kafka-controller-StateChangeLogger.adoc[StateChangeLogger]
-* [[controllerContext]] link:kafka-controller-ControllerContext.adoc[ControllerContext]
-* [[zkClient]] link:kafka-zk-KafkaZkClient.adoc[KafkaZkClient]
-* [[controllerBrokerRequestBatch]] link:kafka-controller-ControllerBrokerRequestBatch.adoc[ControllerBrokerRequestBatch]
+* <span id="config"> [KafkaConfig](../KafkaConfig.md)
+* <span id="stateChangeLogger"> `StateChangeLogger`
+* <span id="controllerContext"> [ControllerContext](ControllerContext.md)
+* <span id="zkClient"> [KafkaZkClient](../zk/KafkaZkClient.md)
+* <span id="controllerBrokerRequestBatch"> [ControllerBrokerRequestBatch](ControllerBrokerRequestBatch.md)
+
+`ZkPartitionStateMachine` is created along with a [KafkaController](KafkaController.md#partitionStateMachine).
+
+## Logging
+
+Enable `ALL` logging level for `kafka.controller.ZkPartitionStateMachine` logger to see what happens inside.
+
+Add the following line to `config/log4j.properties`:
+
+```text
+log4j.logger.kafka.controller.ZkPartitionStateMachine=ALL
+```
+
+Refer to [Logging](../logging.md).
+
+### <span id="logIdent"> logIdent
+
+`ZkPartitionStateMachine` uses the following logging prefix (with the [broker.id](../KafkaConfig.md#broker.id)):
+
+```text
+[PartitionStateMachine controllerId=[brokerId]]
+```
+
+## Review Me
+
+When requested to <<handleStateChanges, handle partition state changes>>, `ZkPartitionStateMachine` uses the <<controllerBrokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#sendRequestsToBrokers, propagate them to all brokers in a cluster>>.
 
 === [[handleStateChanges]] Handling State Changes of Partitions -- `handleStateChanges` Method
 

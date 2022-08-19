@@ -147,14 +147,17 @@ nav:
     - ControllerContext: controller/ControllerContext.md
     - ControllerEvents:
       - ControllerEvent: controller/ControllerEvent.md
-      - AutoPreferredReplicaLeaderElection: controller/events/AutoPreferredReplicaLeaderElection.md
+      - AutoPreferredReplicaLeaderElection: controller/AutoPreferredReplicaLeaderElection.md
+      - TopicUncleanLeaderElectionEnable: controller/TopicUncleanLeaderElectionEnable.md
     - controller/ControllerEventManager.md
     - ControllerEventProcessor: controller/ControllerEventProcessor.md
     - controller/ControllerState.md
     - controller/ControllerEventThread.md
     - controller/KafkaController.md
-    - ReplicaStateMachine: controller/ReplicaStateMachine.md
+    - PartitionStateMachine: controller/PartitionStateMachine.md
     - QueuedEvent: controller/QueuedEvent.md
+    - ReplicaStateMachine: controller/ReplicaStateMachine.md
+    - TopicDeletionManager: controller/TopicDeletionManager.md
     - ZkPartitionStateMachine: controller/ZkPartitionStateMachine.md
     - ZkReplicaStateMachine: controller/ZkReplicaStateMachine.md
   - Features:

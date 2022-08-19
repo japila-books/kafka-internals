@@ -33,7 +33,7 @@ Used when:
 * AllocateProducerIds
 * AlterPartitionReceived
 * ApiPartitionReassignment
-* [AutoPreferredReplicaLeaderElection](events/AutoPreferredReplicaLeaderElection.md)
+* [AutoPreferredReplicaLeaderElection](AutoPreferredReplicaLeaderElection.md)
 * BrokerChange
 * BrokerModifications
 * ControlledShutdown
@@ -54,7 +54,7 @@ Used when:
 * TopicChange
 * TopicDeletion
 * TopicDeletionStopReplicaResponseReceived
-* TopicUncleanLeaderElectionEnable
+* [TopicUncleanLeaderElectionEnable](TopicUncleanLeaderElectionEnable.md)
 * UncleanLeaderElectionEnable
 * UpdateFeatures
 * UpdateMetadataResponseReceived
