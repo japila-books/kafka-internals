@@ -556,6 +556,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/dynamic-broker-configuration/TopicConfigHandler/</loc>
+         <lastmod>2022-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/dynamic-broker-configuration/ZkConfigManager/</loc>
+         <lastmod>2022-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/log/</loc>
          <lastmod>2022-08-19</lastmod>
          <changefreq>daily</changefreq>
@@ -677,6 +687,11 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/tools/ConsoleConsumer/</loc>
+         <lastmod>2022-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/ReassignPartitionsCommand/</loc>
          <lastmod>2022-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
