@@ -350,6 +350,25 @@ Error processing event [event]
 * [moveReassignedPartitionLeaderIfRequired](#moveReassignedPartitionLeaderIfRequired)
 * [doControlledShutdown](#doControlledShutdown)
 
+## <span id="enableTopicUncleanLeaderElection"> enableTopicUncleanLeaderElection
+
+```scala
+enableTopicUncleanLeaderElection(
+  topic: String): Unit
+```
+
+---
+
+`enableTopicUncleanLeaderElection` does nothing on an [inactive controller](#isActive).
+
+`enableTopicUncleanLeaderElection` requests the [ControllerEventManager](#eventManager) to [enqueue](ControllerEventManager.md#put) a [TopicUncleanLeaderElectionEnable](TopicUncleanLeaderElectionEnable.md) event.
+
+---
+
+`enableTopicUncleanLeaderElection` is used when:
+
+* `TopicConfigHandler` is requested to [processConfigChanges](../dynamic-broker-configuration/TopicConfigHandler.md#processConfigChanges)
+
 ## <span id="processTopicUncleanLeaderElectionEnable"> processTopicUncleanLeaderElectionEnable
 
 ```scala

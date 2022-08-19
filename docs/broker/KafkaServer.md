@@ -27,6 +27,33 @@ enableForwarding: Boolean
 
 When enabled, `KafkaServer` creates a [ForwardingManager](#forwardingManager) and uses [BrokerToControllerChannelManager](#clientToControllerChannelManager).
 
+## <span id="dynamicConfigManager"> ZkConfigManager
+
+`KafkaServer` creates a [ZkConfigManager](../dynamic-broker-configuration/ZkConfigManager.md) when [started](#startup) with the following:
+
+* [KafkaZkClient](#zkClient)
+* [ConfigHandlers](#dynamicConfigHandlers)
+
+`KafkaServer` requests the `ZkConfigManager` to [startup](../dynamic-broker-configuration/ZkConfigManager.md#startup) immediately.
+
+### <span id="dynamicConfigHandlers"> ConfigHandlers
+
+```scala
+dynamicConfigHandlers: Map[String, ConfigHandler]
+```
+
+`KafkaServer` uses `dynamicConfigHandlers` registry of [ConfigHandler](../dynamic-broker-configuration/ConfigHandler.md)s (by their name).
+
+Name | ConfigHandler
+-----|--------------
+ topics | [TopicConfigHandler](../dynamic-broker-configuration/TopicConfigHandler.md)
+ clients | `ClientIdConfigHandler`
+ users | `UserConfigHandler`
+ brokers | [BrokerConfigHandler](../dynamic-broker-configuration/BrokerConfigHandler.md)
+ ips | `IpConfigHandler`
+
+`KafkaServer` uses the `dynamicConfigHandlers` to create [ZkConfigManager](#dynamicConfigManager) (at [startup](#startup)).
+
 ## <span id="transactionCoordinator"> TransactionCoordinator
 
 `KafkaServer` creates and starts a [TransactionCoordinator](../transactions/TransactionCoordinator.md) when [created](#creating-instance).

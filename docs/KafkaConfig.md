@@ -112,7 +112,7 @@ Default: `50`
 
 Must be at least 1
 
-Use `offsetsTopicPartitions` to access the current value.
+Use `KafkaConfig.offsetsTopicPartitions` to access the current value.
 
 Used when:
 
@@ -170,6 +170,20 @@ Must be at least 1
 ## <span id="transactionsLoadBufferSize"><span id="TransactionsLoadBufferSizeProp"><span id="transaction.state.log.load.buffer.size"> transaction.state.log.load.buffer.size
 
 ## <span id="transactionTopicMinISR"><span id="TransactionsTopicMinISRProp"><span id="transaction.state.log.min.isr"> transaction.state.log.min.isr
+
+## <span id="UncleanLeaderElectionEnableProp"><span id="unclean.leader.election.enable"> unclean.leader.election.enable
+
+Enables replicas not in the ISR to be elected as leader as a last resort, even though doing so may result in data loss
+
+Default: `false`
+
+Use `KafkaConfig.uncleanLeaderElectionEnable` to access the current value.
+
+[unclean.leader.election.enable](TopicConfig.md#unclean.leader.election.enable)
+
+Used when:
+
+* `TopicConfigHandler` is requested to [processConfigChanges](dynamic-broker-configuration/TopicConfigHandler.md#processConfigChanges) (to [enableTopicUncleanLeaderElection](controller/KafkaController.md#enableTopicUncleanLeaderElection) on an active controller)
 
 ## Utilities
 
