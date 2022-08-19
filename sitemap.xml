@@ -696,11 +696,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/tools/ReplicaVerificationTool/</loc>
-         <lastmod>2022-08-19</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/tools/kafka-acls/</loc>
          <lastmod>2022-08-19</lastmod>
          <changefreq>daily</changefreq>
@@ -727,6 +722,21 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/tools/kafka-acls/AuthorizerService/</loc>
+         <lastmod>2022-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-replica-verification/</loc>
+         <lastmod>2022-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-replica-verification/ReplicaFetcher/</loc>
+         <lastmod>2022-08-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-replica-verification/ReplicaVerificationTool/</loc>
          <lastmod>2022-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
