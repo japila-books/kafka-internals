@@ -2,6 +2,8 @@
 
 `kafka-replica-verification` utility is used to verify replica consistency (i.e., validate that all replicas for a set of topics have the same data).
 
+`kafka-replica-verification` uses [ReplicaVerificationTool](ReplicaVerificationTool.md) with [ReplicaFetcher](ReplicaFetcher.md)s for its execution.
+
 ## Options
 
 ``` console
@@ -34,6 +36,9 @@ Option                                  Description
 ## Demo
 
 ``` console
-$ ./bin/kafka-replica-verification.sh --broker-list :9092
+$ ./bin/kafka-replica-verification.sh \
+    --broker-list :9092 \
+    --report-interval-ms 5000
 verification process is started.
+max lag is 0 for partition t100-0 at offset 0 among 1 partitions
 ```

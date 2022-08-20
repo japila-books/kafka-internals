@@ -252,6 +252,7 @@ nav:
       - ConsoleConsumer: tools/ConsoleConsumer.md
     - kafka-replica-verification:
       - tools/kafka-replica-verification/index.md
+      - ReplicaBuffer: tools/kafka-replica-verification/ReplicaBuffer.md
       - ReplicaFetcher: tools/kafka-replica-verification/ReplicaFetcher.md
       - ReplicaVerificationTool: tools/kafka-replica-verification/ReplicaVerificationTool.md
   - Metrics:
