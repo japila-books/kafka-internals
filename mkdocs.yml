@@ -247,9 +247,12 @@ nav:
       - AclCommandService: tools/kafka-acls/AclCommandService.md
       - AdminClientService: tools/kafka-acls/AdminClientService.md
       - AuthorizerService: tools/kafka-acls/AuthorizerService.md
-    - ReassignPartitionsCommand: tools/ReassignPartitionsCommand.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
+    - kafka-reassign-partitions:
+      - tools/kafka-reassign-partitions/index.md
+      - Demo: tools/kafka-reassign-partitions/demo.md
+      - ReassignPartitionsCommand: tools/kafka-reassign-partitions/ReassignPartitionsCommand.md
     - kafka-replica-verification:
       - tools/kafka-replica-verification/index.md
       - ReplicaBuffer: tools/kafka-replica-verification/ReplicaBuffer.md

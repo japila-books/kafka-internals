@@ -29,7 +29,7 @@ Use `LogConfig.LeaderReplicationThrottledReplicas` to access the current value
 
 Used when:
 
-* `ReassignPartitionsCommand` is [created](../tools/ReassignPartitionsCommand.md#topicLevelLeaderThrottle)
+* `ReassignPartitionsCommand` is [created](../tools/kafka-reassign-partitions/ReassignPartitionsCommand.md#topicLevelLeaderThrottle)
 * `TopicConfigHandler` is requested to [processConfigChanges](../dynamic-broker-configuration/TopicConfigHandler.md#processConfigChanges)
 
 ## <span id="FollowerReplicationThrottledReplicasProp"><span id="follower.replication.throttled.replicas"><span id="FollowerReplicationThrottledReplicas"> follower.replication.throttled.replicas
@@ -44,7 +44,7 @@ Use `LogConfig.FollowerReplicationThrottledReplicas` to access the current value
 
 Used when:
 
-* `ReassignPartitionsCommand` is [created](../tools/ReassignPartitionsCommand.md#topicLevelFollowerThrottle)
+* `ReassignPartitionsCommand` is [created](../tools/kafka-reassign-partitions/ReassignPartitionsCommand.md#topicLevelFollowerThrottle)
 * `TopicConfigHandler` is requested to [processConfigChanges](../dynamic-broker-configuration/TopicConfigHandler.md#processConfigChanges)
 
 ## <span id="extractLogConfigMap"> extractLogConfigMap

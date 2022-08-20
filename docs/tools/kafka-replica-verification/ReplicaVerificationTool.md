@@ -1,6 +1,6 @@
 # ReplicaVerificationTool
 
-`ReplicaVerificationTool` is...FIXME
+`ReplicaVerificationTool` is a [command-line application](#main) for [kafka-replica-verification](index.md) to perform [replica verification](ReplicaFetcher.md#doWork-verification).
 
 ## <span id="main"> Executing Application
 
