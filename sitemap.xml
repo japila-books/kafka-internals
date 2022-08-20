@@ -691,11 +691,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://books.japila.pl/kafka-internals/tools/ReassignPartitionsCommand/</loc>
-         <lastmod>2022-08-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://books.japila.pl/kafka-internals/tools/kafka-acls/</loc>
          <lastmod>2022-08-20</lastmod>
          <changefreq>daily</changefreq>
@@ -722,6 +717,21 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/tools/kafka-acls/AuthorizerService/</loc>
+         <lastmod>2022-08-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-reassign-partitions/</loc>
+         <lastmod>2022-08-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-reassign-partitions/ReassignPartitionsCommand/</loc>
+         <lastmod>2022-08-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-reassign-partitions/demo/</loc>
          <lastmod>2022-08-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
