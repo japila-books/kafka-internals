@@ -1,6 +1,6 @@
 # TopicUncleanLeaderElectionEnable
 
-`TopicUncleanLeaderElectionEnable` is a [ControllerEvent](ControllerEvent.md).
+`TopicUncleanLeaderElectionEnable` is a [ControllerEvent](ControllerEvent.md) that [KafkaController](KafkaController.md) uses to trigger [processTopicUncleanLeaderElectionEnable](KafkaController.md#processTopicUncleanLeaderElectionEnable).
 
 ## Creating Instance
 
@@ -23,3 +23,7 @@ state: ControllerState
 ---
 
 `state` is `TopicUncleanLeaderElectionEnable`.
+
+## <span id="KafkaController"> KafkaController
+
+

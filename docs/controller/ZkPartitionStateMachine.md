@@ -4,6 +4,8 @@
 
 ![ZkPartitionStateMachine and KafkaController](../images/ZkPartitionStateMachine.png)
 
+When requested to [handle partition state changes](#handleStateChanges), `ZkPartitionStateMachine` uses the [ControllerBrokerRequestBatch](#controllerBrokerRequestBatch) to [propagate them to all brokers in a cluster](AbstractControllerBrokerRequestBatch.md#sendRequestsToBrokers).
+
 ## Creating Instance
 
 `ZkPartitionStateMachine` takes the following to be created:
@@ -15,6 +17,156 @@
 * <span id="controllerBrokerRequestBatch"> [ControllerBrokerRequestBatch](ControllerBrokerRequestBatch.md)
 
 `ZkPartitionStateMachine` is created along with a [KafkaController](KafkaController.md#partitionStateMachine).
+
+## <span id="handleStateChanges"> Handling State Changes of Partitions
+
+```scala
+handleStateChanges(
+  partitions: Seq[TopicPartition],
+  targetState: PartitionState,
+  partitionLeaderElectionStrategyOpt: Option[PartitionLeaderElectionStrategy]
+): Map[TopicPartition, Either[Throwable, LeaderAndIsr]]
+```
+
+`handleStateChanges` is part of the [PartitionStateMachine](PartitionStateMachine.md#handleStateChanges) abstraction.
+
+---
+
+`handleStateChanges` does nothing and returns an empty collection when executed with no partitions.
+
+`handleStateChanges` requests the [ControllerBrokerRequestBatch](#controllerBrokerRequestBatch) to [prepare a new batch](AbstractControllerBrokerRequestBatch.md#newBatch).
+
+`handleStateChanges` [doHandleStateChanges](#doHandleStateChanges) (that may give some errors that are returned in the end).
+
+In the end, `handleStateChanges` requests the [ControllerBrokerRequestBatch](#controllerBrokerRequestBatch) to [send controller requests to brokers](AbstractControllerBrokerRequestBatch.md#sendRequestsToBrokers).
+
+### <span id="doHandleStateChanges"> doHandleStateChanges
+
+```scala
+doHandleStateChanges(
+  partitions: Seq[TopicPartition],
+  targetState: PartitionState,
+  partitionLeaderElectionStrategyOpt: Option[PartitionLeaderElectionStrategy]
+): Map[TopicPartition, Either[Throwable, LeaderAndIsr]]
+```
+
+---
+
+`doHandleStateChanges` requests the [ControllerContext](#controllerContext) to [putPartitionStateIfNotExists](ControllerContext.md#putPartitionStateIfNotExists) to `NonExistentPartition` for every partition (in `partitions`).
+
+`doHandleStateChanges` requests the [ControllerContext](#controllerContext) to [checkValidPartitionStateChange](ControllerContext.md#checkValidPartitionStateChange) with the given target `PartitionState` (that splits the partitions into valid and invalid partitions).
+
+`doHandleStateChanges` [logInvalidTransition](#logInvalidTransition) for every invalid partition.
+
+`doHandleStateChanges` branches off per the target state:
+
+* [NewPartition](#doHandleStateChanges-NewPartition)
+* [OnlinePartition](#doHandleStateChanges-OnlinePartition)
+* [OfflinePartition or NonExistentPartition](#doHandleStateChanges-OfflinePartition-NonExistentPartition)
+
+#### <span id="doHandleStateChanges-NewPartition"> NewPartition
+
+For `NewPartition` target state, `doHandleStateChanges` goes over the valid partitions and for every partition prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `NewPartition` state.
+
+```text
+Changed partition [partition] state from [state] to NewPartition with assigned replicas [partitionReplicaAssignment]
+```
+
+#### <span id="doHandleStateChanges-OnlinePartition"> OnlinePartition
+
+`doHandleStateChanges` finds uninitialized partitions (among the valid partitions with `NewPartition` state).
+
+`doHandleStateChanges` finds partitions to elect a leader (among the valid partitions with `OfflinePartition` or `OnlinePartition` state).
+
+For uninitialized partitions, `doHandleStateChanges` [initializeLeaderAndIsrForPartitions](#initializeLeaderAndIsrForPartitions), prints out the following INFO message to the logs and requests the [ControllerContext](#controllerContext) to [putPartitionState](ControllerContext.md#putPartitionState) to `OnlinePartition` state.
+
+```text
+Changed partition [partition] from [state] to OnlinePartition with state [leaderAndIsr]
+```
+
+For partitions to elect a leader, `doHandleStateChanges` [electLeaderForPartitions](#electLeaderForPartitions) with the input [PartitionLeaderElectionStrategy](#PartitionLeaderElectionStrategy).
+
+For every partition with leader election successful, `doHandleStateChanges` prints out the following INFO message to the logs and requests the [ControllerContext](#controllerContext) to [putPartitionState](ControllerContext.md#putPartitionState) to `OnlinePartition` state.
+
+```text
+Changed partition [partition] from [state] to OnlinePartition with state [leaderAndIsr]
+```
+
+In the end, `doHandleStateChanges` returns the partitions with election failed.
+
+#### <span id="doHandleStateChanges-OfflinePartition-NonExistentPartition"> OfflinePartition or NonExistentPartition
+
+For `OfflinePartition` target state, `doHandleStateChanges` goes over the valid partitions and for every partition prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `OfflinePartition` state.
+
+```text
+Changed partition [partition] state from [state] to OfflinePartition
+```
+
+For `NonExistentPartition` target state, `doHandleStateChanges` goes over the valid partitions and for every partition prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `NonExistentPartition` state.
+
+```text
+Changed partition [partition] state from [state] to NonExistentPartition
+```
+
+### <span id="electLeaderForPartitions"> electLeaderForPartitions
+
+```scala
+electLeaderForPartitions(
+  partitions: Seq[TopicPartition],
+  partitionLeaderElectionStrategy: PartitionLeaderElectionStrategy
+): Map[TopicPartition, Either[Throwable, LeaderAndIsr]]
+```
+
+---
+
+`electLeaderForPartitions` [doElectLeaderForPartitions](#doElectLeaderForPartitions) until all the given partitions have partition leaders elected successfully or not.
+
+For any partition to retry a leader election, `electLeaderForPartitions` prints out the following INFO message to the logs:
+
+```text
+Retrying leader election with strategy [partitionLeaderElectionStrategy] for partitions [remaining]
+```
+
+## <span id="doElectLeaderForPartitions"> doElectLeaderForPartitions
+
+```scala
+doElectLeaderForPartitions(
+  partitions: Seq[TopicPartition],
+  partitionLeaderElectionStrategy: PartitionLeaderElectionStrategy
+): (Map[TopicPartition, Either[Exception, LeaderAndIsr]], Seq[TopicPartition])
+```
+
+`doElectLeaderForPartitions` requests the [KafkaZkClient](#zkClient) for the [partition states](../zk/KafkaZkClient.md#getTopicPartitionStatesRaw) (with `LeaderAndIsr` information).
+
+For every partition state response, `doElectLeaderForPartitions` [decodes the response](../zk/TopicPartitionStateZNode.md#decode) (if possible) and adds it to `validLeaderAndIsrs` internal registry (of `(TopicPartition, LeaderAndIsr)` pairs) or to failed elections (of `TopicPartition, Either[Exception, LeaderAndIsr]`s).
+
+`doElectLeaderForPartitions` branches off per the input [PartitionLeaderElectionStrategy](PartitionStateMachine.md#PartitionLeaderElectionStrategy) that gives partitions with and without leaders elected.
+
+* For [OfflinePartitionLeaderElectionStrategy](PartitionStateMachine.md#OfflinePartitionLeaderElectionStrategy), `doElectLeaderForPartitions` [collectUncleanLeaderElectionState](#collectUncleanLeaderElectionState) with the valid partitions for election followed by [leaderForOffline](Election.md#leaderForOffline).
+
+* For [ReassignPartitionLeaderElectionStrategy](PartitionStateMachine.md#ReassignPartitionLeaderElectionStrategy), `doElectLeaderForPartitions` [leaderForReassign](Election.md#leaderForReassign)
+
+* For [PreferredReplicaPartitionLeaderElectionStrategy](PartitionStateMachine.md#PreferredReplicaPartitionLeaderElectionStrategy), `doElectLeaderForPartitions` [leaderForPreferredReplica](Election.md#leaderForPreferredReplica)
+
+* For [ControlledShutdownPartitionLeaderElectionStrategy](PartitionStateMachine.md#ControlledShutdownPartitionLeaderElectionStrategy), `doElectLeaderForPartitions` [leaderForControlledShutdown](Election.md#leaderForControlledShutdown)
+
+`doElectLeaderForPartitions` adds the partitions with no leader elected to failed elections.
+
+`doElectLeaderForPartitions` requests the [KafkaZkClient](#zkClient) to [updateLeaderAndIsr](../zk/KafkaZkClient.md#updateLeaderAndIsr) (with the adjusted leader and ISRs).
+
+For every successfully-updated partition (in [Zookeeper](../zk/KafkaZkClient.md#updateLeaderAndIsr)), `doElectLeaderForPartitions` requests the following:
+
+1. The [ControllerContext](#controllerContext) to [partitionFullReplicaAssignment](ControllerContext.md#partitionFullReplicaAssignment) and [record the partition leadership](ControllerContext.md#putPartitionLeadershipInfo)
+
+1. The [ControllerBrokerRequestBatch](#controllerBrokerRequestBatch) to [addLeaderAndIsrRequestForBrokers](AbstractControllerBrokerRequestBatch.md#addLeaderAndIsrRequestForBrokers) to every live replica broker (with `isNew` flag off)
+
+`doElectLeaderForPartitions` prints out the following DEBUG message to the logs for every partition with no leader elected:
+
+```text
+Controller failed to elect leader for partition [partition].
+Attempted to write state [partition], but failed with bad ZK version.
+This will be retried.
+```
 
 ## Logging
 
@@ -38,114 +190,12 @@ Refer to [Logging](../logging.md).
 
 ## Review Me
 
-When requested to <<handleStateChanges, handle partition state changes>>, `ZkPartitionStateMachine` uses the <<controllerBrokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#sendRequestsToBrokers, propagate them to all brokers in a cluster>>.
+## <span id="initializeLeaderAndIsrForPartitions"> initializeLeaderAndIsrForPartitions
 
-=== [[handleStateChanges]] Handling State Changes of Partitions -- `handleStateChanges` Method
-
-[source, scala]
-----
-handleStateChanges(
-  partitions: Seq[TopicPartition],
-  targetState: PartitionState,
-  partitionLeaderElectionStrategyOpt: Option[PartitionLeaderElectionStrategy]
-): Map[TopicPartition, Throwable]
-----
-
-NOTE: `handleStateChanges` is part of the <<kafka-controller-PartitionStateMachine.adoc#handleStateChanges, PartitionStateMachine Contract>> to handle state changes of partitions (_partition state changes_).
-
-`handleStateChanges` requests the <<controllerBrokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#newBatch, prepare a new batch>>.
-
-`handleStateChanges` <<doHandleStateChanges, doHandleStateChanges>> (that may give some errors that are returned in the end).
-
-In the end, `handleStateChanges` requests the <<controllerBrokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#sendRequestsToBrokers, send controller requests to brokers>> and returns the errors.
-
-In case of `ControllerMovedException`, `handleStateChanges` prints out the following ERROR message to the logs:
-
-```
-Controller moved to another broker when moving some partitions to [targetState] state
-```
-
-In case of any other error (`Throwable`), `handleStateChanges` prints out the following ERROR message to the logs:
-
-```
-Error while moving some partitions to [targetState] state
-```
-
-=== [[doHandleStateChanges]] `doHandleStateChanges` Internal Method
-
-[source, scala]
-----
-doHandleStateChanges(
-  partitions: Seq[TopicPartition],
-  targetState: PartitionState,
-  partitionLeaderElectionStrategyOpt: Option[PartitionLeaderElectionStrategy]
-): Map[TopicPartition, Throwable]
-----
-
-For every partition (in `partitions`), `doHandleStateChanges` requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionStateIfNotExists, putPartitionStateIfNotExists>> to `NonExistentPartition`.
-
-`doHandleStateChanges` requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#checkValidPartitionStateChange, checkValidPartitionStateChange>> (that gives valid and invalid partitions).
-
-For every invalid partition, `doHandleStateChanges` <<logInvalidTransition, logInvalidTransition>>.
-
-`doHandleStateChanges` branches off per the target state: <<doHandleStateChanges-NewPartition, NewPartition>>, <<doHandleStateChanges-OnlinePartition, OnlinePartition>>, <<doHandleStateChanges-OfflinePartition, OfflinePartition>>, and <<NonExistentPartition, NonExistentPartition>>.
-
-In the end, `doHandleStateChanges` returns the partitions with election failed (for `OnlinePartition` target state and the valid partitions in `OfflinePartition` or `OnlinePartition` states).
-
-NOTE: `doHandleStateChanges` is used exclusively when `ZkPartitionStateMachine` is requested to <<handleStateChanges, handle partition state changes>>.
-
-==== [[doHandleStateChanges-NewPartition]] NewPartition
-
-For `NewPartition` target state, `doHandleStateChanges` goes over the valid partitions and for every partition prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `NewPartition` state.
-
-[options="wrap"]
-----
-Changed partition [partition] state from [state] to NewPartition with assigned replicas [partitionReplicaAssignment]
-----
-
-==== [[doHandleStateChanges-OnlinePartition]] OnlinePartition (and Partition Leader Election)
-
-For `OnlinePartition` target state, `doHandleStateChanges` splits valid partitions into two collections. One partition set (`uninitializedPartitions`) with partitions in `NewPartition` state while the other with partitions in `OfflinePartition` or `OnlinePartition` states (`partitionsToElectLeader`).
-
-For the partitions in `NewPartition` state (uninitialized valid partitions), `doHandleStateChanges` <<initializeLeaderAndIsrForPartitions, initializeLeaderAndIsrForPartitions>> (that gives partitions successfully initialized, aka _successfulInitializations_). For every partition successfully initialized, `doHandleStateChanges` prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `OnlinePartition` state.
-
-[options="wrap"]
-----
-Changed partition [partition] from [state] to OnlinePartition with state [leaderAndIsr]
-----
-
-For partitions to elect leader (valid partitions in `OfflinePartition` or `OnlinePartition` states), `doHandleStateChanges` <<electLeaderForPartitions, electLeaderForPartitions>> (with the partitions and the `PartitionLeaderElectionStrategy`). That gives two sets of partitions with election successful and failed. For every partition with election successful, `doHandleStateChanges` prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `OnlinePartition` state.
-
-[options="wrap"]
-----
-Changed partition [partition] from [state] to OnlinePartition with state [leaderAndIsr]
-----
-
-In the end, `doHandleStateChanges` returns the partitions with election failed.
-
-==== [[doHandleStateChanges-OfflinePartition]] OfflinePartition
-
-For `OfflinePartition` target state, `doHandleStateChanges` goes over the valid partitions and for every partition prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `OfflinePartition` state.
-
-```
-Changed partition [partition] state from [state] to OfflinePartition
-```
-
-==== [[doHandleStateChanges-NonExistentPartition]] NonExistentPartition
-
-For `NonExistentPartition` target state, `doHandleStateChanges` goes over the valid partitions and for every partition prints out the following TRACE message to the logs and requests the <<controllerContext, ControllerContext>> to <<kafka-controller-ControllerContext.adoc#putPartitionState, putPartitionState>> to `NonExistentPartition` state.
-
-```
-Changed partition [partition] state from [state] to NonExistentPartition
-```
-
-=== [[initializeLeaderAndIsrForPartitions]] `initializeLeaderAndIsrForPartitions` Internal Method
-
-[source, scala]
-----
+```scala
 initializeLeaderAndIsrForPartitions(
   partitions: Seq[TopicPartition]): Seq[TopicPartition]
-----
+```
 
 `initializeLeaderAndIsrForPartitions` starts by requesting the <<controllerContext, ControllerContext>> for the <<kafka-controller-ControllerContext.adoc#partitionReplicaAssignment, partition replica assignment>> for every partition (in the given `partitions`).
 
@@ -155,15 +205,13 @@ From the partition replica assignments, `initializeLeaderAndIsrForPartitions` ma
 
 For every partition without live (online) replicas, `initializeLeaderAndIsrForPartitions` <<logFailedStateChange, prints out the following ERROR message and the StateChangeFailedException to the logs>>:
 
-[options="wrap"]
-----
+```text
 Controller [controllerId] epoch [epoch] failed to change state for partition [partition] from NewPartition to OnlinePartition
-----
+```
 
-[options="wrap"]
-----
+```text
 Controller [controllerId] epoch [epoch] encountered error during state change of partition [partition] from New to Online, assigned replicas are [[replicas]], live brokers are [[liveBrokerIds]]. No assigned replica is alive.
-----
+```
 
 `initializeLeaderAndIsrForPartitions` converts the partitions with live (online) replicas into `leaderIsrAndControllerEpochs` (`LeaderIsrAndControllerEpoch` with `LeaderAndIsr`) and for every pair `initializeLeaderAndIsrForPartitions` requests the <<zkClient, KafkaZkClient>> to <<kafka-zk-KafkaZkClient.adoc#createTopicPartitionStatesRaw, create state znodes for the partitions>>.
 
@@ -180,208 +228,3 @@ In case of `ControllerMovedException` (while...FIXME), `initializeLeaderAndIsrFo
 In case of any other error (`Exception`) (while...FIXME), `initializeLeaderAndIsrForPartitions`...FIXME
 
 NOTE: `initializeLeaderAndIsrForPartitions` is used exclusively when `ZkPartitionStateMachine` is requested to <<doHandleStateChanges, handle partition state changes>> (for <<doHandleStateChanges-OnlinePartition, partitions in NewPartition state that are transitioned to OnlinePartition target state>>).
-
-=== [[electLeaderForPartitions]] `electLeaderForPartitions` Internal Method
-
-[source, scala]
-----
-electLeaderForPartitions(
-  partitions: Seq[TopicPartition],
-  partitionLeaderElectionStrategy: PartitionLeaderElectionStrategy
-): (Seq[TopicPartition], Map[TopicPartition, Throwable])
-----
-
-`electLeaderForPartitions` simply <<doElectLeaderForPartitions, doElectLeaderForPartitions>> until all the given partitions have partition leaders elected successfully or not.
-
-For every failed election, `electLeaderForPartitions` <<logFailedStateChange, prints out the following ERROR message (with an exception) to the logs>>:
-
-[options="wrap"]
-----
-Controller [controllerId] epoch [epoch] failed to change state for partition [partition] from [state] to OnlinePartition
-----
-
-In the end, `electLeaderForPartitions` returns the partitions with leader election successful and failed.
-
-NOTE: `electLeaderForPartitions` is used when `ZkPartitionStateMachine` is requested to <<doHandleStateChanges, handle partition state changes>> (when the partitions are expected in `OnlinePartition` target state).
-
-=== [[doElectLeaderForPartitions]] `doElectLeaderForPartitions` Internal Method
-
-[source, scala]
-----
-doElectLeaderForPartitions(
-  partitions: Seq[TopicPartition],
-  partitionLeaderElectionStrategy: PartitionLeaderElectionStrategy
-): (Seq[TopicPartition], Seq[TopicPartition], Map[TopicPartition, Exception])
-----
-
-`doElectLeaderForPartitions` requests the <<zkClient, KafkaZkClient>> for the <<kafka-zk-KafkaZkClient.adoc#getTopicPartitionStatesRaw, partition states>> and converts them to `LeaderIsrAndControllerEpoch` per partition.
-
-`doElectLeaderForPartitions` collects the partitions that are eligible for partition election (that have controller epoch older than the <<kafka-controller-ControllerContext.adoc#epoch, current controller epoch>> per the <<controllerContext, ControllerContext>>).
-
-`doElectLeaderForPartitions` branches off per the <<kafka-controller-PartitionStateMachine.adoc#PartitionLeaderElectionStrategy, PartitionLeaderElectionStrategy>> and ends up with partitions with and without leaders:
-
-* For <<kafka-controller-PartitionStateMachine.adoc#OfflinePartitionLeaderElectionStrategy, OfflinePartitionLeaderElectionStrategy>>, `doElectLeaderForPartitions` first <<collectUncleanLeaderElectionState, collectUncleanLeaderElectionState>> with the valid partitions for election followed by <<leaderForOffline, leaderForOffline>>.
-
-* For <<kafka-controller-PartitionStateMachine.adoc#ReassignPartitionLeaderElectionStrategy, ReassignPartitionLeaderElectionStrategy>>, `doElectLeaderForPartitions` <<leaderForReassign, leaderForReassign>>
-
-* For <<kafka-controller-PartitionStateMachine.adoc#PreferredReplicaPartitionLeaderElectionStrategy, PreferredReplicaPartitionLeaderElectionStrategy>>, `doElectLeaderForPartitions` <<leaderForPreferredReplica, leaderForPreferredReplica>>
-
-* For <<kafka-controller-PartitionStateMachine.adoc#ControlledShutdownPartitionLeaderElectionStrategy, ControlledShutdownPartitionLeaderElectionStrategy>>, `doElectLeaderForPartitions` <<leaderForControlledShutdown, leaderForControlledShutdown>>
-
-`doElectLeaderForPartitions` requests the <<zkClient, KafkaZkClient>> to <<kafka-zk-KafkaZkClient.adoc#updateLeaderAndIsr, updateLeaderAndIsr>> (with the adjusted leader and ISRs).
-
-For every successfully-updated partition (in <<kafka-zk-KafkaZkClient.adoc#updateLeaderAndIsr, Zookeeper>>), `doElectLeaderForPartitions` requests the following:
-
-. The <<controllerContext, ControllerContext>> to record the `leaderIsrAndControllerEpoch` for the partition (in the <<kafka-controller-ControllerContext.adoc#partitionLeadershipInfo, partitionLeadershipInfo>> registry)
-
-. The <<controllerBrokerRequestBatch, ControllerBrokerRequestBatch>> to <<kafka-controller-AbstractControllerBrokerRequestBatch.adoc#addLeaderAndIsrRequestForBrokers, addLeaderAndIsrRequestForBrokers>> to every live replica broker (with `isNew` flag off)
-
-In the end, `doElectLeaderForPartitions` returns the partitions that were successfully updated, to be updated again and failed (during election and update).
-
-NOTE: `doElectLeaderForPartitions` is used when `ZkPartitionStateMachine` is requested to <<electLeaderForPartitions, electLeaderForPartitions>>.
-
-=== [[collectUncleanLeaderElectionState]] `collectUncleanLeaderElectionState` Internal Method
-
-[source, scala]
-----
-collectUncleanLeaderElectionState(
-  leaderIsrAndControllerEpochs: Seq[(TopicPartition, LeaderIsrAndControllerEpoch)]
-): Seq[(TopicPartition, Option[LeaderIsrAndControllerEpoch], Boolean)]
-----
-
-`collectUncleanLeaderElectionState`...FIXME
-
-NOTE: `collectUncleanLeaderElectionState` is used when `ZkPartitionStateMachine` is requested to <<doElectLeaderForPartitions, doElectLeaderForPartitions>> (for <<kafka-controller-PartitionStateMachine.adoc#OfflinePartitionLeaderElectionStrategy, OfflinePartitionLeaderElectionStrategy>>).
-
-=== [[logInvalidTransition]] `logInvalidTransition` Internal Method
-
-[source, scala]
-----
-logInvalidTransition(
-  partition: TopicPartition,
-  targetState: PartitionState): Unit
-----
-
-`logInvalidTransition`...FIXME
-
-NOTE: `logInvalidTransition` is used exclusively when `ZkPartitionStateMachine` is requested to <<doHandleStateChanges, doHandleStateChanges>> (for invalid partitions).
-
-=== [[logFailedStateChange]] Printing Out ERROR Message to Logs -- `logFailedStateChange` Internal Method
-
-[source, scala]
-----
-logFailedStateChange(
-  partition: TopicPartition,
-  currState: PartitionState,
-  targetState: PartitionState,
-  code: Code): Unit // <1>
-logFailedStateChange(
-  partition: TopicPartition,
-  currState: PartitionState,
-  targetState: PartitionState,
-  t: Throwable): Unit
-----
-<1> Converts the code to a `KeeperException`
-
-`logFailedStateChange` simply prints out the following ERROR message to the logs:
-
-[options="wrap"]
-----
-Controller [controllerId] epoch [epoch] failed to change state for partition [partition] from [currState] to [targetState]
-----
-
-NOTE: `logFailedStateChange` is used when `ZkPartitionStateMachine` is requested to <<initializeLeaderAndIsrForPartitions, initializeLeaderAndIsrForPartitions>>, <<electLeaderForPartitions, electLeaderForPartitions>>, <<collectUncleanLeaderElectionState, collectUncleanLeaderElectionState>>, and <<logInvalidTransition, logInvalidTransition>>.
-
-=== [[partitionState]] `partitionState` Internal Method
-
-[source, scala]
-----
-partitionState(
-  partition: TopicPartition): PartitionState
-----
-
-`partitionState`...FIXME
-
-NOTE: `partitionState` is used when...FIXME
-
-=== [[leaderForOffline]] `leaderForOffline` Method
-
-[source, scala]
-----
-leaderForOffline(
-  controllerContext: ControllerContext,
-  partitionsWithUncleanLeaderElectionState: Seq[(TopicPartition, Option[LeaderIsrAndControllerEpoch], Boolean)]
-): Seq[ElectionResult]
-// Private API
-leaderForOffline(
-  partition: TopicPartition,
-  leaderIsrAndControllerEpochOpt: Option[LeaderIsrAndControllerEpoch],
-  uncleanLeaderElectionEnabled: Boolean,
-  controllerContext: ControllerContext
-): ElectionResult
-----
-
-`leaderForOffline`...FIXME
-
-NOTE: `leaderForOffline` is used when...FIXME
-
-=== [[leaderForReassign]] `leaderForReassign` Method
-
-[source, scala]
-----
-leaderForReassign(
-  controllerContext: ControllerContext,
-  leaderIsrAndControllerEpochs: Seq[(TopicPartition, LeaderIsrAndControllerEpoch)]
-): Seq[ElectionResult]
-// Private API
-leaderForReassign(
-  partition: TopicPartition,
-  leaderIsrAndControllerEpoch: LeaderIsrAndControllerEpoch,
-  controllerContext: ControllerContext
-): ElectionResult
-----
-
-`leaderForReassign`...FIXME
-
-NOTE: `leaderForReassign` is used when...FIXME
-
-=== [[leaderForPreferredReplica]] `leaderForPreferredReplica` Method
-
-[source, scala]
-----
-leaderForPreferredReplica(
-  controllerContext: ControllerContext,
-  leaderIsrAndControllerEpochs: Seq[(TopicPartition, LeaderIsrAndControllerEpoch)]
-): Seq[ElectionResult]
-// Private API
-leaderForPreferredReplica(
-  partition: TopicPartition,
-  leaderIsrAndControllerEpoch: LeaderIsrAndControllerEpoch,
-  controllerContext: ControllerContext
-): ElectionResult
-----
-
-`leaderForPreferredReplica`...FIXME
-
-NOTE: `leaderForPreferredReplica` is used when...FIXME
-
-=== [[leaderForControlledShutdown]] `leaderForControlledShutdown` Method
-
-[source, scala]
-----
-leaderForControlledShutdown(
-  controllerContext: ControllerContext,
-  leaderIsrAndControllerEpochs: Seq[(TopicPartition, LeaderIsrAndControllerEpoch)]
-): Seq[ElectionResult]
-// Private API
-leaderForControlledShutdown(
-  partition: TopicPartition,
-  leaderIsrAndControllerEpoch: LeaderIsrAndControllerEpoch,
-  shuttingDownBrokerIds: Set[Int],
-  controllerContext: ControllerContext
-): ElectionResult
-----
-
-`leaderForControlledShutdown`...FIXME
-
-NOTE: `leaderForControlledShutdown` is used when...FIXME

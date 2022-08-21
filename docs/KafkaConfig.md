@@ -173,7 +173,7 @@ Must be at least 1
 
 ## <span id="UncleanLeaderElectionEnableProp"><span id="unclean.leader.election.enable"> unclean.leader.election.enable
 
-Enables replicas not in the ISR to be elected as leader as a last resort, even though doing so may result in data loss
+Enables replicas not in the ISR to be elected as leaders as a last resort, even though doing so may result in data loss
 
 Default: `false`
 

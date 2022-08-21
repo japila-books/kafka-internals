@@ -92,17 +92,40 @@ initializePartitionState(): Unit
 ```scala
 triggerOnlinePartitionStateChange(): Map[TopicPartition, Either[Throwable, LeaderAndIsr]]
 triggerOnlinePartitionStateChange(
-  topic: String): Unit
+  topic: String): Unit // (1)!
 ```
+
+1. Uses the partitions of the given topic only
 
 ---
 
-`triggerOnlinePartitionStateChange`...FIXME
+`triggerOnlinePartitionStateChange` requests the [ControllerContext](#controllerContext) for all the [partitions in the following states](ControllerContext.md#partitionsInStates) (possibly limited to the given topic):
+
+* `NewPartition`
+* `OfflinePartition`
+
+In the end, `triggerOnlinePartitionStateChange` [triggers online state change for the partitions](#triggerOnlineStateChangeForPartitions).
+
+---
 
 `triggerOnlinePartitionStateChange` is used when:
 
 * `KafkaController` is requested to [onBrokerStartup](KafkaController.md#onBrokerStartup), [onReplicasBecomeOffline](KafkaController.md#onReplicasBecomeOffline), [processUncleanLeaderElectionEnable](KafkaController.md#processUncleanLeaderElectionEnable), [processTopicUncleanLeaderElectionEnable](KafkaController.md#processTopicUncleanLeaderElectionEnable)
 * `PartitionStateMachine` is requested to [start up](#startup)
+
+### <span id="triggerOnlineStateChangeForPartitions"> triggerOnlineStateChangeForPartitions
+
+```scala
+triggerOnlineStateChangeForPartitions(
+  partitions: Set[TopicPartition]
+): Map[TopicPartition, Either[Throwable, LeaderAndIsr]]
+```
+
+---
+
+`triggerOnlineStateChangeForPartitions` filters out the partitions of the [topics to be deleted](ControllerContext.md#isTopicQueuedUpForDeletion) from the given `partitions`.
+
+`triggerOnlineStateChangeForPartitions` tries to [move the partitions](#handleStateChanges) to `OnlinePartition` state with [OfflinePartitionLeaderElectionStrategy](#OfflinePartitionLeaderElectionStrategy) (with `allowUnclean` flag off).
 
 ## Review Me
 
@@ -135,43 +158,6 @@ a| [[PreferredReplicaPartitionLeaderElectionStrategy]] `KafkaController` is requ
 a| [[ReassignPartitionLeaderElectionStrategy]]
 
 |===
-
-=== [[triggerOnlinePartitionStateChange]] `triggerOnlinePartitionStateChange` Method
-
-[source, scala]
-----
-triggerOnlinePartitionStateChange(): Unit
-triggerOnlinePartitionStateChange(
-  topic: String): Unit // <1>
-----
-<1> Uses the partitions of the given topic only
-
-`triggerOnlinePartitionStateChange` requests the <<controllerContext, ControllerContext>> for the link:kafka-controller-ControllerContext.adoc#partitionsInStates[partitions in the states]: `OfflinePartition` and `NewPartition`.
-
-With the topic specified, `triggerOnlinePartitionStateChange` requests the <<controllerContext, ControllerContext>> for the link:kafka-controller-ControllerContext.adoc#partitionsInStates[partitions of the topic in the states]: `OfflinePartition` and `NewPartition`.
-
-In the end, `triggerOnlinePartitionStateChange` <<triggerOnlineStateChangeForPartitions, triggers online state change for the partitions>>.
-
-[NOTE]
-====
-`triggerOnlinePartitionStateChange` is used when:
-
-* `KafkaController` is requested to link:kafka-controller-KafkaController.adoc#onBrokerStartup[onBrokerStartup], link:kafka-controller-KafkaController.adoc#onReplicasBecomeOffline[onReplicasBecomeOffline], link:kafka-controller-KafkaController.adoc#processUncleanLeaderElectionEnable[processUncleanLeaderElectionEnable], link:kafka-controller-KafkaController.adoc#processTopicUncleanLeaderElectionEnable[processTopicUncleanLeaderElectionEnable]
-
-* `PartitionStateMachine` is requested to <<startup, start up>>
-====
-
-=== [[triggerOnlineStateChangeForPartitions]] `triggerOnlineStateChangeForPartitions` Internal Method
-
-[source, scala]
-----
-triggerOnlineStateChangeForPartitions(
-  partitions: collection.Set[TopicPartition]): Unit
-----
-
-`triggerOnlineStateChangeForPartitions` filters out the partitions of the link:kafka-controller-ControllerContext.adoc#isTopicQueuedUpForDeletion[topics to be deleted] and tries to <<handleStateChanges, move the partitions>> to `OnlinePartition` state with <<OfflinePartitionLeaderElectionStrategy, OfflinePartitionLeaderElectionStrategy>> (with `allowUnclean` flag off).
-
-NOTE: `triggerOnlineStateChangeForPartitions` is used when `PartitionStateMachine` is requested to <<triggerOnlinePartitionStateChange, triggerOnlinePartitionStateChange>>.
 
 === [[shutdown]] Shutting Down -- `shutdown` Method
 

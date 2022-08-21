@@ -139,6 +139,7 @@ nav:
     - Zookeeper:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md
+      - TopicPartitionStateZNode: zk/TopicPartitionStateZNode.md
   - Controller Broker:
     - controller/index.md
     - AbstractControllerBrokerRequestBatch: controller/AbstractControllerBrokerRequestBatch.md
@@ -153,7 +154,9 @@ nav:
     - ControllerEventProcessor: controller/ControllerEventProcessor.md
     - controller/ControllerState.md
     - controller/ControllerEventThread.md
+    - Election: controller/Election.md
     - controller/KafkaController.md
+    - PartitionLeaderElectionAlgorithms: controller/PartitionLeaderElectionAlgorithms.md
     - PartitionStateMachine: controller/PartitionStateMachine.md
     - QueuedEvent: controller/QueuedEvent.md
     - ReplicaStateMachine: controller/ReplicaStateMachine.md
@@ -178,6 +181,8 @@ nav:
       - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
     - Log Cleanup:
       - log-cleanup/index.md
+    - Partition Leader Election:
+      - partition-leader-election/index.md
     - Security:
       - Authentication: authentication.md
       - Authorization:
@@ -249,6 +254,8 @@ nav:
       - AuthorizerService: tools/kafka-acls/AuthorizerService.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
+    - kafka-leader-election:
+      - tools/kafka-leader-election/index.md
     - kafka-reassign-partitions:
       - tools/kafka-reassign-partitions/index.md
       - Demo: tools/kafka-reassign-partitions/demo.md
@@ -288,3 +295,4 @@ nav:
     - Securing Communication Between Clients and Brokers Using SSL: demo/securing-communication-between-clients-and-brokers.md
     - SSL Authentication: demo/ssl-authentication.md
     - Transactional Kafka Producer: demo/transactional-kafka-producer.md
+    - Using kafka-leader-election for Partition Leader Election: demo/partition-leader-election.md
