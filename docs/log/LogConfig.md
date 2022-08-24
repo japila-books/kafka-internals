@@ -51,11 +51,13 @@ Used when:
 
 ```scala
 extractLogConfigMap(
-  kafkaConfig: KafkaConfig): ju.Map[String, Object]
+  kafkaConfig: KafkaConfig): Map[String, Object]
 ```
 
 `extractLogConfigMap`...FIXME
 
 `extractLogConfigMap` is used when:
 
-* FIXME
+* `LogManager` is [created](LogManager.md#apply)
+* `ConfigHelper` is requested to `describeConfigs`
+* `ZkAdminManager` is requested to [maybePopulateMetadataAndConfigs](../ZkAdminManager.md#maybePopulateMetadataAndConfigs)

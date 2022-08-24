@@ -128,6 +128,60 @@ In the end, `handleInitProducerId` requests the [TransactionStateManager](#txnMa
 
 * `KafkaApis` is requested to [handleInitProducerIdRequest](../KafkaApis.md#handleInitProducerIdRequest)
 
+## <span id="transactionTopicConfigs"> transactionTopicConfigs
+
+```scala
+transactionTopicConfigs: Properties
+```
+
+`transactionTopicConfigs` requests the [TransactionStateManager](#txnManager) for the [transactionTopicConfigs](TransactionStateManager.md#transactionTopicConfigs)
+
+---
+
+`transactionTopicConfigs` is used when:
+
+* `DefaultAutoTopicCreationManager` is requested to [creatableTopic](../DefaultAutoTopicCreationManager.md#creatableTopic) (for `__transaction_state` topic)
+
+## <span id="onEndTransactionComplete"> onEndTransactionComplete
+
+```scala
+onEndTransactionComplete(
+  txnIdAndPidEpoch: TransactionalIdAndProducerIdEpoch)(
+  error: Errors): Unit
+```
+
+`onEndTransactionComplete` branches off per the `error` to print out a message to the logs.
+
+---
+
+`onEndTransactionComplete` is used when:
+
+* `TransactionCoordinator` is requested to [start up](#startup) (and schedules the `transaction-abort` task)
+
+### <span id="onEndTransactionComplete-NONE"> No Errors
+
+For no errors, `onEndTransactionComplete` prints out the following INFO message to the logs:
+
+```text
+Completed rollback of ongoing transaction for transactionalId [transactionalId] due to timeout
+```
+
+### <span id="onEndTransactionComplete-Rollback-Cancelled"> Rollback Cancelled
+
+For `INVALID_PRODUCER_ID_MAPPING`, `PRODUCER_FENCED`, `CONCURRENT_TRANSACTIONS`, `onEndTransactionComplete` prints out the following DEBUG message to the logs:
+
+```text
+Rollback of ongoing transaction for transactionalId [transactionalId] has been cancelled due to error [error]
+```
+
+### <span id="onEndTransactionComplete-Rollback-Failed"> Rollback Failed
+
+For all other errors, `onEndTransactionComplete` prints out the following WARN message to the logs:
+
+```text
+Rollback of ongoing transaction for transactionalId [transactionalId] failed due to error [error]
+```
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.coordinator.transaction.TransactionCoordinator` logger to see what happens inside.

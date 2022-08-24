@@ -110,3 +110,23 @@ removeTransactionsForTxnTopicPartition(
 `removeTransactionsForTxnTopicPartition` is used when:
 
 * `TransactionCoordinator` is requested to [onResignation](TransactionCoordinator.md#onResignation)
+
+## <span id="transactionTopicConfigs"> transactionTopicConfigs
+
+```scala
+transactionTopicConfigs: Properties
+```
+
+Property Name | Property Value
+---------|---------
+ [cleanup.policy](../log/LogConfig.md#CleanupPolicyProp) | [compact](../log/LogConfig.md#Compact)
+ [compression.type](../log/LogConfig.md#CompressionTypeProp) | `uncompressed`
+ [min.insync.replicas](../log/LogConfig.md#MinInSyncReplicasProp) | [transaction.state.log.min.isr](TransactionConfig.md#transactionLogMinInsyncReplicas)
+ [segment.bytes](../log/LogConfig.md#SegmentBytesProp) | [transaction.state.log.segment.bytes](TransactionConfig.md#transactionLogSegmentBytes)
+ [unclean.leader.election.enable](../log/LogConfig.md#UncleanLeaderElectionEnableProp) | `false`
+
+---
+
+`transactionTopicConfigs` is used when:
+
+* `TransactionCoordinator` is requested to [transactionTopicConfigs](TransactionCoordinator.md#transactionTopicConfigs)

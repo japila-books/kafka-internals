@@ -157,3 +157,11 @@ log4j.logger.kafka.coordinator.group.GroupCoordinator=ALL
 ```
 
 Refer to [Logging](../logging.md).
+
+### <span id="logIdent"> logIdent
+
+`GroupCoordinator` uses the following logging prefix (with the [broker.id](../KafkaConfig.md#brokerId)):
+
+```text
+[GroupCoordinator [brokerId]]
+```

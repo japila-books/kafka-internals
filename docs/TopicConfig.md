@@ -1,6 +1,6 @@
 # TopicConfig
 
-`TopicConfig` is configuration properties of a topic. In other words, `TopicConfig` is topic-specific (while [KafkaConfig](KafkaConfig.md) is broker-wide).
+`TopicConfig` is configuration properties of Kafka topics. In other words, `TopicConfig` is a topic-specific configuration properties (while [KafkaConfig](KafkaConfig.md) is broker-wide).
 
 !!! tip
     While reviewing the source code it can get tricky to find broker-wide properties (e.g. `log.cleanup.policy`). The reason is that broker-wide properties as split into `log.` prefix and a corresponding topic-specific property.
@@ -20,7 +20,7 @@ Broker-wide configuration: [log.cleanup.policy](KafkaConfig.md#LogCleanupPolicyP
 
 Used when:
 
-* `GroupCoordinator` is requested to `offsetsTopicConfigs`
+* `GroupCoordinator` is requested for the [offsetsTopicConfigs](consumer-groups/GroupCoordinator.md#offsetsTopicConfigs)
 * `LogConfig` is requested to [compact](log/LogConfig.md#compact), [delete](log/LogConfig.md#delete), [TopicConfigSynonyms](log/LogConfig.md#TopicConfigSynonyms) and [extractLogConfigMap](log/LogConfig.md#extractLogConfigMap)
 * `TopicBasedRemoteLogMetadataManager` is requested to `createRemoteLogMetadataTopicRequest`
-* `TransactionStateManager` is requested to [transactionTopicConfigs](transactions/TransactionStateManager.md#transactionTopicConfigs)
+* `TransactionStateManager` is requested for the [transactionTopicConfigs](transactions/TransactionStateManager.md#transactionTopicConfigs)
