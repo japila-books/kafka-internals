@@ -58,6 +58,61 @@ In the end, `apply` creates a [LogManager](#creating-instance) based on some [co
 
 `LogManager` is a [KafkaMetricsGroup](../metrics/KafkaMetricsGroup.md).
 
+## <span id="currentLogs"> Current Logs
+
+```scala
+currentLogs: Pool[TopicPartition, UnifiedLog]
+```
+
+`LogManager` defines `currentLogs` internal registry of [UnifiedLog](UnifiedLog.md)s per `TopicPartition`.
+
+`LogManager` uses the `currentLogs` registry when:
+
+* [startupWithConfigOverrides](#startupWithConfigOverrides) (to create a [LogCleaner](LogCleaner.md) when [enabled](CleanerConfig.md#enableCleaner))
+* [handleLogDirFailure](#handleLogDirFailure)
+* [loadLog](#loadLog)
+* [truncateTo](#truncateTo)
+* [truncateFullyAndStartAt](#truncateFullyAndStartAt)
+* [getLog](#getLog)
+* [getOrCreateLog](#getOrCreateLog)
+* _and many more_
+
+## <span id="getLog"> Looking Up Log
+
+```scala
+getLog(
+  topicPartition: TopicPartition,
+  isFuture: Boolean = false): Option[UnifiedLog]
+```
+
+With the input `isFuture` enabled, `getLog` uses the [futureLogs](#futureLogs) registry to look up the [UnifiedLog](UnifiedLog.md) for the input `TopicPartition` (if available). Otherwise, `getLog` uses the [currentLogs](#currentLogs) registry.
+
+---
+
+`getLog` is used when:
+
+* `Partition` is requested to [topicId](../Partition.md#topicId) and [getOffsetByTimestamp](../Partition.md#getOffsetByTimestamp)
+* `LogManager` is requested to [maybeUpdatePreferredLogDir](#maybeUpdatePreferredLogDir), [getOrCreateLog](#getOrCreateLog), [asyncDelete](#asyncDelete)
+* `ReplicaManager` is requested to [getLog](../ReplicaManager.md#getLog), [maybeAddLogDirFetchers](../ReplicaManager.md#maybeAddLogDirFetchers)
+
+## <span id="getOrCreateLog"> getOrCreateLog
+
+```scala
+getOrCreateLog(
+  topicPartition: TopicPartition,
+  isNew: Boolean = false,
+  isFuture: Boolean = false,
+  topicId: Option[Uuid]): UnifiedLog
+```
+
+`getOrCreateLog`...FIXME
+
+---
+
+`getOrCreateLog` is used when:
+
+* `Partition` is requested to [createLog](../Partition.md#createLog)
+
 ## Logging
 
 Enable `ALL` logging level for `kafka.log.LogManager` logger to see what happens inside.

@@ -1,5 +1,11 @@
 # KafkaApis
 
+`KafkaApis` is responsible to [handle API requests](#handle) to a Kafka broker (by means of [handlers](#handlers)).
+
+![KafkaApis is Created for KafkaRequestHandlerPool when KafkaServer Starts Up](images/KafkaApis.png)
+
+Some requests are meant for the [controller broker](controller/index.md) and simply do nothing (_no-ops_) when received by a regular non-controller broker.
+
 ## Creating Instance
 
 `KafkaApis` takes the following to be created:
@@ -190,12 +196,65 @@ handleLeaderAndIsrRequest(
   request: RequestChannel.Request): Unit
 ```
 
+In summary, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaManager) to [become the leader or a follower (of partitions)](ReplicaManager.md#becomeLeaderOrFollower).
+
+---
+
 `handleLeaderAndIsrRequest` assumes that the given `RequestChannel.Request` is an `LeaderAndIsrRequest`.
 
 `handleLeaderAndIsrRequest` requests the [AuthHelper](#authHelper) to [authorize](authorization/AuthHelper.md#authorizeClusterOperation) `CLUSTER_ACTION` operation.
 
-In the end, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaManager) to [becomeLeaderOrFollower](ReplicaManager.md#becomeLeaderOrFollower) (with a `correlationId` and [onLeadershipChange](RequestHandlerHelper.md#onLeadershipChange) handler).
+In the end, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaManager) to [become the leader or a follower (of partitions)](ReplicaManager.md#becomeLeaderOrFollower) (with a `correlationId` and [onLeadershipChange](RequestHandlerHelper.md#onLeadershipChange) handler).
 
 `handleLeaderAndIsrRequest` is used when:
 
 * `KafkaApis` is requested to [handle a LEADER_AND_ISR request](#handle)
+
+## <span id="handle"> Handling API Request
+
+```scala
+handle(
+  request: RequestChannel.Request,
+  requestLocal: RequestLocal): Unit
+```
+
+`handle` is part of the [ApiRequestHandler](ApiRequestHandler.md#handle) abstraction.
+
+---
+
+`handle` prints out the following TRACE message to the logs:
+
+```text
+Handling request:[request] from connection [id];securityProtocol:[protocol],principal:[principal]
+```
+
+`handle` uses the [apiKey](#keys) (from the header of) the input `RequestChannel.Request` to handle it using the corresponding [handler](#handler).
+
+## Logging
+
+Enable `ALL` logging level for `kafka.server.KafkaApis` logger to see what happens inside.
+
+Add the following line to `config/log4j.properties`:
+
+```text
+log4j.logger.kafka.server.KafkaApis=ALL
+```
+
+Refer to [Logging](logging.md).
+
+---
+
+Please note that Kafka comes with a preconfigured `kafka.server.KafkaApis` logger in `config/log4j.properties`:
+
+```text
+log4j.appender.requestAppender=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.requestAppender.DatePattern='.'yyyy-MM-dd-HH
+log4j.appender.requestAppender.File=${kafka.logs.dir}/kafka-request.log
+log4j.appender.requestAppender.layout=org.apache.log4j.PatternLayout
+log4j.appender.requestAppender.layout.ConversionPattern=[%d] %p %m (%c)%n
+
+log4j.logger.kafka.server.KafkaApis=TRACE, requestAppender
+log4j.additivity.kafka.server.KafkaApis=false
+```
+
+That means that the logs of `KafkaApis` go to `logs/kafka-request.log` file at `TRACE` logging level and are not added to the main logs (per `log4j.additivity` being off).
