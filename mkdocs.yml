@@ -106,6 +106,7 @@ nav:
   - Internals:
     - Overview: overview.md
     - AbstractConfig: AbstractConfig.md
+    - AbstractRequest: AbstractRequest.md
     - ApiRequestHandler: ApiRequestHandler.md
     - AutoTopicCreationManager: AutoTopicCreationManager.md
     - BrokerMetadataCheckpoint: BrokerMetadataCheckpoint.md
@@ -153,6 +154,9 @@ nav:
       - TopicUncleanLeaderElectionEnable: controller/TopicUncleanLeaderElectionEnable.md
     - controller/ControllerEventManager.md
     - ControllerEventProcessor: controller/ControllerEventProcessor.md
+    - Controller Requests:
+      - AbstractControlRequest: controller/AbstractControlRequest.md
+      - LeaderAndIsrRequest: controller/LeaderAndIsrRequest.md
     - controller/ControllerState.md
     - controller/ControllerEventThread.md
     - Election: controller/Election.md
