@@ -26,11 +26,11 @@ sendRequest(
   callback: AbstractResponse => Unit = null): Unit
 ```
 
-Sends an `AbstractControlRequest` out to the given broker (with optional callback to handle a response)
+Sends out an [AbstractControlRequest](AbstractControlRequest.md) to the given broker (with optional callback to handle a response)
 
 Used when:
 
-* `AbstractControllerBrokerRequestBatch` is requested to [sendLeaderAndIsrRequest](#sendLeaderAndIsrRequest), [sendUpdateMetadataRequests](#sendUpdateMetadataRequests), [sendStopReplicaRequests](#sendStopReplicaRequests), [sendStopReplicaRequests](#sendStopReplicaRequests)
+* `AbstractControllerBrokerRequestBatch` is requested to [sendLeaderAndIsrRequest](#sendLeaderAndIsrRequest), [sendUpdateMetadataRequests](#sendUpdateMetadataRequests), [sendStopReplicaRequests](#sendStopReplicaRequests)
 
 ## Implementations
 
@@ -120,6 +120,40 @@ Sending UpdateMetadata request to brokers [updateMetadataRequestBrokerSet] for [
 ```
 
 `sendUpdateMetadataRequests`...FIXME
+
+### <span id="sendLeaderAndIsrRequest"> Sending Out LeaderAndIsr Requests
+
+```scala
+sendLeaderAndIsrRequest(
+  controllerEpoch: Int,
+  stateChangeLog: StateChangeLogger): Unit
+```
+
+`sendLeaderAndIsrRequest` uses the [leaderAndIsrRequestMap](#leaderAndIsrRequestMap) internal registry for the brokers and partitions to send [LeaderAndIsr requests](LeaderAndIsrRequest.md) to.
+
+---
+
+For every broker (that is [liveOrShuttingDownBrokerIds](ControllerContext.md#liveOrShuttingDownBrokerIds)) and partitions (with their state), `sendLeaderAndIsrRequest` determines the type of request:
+
+* `become-leader` when the broker is assumed the leader
+* `become-follower` otherwise
+
+`sendLeaderAndIsrRequest` prints out the following TRACE message to the logs:
+
+```text
+Sending [typeOfRequest] LeaderAndIsr request [state] to broker [broker] for partition [partition]
+```
+
+`sendLeaderAndIsrRequest` prints out the following INFO message to the logs:
+
+```text
+Sending LeaderAndIsr request to broker [broker]
+with [numBecomeLeaders] become-leader and [becomeFollower] become-follower partitions
+```
+
+`sendLeaderAndIsrRequest` creates a [LeaderAndIsrRequest.Builder](LeaderAndIsrRequest.md#Builder) for [sending a LeaderAndIsr request](#sendRequest) to the brokers (one by one).
+
+In the end, `sendLeaderAndIsrRequest` clears out the [leaderAndIsrRequestMap](#leaderAndIsrRequestMap).
 
 ## <span id="addLeaderAndIsrRequestForBrokers"> addLeaderAndIsrRequestForBrokers
 

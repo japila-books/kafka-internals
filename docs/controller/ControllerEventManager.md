@@ -100,3 +100,17 @@ The `ControllerEventThread` is requested to [start](ControllerEventThread.md#doW
 
 !!! note
     The state of `ControllerEventManager` is exactly the state of the parent [KafkaController](KafkaController.md#state).
+
+## <span id="pollFromEventQueue"> pollFromEventQueue
+
+```scala
+pollFromEventQueue(): QueuedEvent
+```
+
+`pollFromEventQueue` takes a [QueuedEvent](QueuedEvent.md) off the [queue](#queue).
+
+---
+
+`pollFromEventQueue` is used when:
+
+* `ControllerEventThread` is requested to [doWork](ControllerEventThread.md#doWork)

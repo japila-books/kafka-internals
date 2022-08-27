@@ -200,11 +200,13 @@ In summary, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaMa
 
 ---
 
-`handleLeaderAndIsrRequest` assumes that the given `RequestChannel.Request` is an `LeaderAndIsrRequest`.
+`handleLeaderAndIsrRequest` expects the given `RequestChannel.Request` to be an [LeaderAndIsrRequest](controller/LeaderAndIsrRequest.md).
 
 `handleLeaderAndIsrRequest` requests the [AuthHelper](#authHelper) to [authorize](authorization/AuthHelper.md#authorizeClusterOperation) `CLUSTER_ACTION` operation.
 
 In the end, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaManager) to [become the leader or a follower (of partitions)](ReplicaManager.md#becomeLeaderOrFollower) (with a `correlationId` and [onLeadershipChange](RequestHandlerHelper.md#onLeadershipChange) handler).
+
+---
 
 `handleLeaderAndIsrRequest` is used when:
 
@@ -228,7 +230,12 @@ handle(
 Handling request:[request] from connection [id];securityProtocol:[protocol],principal:[principal]
 ```
 
-`handle` uses the [apiKey](#keys) (from the header of) the input `RequestChannel.Request` to handle it using the corresponding [handler](#handler).
+`handle` handles the given `RequestChannel.Request` (based on the `apiKey` in the header) using the corresponding handler.
+
+API Key | Handler
+--------|--------
+ [LeaderAndIsr](controller/LeaderAndIsrRequest.md#LeaderAndIsr) | [handleLeaderAndIsrRequest](#handleLeaderAndIsrRequest)
+ _others_ |
 
 ## Logging
 
