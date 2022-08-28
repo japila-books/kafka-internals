@@ -236,7 +236,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/clients/admin/Admin/</loc>
+         <lastmod>2022-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/clients/admin/AdminClientRunnable/</loc>
+         <lastmod>2022-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/clients/admin/KafkaAdminClient/</loc>
          <lastmod>2022-08-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -606,6 +616,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/dynamic-broker-configuration/ZkNodeChangeNotificationListener/</loc>
+         <lastmod>2022-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/log/</loc>
          <lastmod>2022-08-28</lastmod>
          <changefreq>daily</changefreq>
@@ -762,6 +777,16 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/tools/kafka-acls/AuthorizerService/</loc>
+         <lastmod>2022-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-configs/</loc>
+         <lastmod>2022-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/tools/kafka-configs/ConfigCommand/</loc>
          <lastmod>2022-08-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
