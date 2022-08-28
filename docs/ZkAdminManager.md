@@ -1,5 +1,57 @@
 # ZkAdminManager
 
+## <span id="incrementalAlterConfigs"> incrementalAlterConfigs
+
+```scala
+incrementalAlterConfigs(
+  configs: Map[ConfigResource,
+  Seq[AlterConfigOp]],
+  validateOnly: Boolean): Map[ConfigResource, ApiError]
+```
+
+`incrementalAlterConfigs`...FIXME
+
+---
+
+`incrementalAlterConfigs` is used when:
+
+* `KafkaApis` is requested to [processIncrementalAlterConfigsRequest](KafkaApis.md#processIncrementalAlterConfigsRequest)
+
+## <span id="alterConfigs"> alterConfigs
+
+```scala
+alterConfigs(
+  configs: Map[ConfigResource,
+  AlterConfigsRequest.Config],
+  validateOnly: Boolean): Map[ConfigResource, ApiError]
+```
+
+`alterConfigs`...FIXME
+
+---
+
+`alterConfigs` is used when:
+
+* `KafkaApis` is requested to [processLegacyAlterConfigsRequest](KafkaApis.md#processLegacyAlterConfigsRequest)
+
+## <span id="alterTopicConfigs"> alterTopicConfigs
+
+```scala
+alterTopicConfigs(
+  resource: ConfigResource,
+  validateOnly: Boolean,
+  configProps: Properties,
+  configEntriesMap: Map[String, String]): (ConfigResource, ApiError)
+```
+
+`alterTopicConfigs`...FIXME
+
+---
+
+`alterTopicConfigs` is used when:
+
+* `ZkAdminManager` is requested to [alterConfigs](#alterConfigs) (of a topic), [incrementalAlterConfigs](#incrementalAlterConfigs) (of a topic)
+
 ## <span id="createTopics"> Creating Topics
 
 ```scala

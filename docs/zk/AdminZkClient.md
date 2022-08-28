@@ -30,3 +30,55 @@ fetchEntityConfig(
 `fetchEntityConfig` is used when:
 
 * FIXME
+
+## <span id="changeEntityConfig"> changeEntityConfig
+
+```scala
+changeEntityConfig(
+  rootEntityType: String,
+  fullSanitizedEntityName: String,
+  configs: Properties): Unit
+```
+
+`changeEntityConfig`...FIXME
+
+---
+
+`changeEntityConfig` is used when:
+
+* `AdminZkClient` is requested to [changeClientIdConfig](#changeClientIdConfig), [changeUserOrUserClientIdConfig](#changeUserOrUserClientIdConfig), [changeIpConfig](#changeIpConfig), [changeTopicConfig](#changeTopicConfig), [changeBrokerConfig](#changeBrokerConfig)
+
+## <span id="changeTopicConfig"> changeTopicConfig
+
+```scala
+changeTopicConfig(
+  topic: String,
+  configs: Properties): Unit
+```
+
+`changeTopicConfig`...FIXME
+
+---
+
+`changeTopicConfig` is used when:
+
+* `ZkAdminManager` is requested to [alterTopicConfigs](../ZkAdminManager.md#alterTopicConfigs)
+* `AdminZkClient` is requested to [changeConfigs](#changeConfigs)
+
+## <span id="changeConfigs"> changeConfigs
+
+```scala
+changeConfigs(
+  entityType: String,
+  entityName: String,
+  configs: Properties): Unit
+```
+
+`changeConfigs`...FIXME
+
+---
+
+`changeConfigs` is used when:
+
+* `ConfigCommand` is requested to [alterConfigWithZk](../tools/kafka-configs/ConfigCommand.md#alterConfigWithZk)
+* `ZkAdminManager` is requested to [alterClientQuotas](../ZkAdminManager.md#alterClientQuotas), [alterUserScramCredentials](../ZkAdminManager.md#alterUserScramCredentials)

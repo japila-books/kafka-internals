@@ -185,6 +185,7 @@ nav:
       - dynamic-broker-configuration/DynamicThreadPool.md
       - TopicConfigHandler: dynamic-broker-configuration/TopicConfigHandler.md
       - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
+      - ZkNodeChangeNotificationListener: dynamic-broker-configuration/ZkNodeChangeNotificationListener.md
     - Log Cleanup:
       - log-cleanup/index.md
     - Partition Leader Election:
@@ -211,7 +212,9 @@ nav:
     - clients/index.md
     - Admin:
       - clients/admin/index.md
+      - Admin: clients/admin/Admin.md
       - AdminClientRunnable: clients/admin/AdminClientRunnable.md
+      - KafkaAdminClient: clients/admin/KafkaAdminClient.md
     - Consumers:
       - clients/consumer/index.md
       - AbstractCoordinator: clients/consumer/AbstractCoordinator.md
@@ -258,6 +261,9 @@ nav:
       - AclCommandService: tools/kafka-acls/AclCommandService.md
       - AdminClientService: tools/kafka-acls/AdminClientService.md
       - AuthorizerService: tools/kafka-acls/AuthorizerService.md
+    - kafka-configs:
+      - tools/kafka-configs/index.md
+      - ConfigCommand: tools/kafka-configs/ConfigCommand.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
     - kafka-leader-election:

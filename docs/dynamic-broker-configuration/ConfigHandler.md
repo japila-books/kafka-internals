@@ -1,6 +1,6 @@
 # ConfigHandler
 
-`ConfigHandler` is an [abstraction](#contract) of [config change handlers](#implementations).
+`ConfigHandler` is an [abstraction](#contract) of [config change handlers](#implementations) that can [process configuration changes](#processConfigChanges).
 
 ## Contract
 

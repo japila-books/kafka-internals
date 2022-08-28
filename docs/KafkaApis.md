@@ -212,6 +212,33 @@ In the end, `handleLeaderAndIsrRequest` requests the [ReplicaManager](#replicaMa
 
 * `KafkaApis` is requested to [handle a LEADER_AND_ISR request](#handle)
 
+## <span id="handleIncrementalAlterConfigsRequest"> handleIncrementalAlterConfigsRequest
+
+```scala
+handleIncrementalAlterConfigsRequest(
+  request: RequestChannel.Request): Unit
+```
+
+`handleIncrementalAlterConfigsRequest`...FIXME
+
+---
+
+`handleIncrementalAlterConfigsRequest` is used when:
+
+* `KafkaApis` is requested to [handle a INCREMENTAL_ALTER_CONFIGS request](#handle)
+
+### <span id="processIncrementalAlterConfigsRequest"> processIncrementalAlterConfigsRequest
+
+```scala
+processIncrementalAlterConfigsRequest(
+  originalRequest: RequestChannel.Request,
+  data: IncrementalAlterConfigsRequestData): IncrementalAlterConfigsResponseData
+```
+
+`processIncrementalAlterConfigsRequest`...FIXME
+
+* FIXME
+
 ## <span id="handle"> Handling API Request
 
 ```scala
@@ -235,6 +262,7 @@ Handling request:[request] from connection [id];securityProtocol:[protocol],prin
 API Key | Handler
 --------|--------
  [LeaderAndIsr](controller/LeaderAndIsrRequest.md#LeaderAndIsr) | [handleLeaderAndIsrRequest](#handleLeaderAndIsrRequest)
+ `INCREMENTAL_ALTER_CONFIGS` | [handleIncrementalAlterConfigsRequest](#handleIncrementalAlterConfigsRequest)
  _others_ |
 
 ## Logging

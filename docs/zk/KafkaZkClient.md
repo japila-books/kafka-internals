@@ -20,3 +20,18 @@ $ ./bin/zkCli.sh -server localhost:2181 ls /config
 `getEntityConfigs` is used when:
 
 * `AdminZkClient` is requested to [fetchEntityConfig](AdminZkClient.md#fetchEntityConfig)
+
+## <span id="createConfigChangeNotification"> createConfigChangeNotification
+
+```scala
+createConfigChangeNotification(
+  sanitizedEntityPath: String): Unit
+```
+
+`createConfigChangeNotification`...FIXME
+
+---
+
+`createConfigChangeNotification` is used when:
+
+* `AdminZkClient` is requested to [changeEntityConfig](AdminZkClient.md#changeEntityConfig)
