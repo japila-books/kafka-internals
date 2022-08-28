@@ -81,7 +81,8 @@ updateDefaultConfig(
 
 `updateDefaultConfig` is used when:
 
-* FIXME
+* `BrokerConfigHandler` is requested to [processConfigChanges](BrokerConfigHandler.md#processConfigChanges)
+* `DynamicBrokerConfig` is requested to [initialize](#initialize)
 
 ## <span id="processReconfiguration"> processReconfiguration
 
