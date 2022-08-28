@@ -2,6 +2,19 @@
 
 `KafkaConfig` is configuration properties of a Kafka broker.
 
+`KafkaConfig` is a [AbstractConfig](AbstractConfig.md).
+
+## Accessing KafkaConfig
+
+```scala
+import kafka.server.KafkaConfig
+import java.util.Properties
+val props = new Properties()
+props.put("zookeeper.connect", ":2181") // a required property
+val config = KafkaConfig.fromProps(props, doLog = true)
+assert(config.uncleanLeaderElectionEnable == false)
+```
+
 ## <span id="authorizer.class.name"><span id="AuthorizerClassNameProp"><span id="authorizer"> authorizer.class.name
 
 The fully-qualified name of a class that implements [Authorizer](authorization/Authorizer.md) interface, which is used by the broker for [request authorization](authorization/index.md).
@@ -187,6 +200,18 @@ Used when:
 
 ## Utilities
 
+### <span id="dynamicConfig"> DynamicBrokerConfig
+
+```scala
+dynamicConfig: DynamicBrokerConfig
+```
+
+`KafkaConfig` initializes `dynamicConfig` when [created](#creating-instance) (based on the optional[dynamicConfigOverride](#dynamicConfigOverride)).
+
+The `DynamicBrokerConfig` is used when:
+
+* FIXME
+
 ### <span id="interBrokerProtocolVersion"> interBrokerProtocolVersion
 
 ```scala
@@ -202,3 +227,67 @@ requiresZookeeper: Boolean
 ```
 
 `requiresZookeeper` is `true` when [process.roles](#processRoles) is empty.
+
+## Creating Instance
+
+`KafkaConfig` takes the following to be created:
+
+* <span id="doLog"> `doLog` flag
+* <span id="props"> Properties
+* [DynamicBrokerConfig](#dynamicConfigOverride)
+
+`KafkaConfig` is created when:
+
+* `DynamicBrokerConfig` is requested to [initialize](dynamic-broker-configuration/DynamicBrokerConfig.md#initialize), [reloadUpdatedFilesWithoutConfigChange](dynamic-broker-configuration/DynamicBrokerConfig.md#reloadUpdatedFilesWithoutConfigChange), [processReconfiguration](dynamic-broker-configuration/DynamicBrokerConfig.md#processReconfiguration)
+* `KafkaConfig` is requested to [fromProps](#fromProps), [apply](#apply)
+
+### <span id="dynamicConfigOverride"> dynamicConfigOverride
+
+`KafkaConfig` can be given a [DynamicBrokerConfig](dynamic-broker-configuration/DynamicBrokerConfig.md) when [created](#creating-instance).
+
+!!! note
+    `DynamicBrokerConfig` seems never be given.
+
+`KafkaConfig` creates a new `DynamicBrokerConfig` for [dynamicConfig](#dynamicConfig) unless given.
+
+## Creating KafkaConfig Instance
+
+### <span id="fromProps"> fromProps
+
+```scala
+fromProps(
+  props: Properties): KafkaConfig
+fromProps(
+  props: Properties,
+  doLog: Boolean): KafkaConfig
+fromProps(
+  defaults: Properties,
+  overrides: Properties): KafkaConfig
+fromProps(
+  defaults: Properties,
+  overrides: Properties,
+  doLog: Boolean): KafkaConfig
+```
+
+`fromProps`...FIXME
+
+---
+
+`fromProps` is used when:
+
+* `Kafka` is requested to [build a Server](Kafka.md#buildServer)
+* `AclAuthorizer` is requested to [configure](authorization/AclAuthorizer.md#configure)
+
+### <span id="apply"> apply
+
+```scala
+apply(
+  props: Map[_, _],
+  doLog: Boolean = true): KafkaConfig
+```
+
+`apply`...FIXME
+
+---
+
+`apply` seems to be used for testing only.
