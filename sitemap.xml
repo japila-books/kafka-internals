@@ -586,6 +586,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/dynamic-broker-configuration/DynamicLogConfig/</loc>
+         <lastmod>2022-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/dynamic-broker-configuration/DynamicThreadPool/</loc>
          <lastmod>2022-08-28</lastmod>
          <changefreq>daily</changefreq>
