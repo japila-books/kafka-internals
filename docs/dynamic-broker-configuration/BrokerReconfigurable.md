@@ -1,10 +1,10 @@
 # BrokerReconfigurable
 
-`BrokerReconfigurable` is an [abstraction](#contract) of [FIXME](#implementations) that can...FIXME
+`BrokerReconfigurable` is an [abstraction](#contract) of [dynamic reconfigurables](#implementations) that can be [reconfigured](#reconfigure) at runtime.
 
 ## Contract
 
-### <span id="reconfigurableConfigs"> reconfigurableConfigs
+### <span id="reconfigurableConfigs"> Reconfigurable Configs
 
 ```scala
 reconfigurableConfigs: Set[String]
@@ -21,11 +21,13 @@ validateReconfiguration(
   newConfig: KafkaConfig): Unit
 ```
 
+Validates the updated [KafkaConfig](../KafkaConfig.md)
+
 Used when:
 
 * `DynamicBrokerConfig` is requested to [processReconfiguration](DynamicBrokerConfig.md#processReconfiguration)
 
-### <span id="reconfigure"> reconfigure
+### <span id="reconfigure"> Reconfiguring Broker
 
 ```scala
 reconfigure(
@@ -40,7 +42,7 @@ Used when:
 ## Implementations
 
 * `DynamicListenerConfig`
-* `DynamicLogConfig`
+* [DynamicLogConfig](DynamicLogConfig.md)
 * [DynamicThreadPool](DynamicThreadPool.md)
 * [LogCleaner](../log/LogCleaner.md)
 * `SocketServer`

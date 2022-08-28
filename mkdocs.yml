@@ -181,6 +181,7 @@ nav:
       - dynamic-broker-configuration/BrokerReconfigurable.md
       - dynamic-broker-configuration/ConfigHandler.md
       - dynamic-broker-configuration/DynamicBrokerConfig.md
+      - DynamicLogConfig: dynamic-broker-configuration/DynamicLogConfig.md
       - dynamic-broker-configuration/DynamicThreadPool.md
       - TopicConfigHandler: dynamic-broker-configuration/TopicConfigHandler.md
       - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
