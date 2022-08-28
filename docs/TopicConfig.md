@@ -24,3 +24,7 @@ Used when:
 * `LogConfig` is requested to [compact](log/LogConfig.md#compact), [delete](log/LogConfig.md#delete), [TopicConfigSynonyms](log/LogConfig.md#TopicConfigSynonyms) and [extractLogConfigMap](log/LogConfig.md#extractLogConfigMap)
 * `TopicBasedRemoteLogMetadataManager` is requested to `createRemoteLogMetadataTopicRequest`
 * `TransactionStateManager` is requested for the [transactionTopicConfigs](transactions/TransactionStateManager.md#transactionTopicConfigs)
+
+## <span id="UNCLEAN_LEADER_ELECTION_ENABLE_CONFIG"><span id="unclean.leader.election.enable"> unclean.leader.election.enable
+
+[LogConfig](log/LogConfig.md#UncleanLeaderElectionEnableProp)

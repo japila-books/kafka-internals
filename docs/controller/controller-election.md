@@ -62,6 +62,17 @@ From [Notable changes in 0.10.1.0](http://kafka.apache.org/documentation/#upgrad
 
 ![Active KafkaController in jconsole](../images/kafka-controller-jconsole.png)
 
+## Forcing Controller Re-election
+
+Controller re-election may be forced by running the following command:
+
+```console
+bin/zookeeper-shell.sh localhost delete /controller
+```
+
+!!! tip
+    Monitor [logs/controller.log](KafkaController.md#logging) to see what happens.
+
 ## Controller ID Registered (in ZooKeeper)
 
 The election process stops when [there is a controller ID registered in Zookeeper](KafkaController.md#elect) (using `KafkaZkClient` that [gets the ID of the active controller](../zk/KafkaZkClient.md#getControllerId) and the ID is any number but `-1`).

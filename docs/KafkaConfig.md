@@ -186,13 +186,17 @@ Must be at least 1
 
 ## <span id="UncleanLeaderElectionEnableProp"><span id="unclean.leader.election.enable"> unclean.leader.election.enable
 
-Enables replicas not in the ISR to be elected as leaders as a last resort, even though doing so may result in data loss
+Enables replicas not in the ISR to be elected as leaders as a last resort, even though it is not guaranteed to have every committed message (and may even result in data loss).
 
-Default: `false`
+It is to support use cases where uptime and availability are preferable over consistency and allow non-in-sync replicas to become partition leaders.
+
+Default: `false` (disabled)
+
+Unclean leader election is automatically enabled by the controller when this config is dynamically updated by using per-topic config override.
 
 Use `KafkaConfig.uncleanLeaderElectionEnable` to access the current value.
 
-[unclean.leader.election.enable](TopicConfig.md#unclean.leader.election.enable)
+Per-topic configuration: [unclean.leader.election.enable](TopicConfig.md#unclean.leader.election.enable)
 
 Used when:
 

@@ -47,7 +47,23 @@ Used when:
 * `ReassignPartitionsCommand` is [created](../tools/kafka-reassign-partitions/ReassignPartitionsCommand.md#topicLevelFollowerThrottle)
 * `TopicConfigHandler` is requested to [processConfigChanges](../dynamic-broker-configuration/TopicConfigHandler.md#processConfigChanges)
 
-## <span id="extractLogConfigMap"> extractLogConfigMap
+## <span id="UncleanLeaderElectionEnableProp"><span id="unclean.leader.election.enable"><span id="uncleanLeaderElectionEnable"> unclean.leader.election.enable
+
+[TopicConfig](../TopicConfig.md#UNCLEAN_LEADER_ELECTION_ENABLE_CONFIG)
+
+Default: `false` (disabled)
+
+Use `LogConfig.uncleanLeaderElectionEnable` to access the current value.
+
+[KafkaConfig](../KafkaConfig.md#UncleanLeaderElectionEnableProp)
+
+`TransactionStateManager` disables the property explicitly (`false`) for [__transaction_state](../transactions/TransactionStateManager.md#transactionTopicConfigs) topic.
+
+Used in [extractLogConfigMap](#extractLogConfigMap)
+
+## Utilities
+
+### <span id="extractLogConfigMap"> extractLogConfigMap
 
 ```scala
 extractLogConfigMap(
