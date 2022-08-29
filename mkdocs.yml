@@ -142,7 +142,7 @@ nav:
       - zk/AdminZkClient.md
       - zk/KafkaZkClient.md
       - TopicPartitionStateZNode: zk/TopicPartitionStateZNode.md
-  - Controller Broker:
+  - Controller:
     - controller/index.md
     - AbstractControllerBrokerRequestBatch: controller/AbstractControllerBrokerRequestBatch.md
     - ControllerBrokerRequestBatch: controller/ControllerBrokerRequestBatch.md
@@ -266,6 +266,9 @@ nav:
       - ConfigCommand: tools/kafka-configs/ConfigCommand.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
+    - kafka-get-offsets:
+      - tools/kafka-get-offsets/index.md
+      - GetOffsetShell: tools/kafka-get-offsets/GetOffsetShell.md
     - kafka-leader-election:
       - tools/kafka-leader-election/index.md
     - kafka-reassign-partitions:
