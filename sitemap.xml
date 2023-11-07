@@ -196,6 +196,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/broker/RaftControllerNodeProvider/</loc>
+         <lastmod>2023-11-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/clients/</loc>
          <lastmod>2023-11-07</lastmod>
          <changefreq>daily</changefreq>
@@ -721,6 +726,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/KafkaRaftClient/</loc>
+         <lastmod>2023-11-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/raft/KafkaRaftManager/</loc>
          <lastmod>2023-11-07</lastmod>
          <changefreq>daily</changefreq>
@@ -732,6 +742,11 @@
     </url>
     <url>
          <loc>https://books.japila.pl/kafka-internals/raft/MetaProperties/</loc>
+         <lastmod>2023-11-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/raft/RaftClient/</loc>
          <lastmod>2023-11-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
