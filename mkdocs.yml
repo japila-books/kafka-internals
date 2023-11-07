@@ -96,6 +96,7 @@ extra:
   kafka:
     version: 3.6.0
     github: https://github.com/apache/kafka/tree/3.6.0
+    wiki: https://cwiki.apache.org/confluence/display/KAFKA
   scala:
     api: https://www.scala-lang.org/api/2.13.11
     docs: https://docs.scala-lang.org/
@@ -221,10 +222,7 @@ nav:
     - TopicDeletionManager: controller/TopicDeletionManager.md
     - ZkPartitionStateMachine: controller/ZkPartitionStateMachine.md
     - ZkReplicaStateMachine: controller/ZkReplicaStateMachine.md
-  - Broker:
-    - broker/index.md
-    - KafkaBroker: broker/KafkaBroker.md
-    - KafkaServer: broker/KafkaServer.md
+  - ... | broker/**.md
   - Clients:
     - clients/index.md
     - Admin:

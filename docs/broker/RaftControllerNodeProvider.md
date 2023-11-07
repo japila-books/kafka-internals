@@ -1,0 +1,3 @@
+# RaftControllerNodeProvider
+
+`RaftControllerNodeProvider` is...FIXME
