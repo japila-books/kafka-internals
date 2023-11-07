@@ -181,7 +181,6 @@ The `KafkaController` is used when:
 * `KafkaServer` is requested to [startup](#startup)
     * for the [brokerEpoch](../controller/KafkaController.md#brokerEpoch) for [AlterIsrManager](#alterIsrManager)
     * for the [brokerEpoch](../controller/KafkaController.md#brokerEpoch) for [ProducerIdManager](#alterIsrManager)
-    * [AutoTopicCreationManager](autoTopicCreationManager)
     * `ZkSupport`
 
 ## Logging

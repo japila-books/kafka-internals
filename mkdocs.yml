@@ -7,7 +7,7 @@ repo_name: kafka-internals
 repo_url: https://github.com/japila-books/kafka-internals
 edit_uri: edit/main/docs/
 
-copyright: Copyright &copy; 2022 Jacek Laskowski
+copyright: Copyright &copy; 2023 Jacek Laskowski
 
 theme:
   name: material
@@ -18,8 +18,13 @@ theme:
   features:
     # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations
     - content.code.annotate
+    # https://squidfunk.github.io/mkdocs-material/upgrade/#contentcodecopy
+    - content.code.copy
+    - content.tooltips
     - navigation.indexes
     - navigation.instant
+    # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-path
+    - navigation.path
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
@@ -43,8 +48,9 @@ theme:
 
 markdown_extensions:
   - admonition
-  - codehilite
+  - attr_list
   - footnotes
+  - md_in_html
   - toc:
       permalink: true
   - pymdownx.arithmatex
@@ -54,8 +60,8 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
@@ -73,6 +79,10 @@ plugins:
       minify_html: true
   - awesome-pages
   - macros
+  # https://squidfunk.github.io/mkdocs-material/reference/#built-in-meta-plugin
+  - meta
+  # https://squidfunk.github.io/mkdocs-material/reference/#built-in-typeset-plugin
+  - typeset
 
 extra:
   analytics:
@@ -82,14 +92,14 @@ extra:
     title: Apache Kafka
     kafka_streams: https://books.japila.pl/kafka-streams-internals
   java:
-    api: https://docs.oracle.com/en/java/javase/11/docs/api/java.base
+    api: https://docs.oracle.com/en/java/javase/17/docs/api/java.base
   kafka:
-    version: 3.2.1
-    github: https://github.com/apache/kafka/tree/3.2.1
+    version: 3.6.0
+    github: https://github.com/apache/kafka/tree/3.6.0
   scala:
-    short_version: 2.13
-    api: https://www.scala-lang.org/api/2.13.6
+    api: https://www.scala-lang.org/api/2.13.11
     docs: https://docs.scala-lang.org/
+    short_version: 2.13
     spec: https://www.scala-lang.org/files/archive/spec/2.13
   social:
     - icon: fontawesome/brands/github
@@ -100,9 +110,52 @@ extra:
       link: https://linkedin.com/in/jaceklaskowski
     - icon: fontawesome/brands/medium
       link: https://jaceklaskowski.medium.com
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@jaceklaskowski
 
+# The sections with ... use awesome-pages plugin
+# https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin
+# Review .pages for setup
 nav:
-  - Home: index.md
+  - index.md
+  - Features:
+    - features/index.md
+    - Consumer Groups:
+      - consumer-groups/index.md
+      - consumer-groups/GroupCoordinator.md
+      - consumer-groups/GroupMetadataManager.md
+      - consumer-groups/OffsetConfig.md
+    - Controller Election: controller/controller-election.md
+    - Dynamic Broker Configuration:
+      - dynamic-broker-configuration/index.md
+      - dynamic-broker-configuration/BrokerConfigHandler.md
+      - dynamic-broker-configuration/BrokerReconfigurable.md
+      - ConfigHandler: dynamic-broker-configuration/ConfigHandler.md
+      - dynamic-broker-configuration/DynamicBrokerConfig.md
+      - DynamicLogConfig: dynamic-broker-configuration/DynamicLogConfig.md
+      - dynamic-broker-configuration/DynamicThreadPool.md
+      - TopicConfigHandler: dynamic-broker-configuration/TopicConfigHandler.md
+      - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
+      - ZkNodeChangeNotificationListener: dynamic-broker-configuration/ZkNodeChangeNotificationListener.md
+    - ... | raft/**.md
+    - Log Cleanup:
+      - log-cleanup/index.md
+    - Partition Leader Election:
+      - partition-leader-election/index.md
+    - Security:
+      - Authentication: authentication.md
+      - Authorization:
+        - authorization/index.md
+        - AclApis: authorization/AclApis.md
+        - AclAuthorizer: authorization/AclAuthorizer.md
+        - AuthHelper: authorization/AuthHelper.md
+        - Authorizer: authorization/Authorizer.md
+    - Transactions:
+      - transactions/index.md
+      - TransactionConfig: transactions/TransactionConfig.md
+      - TransactionCoordinator: transactions/TransactionCoordinator.md
+      - TransactionMarkerChannelManager: transactions/TransactionMarkerChannelManager.md
+      - TransactionStateManager: transactions/TransactionStateManager.md
   - Internals:
     - Overview: overview.md
     - AbstractConfig: AbstractConfig.md
@@ -168,42 +221,6 @@ nav:
     - TopicDeletionManager: controller/TopicDeletionManager.md
     - ZkPartitionStateMachine: controller/ZkPartitionStateMachine.md
     - ZkReplicaStateMachine: controller/ZkReplicaStateMachine.md
-  - Features:
-    - Consumer Groups:
-      - consumer-groups/index.md
-      - consumer-groups/GroupCoordinator.md
-      - consumer-groups/GroupMetadataManager.md
-      - consumer-groups/OffsetConfig.md
-    - Controller Election: controller/controller-election.md
-    - Dynamic Broker Configuration:
-      - dynamic-broker-configuration/index.md
-      - dynamic-broker-configuration/BrokerConfigHandler.md
-      - dynamic-broker-configuration/BrokerReconfigurable.md
-      - ConfigHandler: dynamic-broker-configuration/ConfigHandler.md
-      - dynamic-broker-configuration/DynamicBrokerConfig.md
-      - DynamicLogConfig: dynamic-broker-configuration/DynamicLogConfig.md
-      - dynamic-broker-configuration/DynamicThreadPool.md
-      - TopicConfigHandler: dynamic-broker-configuration/TopicConfigHandler.md
-      - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
-      - ZkNodeChangeNotificationListener: dynamic-broker-configuration/ZkNodeChangeNotificationListener.md
-    - Log Cleanup:
-      - log-cleanup/index.md
-    - Partition Leader Election:
-      - partition-leader-election/index.md
-    - Security:
-      - Authentication: authentication.md
-      - Authorization:
-        - authorization/index.md
-        - AclApis: authorization/AclApis.md
-        - AclAuthorizer: authorization/AclAuthorizer.md
-        - AuthHelper: authorization/AuthHelper.md
-        - Authorizer: authorization/Authorizer.md
-    - Transactions:
-      - transactions/index.md
-      - TransactionConfig: transactions/TransactionConfig.md
-      - TransactionCoordinator: transactions/TransactionCoordinator.md
-      - TransactionMarkerChannelManager: transactions/TransactionMarkerChannelManager.md
-      - TransactionStateManager: transactions/TransactionStateManager.md
   - Broker:
     - broker/index.md
     - KafkaBroker: broker/KafkaBroker.md
@@ -280,22 +297,7 @@ nav:
       - ReplicaBuffer: tools/kafka-replica-verification/ReplicaBuffer.md
       - ReplicaFetcher: tools/kafka-replica-verification/ReplicaFetcher.md
       - ReplicaVerificationTool: tools/kafka-replica-verification/ReplicaVerificationTool.md
-  - Metrics:
-    - metrics/index.md
-    - KafkaMetricsGroup: metrics/KafkaMetricsGroup.md
-    - MetricConfig: metrics/MetricConfig.md
-    - Metrics: metrics/Metrics.md
-    - MetricsReporter: metrics/MetricsReporter.md
-    - Sensor: metrics/Sensor.md
-  - KRaft:
-    - raft/index.md
-    - BrokerServer: raft/BrokerServer.md
-    - ControllerServer: raft/ControllerServer.md
-    - KafkaRaftManager: raft/KafkaRaftManager.md
-    - KafkaRaftServer: raft/KafkaRaftServer.md
-    - MetaProperties: raft/MetaProperties.md
-    - RaftConfig: raft/RaftConfig.md
-    - RaftManager: raft/RaftManager.md
+  - ... | metrics/**.md
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
