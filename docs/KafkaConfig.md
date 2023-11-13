@@ -113,6 +113,16 @@ Used when:
 
 * `CleanerConfig` is [created](log/CleanerConfig.md#backOffMs)
 
+## <span id="metadata.log.dir"><span id="MetadataLogDirProp"> metadata.log.dir { #metadataLogDir }
+
+The directory of the metadata log of a Kafka cluster in [KRaft mode](raft/index.md).
+
+Unless specified, the metadata log is placed in the [first log directory from log.dirs](#metadataLogDir).
+
+Default: (unspecified)
+
+Available as [metadataLogDir](#metadataLogDir)
+
 ## <span id="numPartitions"><span id="NumPartitionsProp"><span id="num.partitions"> num.partitions
 
 ## <span id="offsetsTopicPartitions"><span id="OffsetsTopicPartitionsProp"><span id="offsets.topic.num.partitions"> offsets.topic.num.partitions
@@ -295,3 +305,19 @@ apply(
 ---
 
 `apply` seems to be used for testing only.
+
+## metadataLogDir { #metadataLogDir }
+
+```scala
+metadataLogDir: String
+```
+
+`metadataLogDir` is the value of [metadata.log.dir](#metadata.log.dir), if defined, or the first directory from [logDirs](#logDirs).
+
+---
+
+`metadataLogDir` is used when:
+
+* `KafkaRaftManager` is [created](raft/KafkaRaftManager.md#dataDirLock) and requested to [createDataDir](raft/KafkaRaftManager.md#createDataDir)
+* `KafkaRaftServer` is requested to [initializeLogDirs](raft/KafkaRaftServer.md#initializeLogDirs)
+* `StorageTool` is requested to [configToLogDirectories](tools/kafka-storage/StorageTool.md#configToLogDirectories)

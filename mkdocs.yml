@@ -295,6 +295,9 @@ nav:
       - ReplicaBuffer: tools/kafka-replica-verification/ReplicaBuffer.md
       - ReplicaFetcher: tools/kafka-replica-verification/ReplicaFetcher.md
       - ReplicaVerificationTool: tools/kafka-replica-verification/ReplicaVerificationTool.md
+    - kafka-storage:
+      - tools/kafka-storage/index.md
+      - tools/kafka-storage/StorageTool.md
   - ... | metrics/**.md
   - Misc:
     - Building from Sources: building-from-sources.md
