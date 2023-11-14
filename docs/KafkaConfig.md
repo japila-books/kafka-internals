@@ -146,19 +146,20 @@ Used when:
 
 ## <span id="offsetsTopicReplicationFactor"><span id="OffsetsTopicReplicationFactorProp"><span id="offsets.topic.replication.factor"> offsets.topic.replication.factor
 
-## <span id="process.roles"><span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="usesSelfManagedQuorum"> process.roles
+## <span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="usesSelfManagedQuorum"> process.roles { #process.roles }
 
-A comma-separated list of the roles that this process plays in a Kafka cluster:
+A comma-separated list of the roles that this Kafka server plays in a Kafka cluster:
 
 Supported values:
 
 * `broker`
 * `controller`
+* `broker,controller`
 
 Default: (empty)
 
 1. When empty, the process requires Zookeeper (runs with Zookeeper).
-1. Only applicable for clusters in KRaft (Kafka Raft) mode
+1. Only applicable for clusters in [KRaft (Kafka Raft) mode](raft/index.md)
 1. If used, [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG) must contain a parseable set of voters
 1. [advertised.listeners](#AdvertisedListenersProp) config must not contain KRaft controller listeners from [controller.listener.names](#ControllerListenerNamesProp) when `process.roles` contains `broker` role because Kafka clients that send requests via advertised listeners do not send requests to KRaft controllers -- they only send requests to KRaft brokers
 1. If `process.roles` contains `controller` role, the [node.id](KafkaConfig.md#NodeIdProp) must be included in the set of voters [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
