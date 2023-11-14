@@ -146,6 +146,10 @@ Used when:
 
 ## <span id="offsetsTopicReplicationFactor"><span id="OffsetsTopicReplicationFactorProp"><span id="offsets.topic.replication.factor"> offsets.topic.replication.factor
 
+## <span id="QuorumVotersProp"><span id="quorumVoters"> controller.quorum.voters { #controller.quorum.voters }
+
+[controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
+
 ## <span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="usesSelfManagedQuorum"> process.roles { #process.roles }
 
 A comma-separated list of the roles that this Kafka server plays in a Kafka cluster:

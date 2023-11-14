@@ -6,7 +6,7 @@ KRaft allows running a Kafka cluster without Apache ZooKeeper in so-called **Kaf
 
 With KRaft, a Kafka cluster uses its own Kafka infrastructure for metadata (with no need for a separate system, e.g. Zookeeper).
 
-In KRaft, a server can be a `broker`, [controller](#controllers) or both (`broker,controller`) based on [process.roles](../KafkaConfig.md#process.roles) configuration property.
+In KRaft, a server can be a [broker](#brokers), [controller](#controllers) or both (`broker,controller`) based on [process.roles](../KafkaConfig.md#process.roles) configuration property.
 
 KRaft was proposed as [KIP-500]({{ kafka.wiki }}/KIP-500%3A+Replace+ZooKeeper+with+a+Self-Managed+Metadata+Quorum) and went live in [Kafka 2.8.0]({{ kafka.jira }}/KAFKA-9119).
 
@@ -14,11 +14,17 @@ KRaft is production ready since [Apache Kafka 3.3.1]({{ kafka.wiki }}/KIP-833%3A
 
 ## Controllers
 
-KRaft Controllers are responsible for storing the metadata of the cluster in the metadata log.
+[KRaft Controllers](ControllerServer.md) are responsible for storing the metadata of the cluster in the metadata log.
 
 Controllers participate in the [metadata quorum](#metadata-quorum).
 
+## Brokers
+
+[KRaft Brokers](BrokerServer.md)
+
 ## Raft-Based Metadata Quorum { #metadata-quorum }
+
+[controller.quorum.voters](../KafkaConfig.md#quorumVoters)
 
 ## KRaft Metadata Transactions
 

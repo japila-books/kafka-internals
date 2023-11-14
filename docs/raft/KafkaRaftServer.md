@@ -8,21 +8,23 @@
 
 * <span id="config"> [KafkaConfig](../KafkaConfig.md)
 * <span id="time"> `Time`
-* <span id="threadNamePrefix"> Optional `threadNamePrefix`
+* <span id="threadNamePrefix"> Thread Name Prefix (optional)
 
 `KafkaRaftServer` is created when:
 
 * `Kafka` command-line application is [launched](../Kafka.md#main) (and [builds a server](../Kafka.md#buildServer) with no [process.roles](../KafkaConfig.md#processRoles))
 
-## <span id="startup"> startup
+## startup { #startup }
 
-```scala
-startup(): Unit
-```
+??? note "Server"
+
+    ```scala
+    startup(): Unit
+    ```
+
+    `startup` is part of the [Server](../Server.md#startup) abstraction.
 
 `startup`...FIXME
-
-`startup` is part of the [Server](../Server.md#startup) abstraction.
 
 ## <span id="initializeLogDirs"> initializeLogDirs
 
@@ -77,7 +79,7 @@ metaProps: MetaProperties
 * [KafkaRaftManager](#raftManager)
 * [Metrics](#metrics)
 
-## <span id="broker"> BrokerServer
+## BrokerServer { #broker }
 
 ```scala
 broker: Option[BrokerServer]
@@ -90,3 +92,26 @@ The lifecycle of `BrokerServer` is tied up to `KafkaRaftServer`:
 * [startup](BrokerServer.md#startup) when `KafkaRaftServer` is requested to [startup](#startup)
 * [shutdown](BrokerServer.md#shutdown) when `KafkaRaftServer` is requested to [shutdown](#shutdown)
 * [awaitShutdown](BrokerServer.md#awaitShutdown) when `KafkaRaftServer` is requested to [awaitShutdown](#awaitShutdown)
+
+## ControllerServer { #controller }
+
+```scala
+controller: Option[ControllerServer]
+```
+
+`KafkaRaftServer` creates a [ControllerServer](ControllerServer.md) when [created](#creating-instance) with [ControllerRole](../KafkaConfig.md#processRoles).
+
+The lifecycle of `ControllerServer` is tied up to `KafkaRaftServer`:
+
+* [startup](ControllerServer.md#startup) when `KafkaRaftServer` is requested to [startup](#startup)
+* [shutdown](ControllerServer.md#shutdown) when `KafkaRaftServer` is requested to [shutdown](#shutdown)
+* [awaitShutdown](ControllerServer.md#awaitShutdown) when `KafkaRaftServer` is requested to [awaitShutdown](#awaitShutdown)
+
+## SharedServer { #sharedServer }
+
+`KafkaRaftServer` creates a [SharedServer](SharedServer.md) when [created](#creating-instance).
+
+The `SharedServer` is used when running in [KRaft mode](index.md) to create the following:
+
+* [BrokerServer](#broker) when configured as a [broker](../KafkaConfig.md#processRoles)
+* [ControllerServer](#controller) when configured as a [controller](../KafkaConfig.md#processRoles)
