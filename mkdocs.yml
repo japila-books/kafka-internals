@@ -152,6 +152,7 @@ nav:
         - AclAuthorizer: authorization/AclAuthorizer.md
         - AuthHelper: authorization/AuthHelper.md
         - Authorizer: authorization/Authorizer.md
+    - ... | tiered-storage/**.md
     - Transactions:
       - transactions/index.md
       - TransactionConfig: transactions/TransactionConfig.md
