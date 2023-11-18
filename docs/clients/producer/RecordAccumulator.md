@@ -1,5 +1,7 @@
 # RecordAccumulator
 
+`RecordAccumulator` uses [BufferPool](#free).
+
 ## Creating Instance
 
 `RecordAccumulator` takes the following to be created:
@@ -18,6 +20,28 @@
 * <span id="bufferPool"> [BufferPool](BufferPool.md)
 
 `RecordAccumulator` is created along with [KafkaProducer](KafkaProducer.md#accumulator).
+
+## Metrics
+
+`RecordAccumulator` registers the metrics under the [producer-metrics](KafkaProducer.md#PRODUCER_METRIC_GROUP_NAME) group name.
+
+### buffer-available-bytes { #buffer-available-bytes }
+
+The total amount of buffer memory that is not being used (either unallocated or in the free list)
+
+[availableMemory](BufferPool.md#availableMemory) of the [BufferPool](#free)
+
+### buffer-total-bytes { #buffer-total-bytes }
+
+The maximum amount of buffer memory the client can use (whether or not it is currently used)
+
+[totalMemory](BufferPool.md#totalMemory) of the [BufferPool](#free)
+
+### waiting-threads { #waiting-threads }
+
+The number of user threads blocked waiting for buffer memory to enqueue their records
+
+[queued](BufferPool.md#queued) of the [BufferPool](#free)
 
 ## <span id="transactionManager"> TransactionManager
 
@@ -338,3 +362,19 @@ boolean shouldStopDrainBatchesForPartition(
 ```
 
 `shouldStopDrainBatchesForPartition`...FIXME
+
+## registerMetrics { #registerMetrics }
+
+```java
+void registerMetrics(
+  Metrics metrics,
+  String metricGrpName)
+```
+
+`registerMetrics` registers (_adds_) the [metrics](#metrics) to the given [Metrics](../../metrics/Metrics.md).
+
+---
+
+`registerMetrics` is used when:
+
+* `RecordAccumulator` is [created](#creating-instance)
