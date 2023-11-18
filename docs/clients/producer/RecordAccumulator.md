@@ -21,6 +21,21 @@
 
 `RecordAccumulator` is created along with [KafkaProducer](KafkaProducer.md#accumulator).
 
+### BufferPool { #free }
+
+`RecordAccumulator` is given a [BufferPool](BufferPool.md) when [created](#creating-instance).
+
+All the [metrics](#metrics) of `RecordAccumulator` report performance of the `BufferPool`.
+
+The `BufferPool` is used for the following:
+
+* [Adding a record](#append)
+* [partitionReady](#partitionReady)
+* [deallocate](#deallocate)
+* [bufferPoolAvailableMemory](#bufferPoolAvailableMemory)
+
+The `BufferPool` is closed while `RecordAccumulator` is requested to [close](#close).
+
 ## Metrics
 
 `RecordAccumulator` registers the metrics under the [producer-metrics](KafkaProducer.md#PRODUCER_METRIC_GROUP_NAME) group name.
