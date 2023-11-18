@@ -315,7 +315,7 @@ void flush()
 
 `flush` is part of the [Producer](Producer.md#flush) abstraction.
 
-## <span id="waitOnMetadata"> waitOnMetadata
+## waitOnMetadata { #waitOnMetadata }
 
 ```java
 ClusterAndWaitTime waitOnMetadata(
@@ -329,35 +329,26 @@ ClusterAndWaitTime waitOnMetadata(
 
 `waitOnMetadata`...FIXME
 
+---
+
 `waitOnMetadata` is used when:
 
 * `KafkaProducer` is requested to [doSend](#doSend) and [partitionsFor](#partitionsFor)
 
-## Demo
+## lingerMs { #lingerMs }
 
-```text
-// Necessary imports
-import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.kafka.clients.producer.ProducerConfig
-import org.apache.kafka.common.serialization.StringSerializer
-
-// Creating a KafkaProducer
-import java.util.Properties
-val props = new Properties()
-props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
-props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
-props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, ":9092")
-val producer = new KafkaProducer[String, String](props)
-
-// Creating a record to be sent
-import org.apache.kafka.clients.producer.ProducerRecord
-val r = new ProducerRecord[String, String]("0", "this is a message")
-
-// Sending the record (with no Callback)
-import java.util.concurrent.Future
-import org.apache.kafka.clients.producer.RecordMetadata
-val metadataF: Future[RecordMetadata] = producer.send(r)
+```scala
+lingerMs(
+  ProducerConfig config)
 ```
+
+`lingerMs` provides an upper bound on [linger.ms](ProducerConfig.md#LINGER_MS_CONFIG) to be up to the maximum integer value.
+
+---
+
+`lingerMs` is used when:
+
+* `KafkaProducer` is [created](KafkaProducer.md#accumulator) (to create the [RecordAccumulator](KafkaProducer.md#accumulator)) and requested to [configureDeliveryTimeout](KafkaProducer.md#configureDeliveryTimeout)
 
 ## Logging
 

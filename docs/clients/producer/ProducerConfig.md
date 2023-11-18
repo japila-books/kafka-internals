@@ -8,7 +8,7 @@ The buffer size allocated for a partition. When records are received (which are 
 
 Default: `16384`
 
-Must be at least 0
+Must be at least 0. If `0`, `KafkaProducer` will assume `1` anyway (to create the [RecordAccumulator](KafkaProducer.md#accumulator))
 
 Related to:
 
@@ -29,7 +29,32 @@ Used when:
 * `KafkaProducer` is requested to [configureTransactionState](KafkaProducer.md#configureTransactionState)
 * `ProducerConfig` is requested to [maybeOverrideEnableIdempotence](#maybeOverrideEnableIdempotence) and [idempotenceEnabled](#idempotenceEnabled)
 
-## <span id="linger.ms"><span id="LINGER_MS_CONFIG"> linger.ms
+## <span id="LINGER_MS_CONFIG"> linger.ms { #linger.ms }
+
+A delay for how long a [KafkaProducer](KafkaProducer.md) should wait before sending out a record to allow other records to be sent so that the sends can be batched together.
+This can be thought of as analogous to Nagle's algorithm in TCP.
+
+??? note "Cambridge Dictionary"
+    [linger](https://dictionary.cambridge.org/dictionary/english/linger)<br>
+    _verb_
+
+    > to take a long time to leave or disappear
+
+This setting gives the upper bound on the delay for batching: once we get [batch.size](#batch.size) worth of records for a partition it will be sent immediately regardless of this setting, however if we have fewer than this many bytes accumulated for this partition we will 'linger' for the specified time waiting for more records to show up.
+
+Default: `0` (no delay)
+
+For example, `5` would have the effect of reducing the number of requests sent out but would add up to `5` ms of latency to records sent in the absence of load.
+
+??? note "Kafka Streams"
+    Kafka Streams prefers `linger.ms` to be `100`.
+
+Available as [lingerMs](KafkaProducer.md#lingerMs)
+
+Correlated with:
+
+* [delivery.timeout.ms](#delivery.timeout.ms)
+* [request.timeout.ms](#request.timeout.ms)
 
 ## <span id="max.block.ms"><span id="MAX_BLOCK_MS_CONFIG"> max.block.ms
 
