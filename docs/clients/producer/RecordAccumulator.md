@@ -109,28 +109,40 @@ boolean flushInProgress()
 * `RecordAccumulator` is requested to [ready](#ready)
 * `Sender` is requested to [maybeSendAndPollTransactionalRequest](Sender.md#maybeSendAndPollTransactionalRequest)
 
-## <span id="append"> Appending Record
+## Appending Record { #append }
 
 ```java
 RecordAppendResult append(
-  TopicPartition tp,
+  String topic,
+  int partition,
   long timestamp,
   byte[] key,
   byte[] value,
   Header[] headers,
-  Callback callback,
+  AppendCallbacks callbacks,
   long maxTimeToBlock,
   boolean abortOnNewBatch,
-  long nowMs)
+  long nowMs,
+  Cluster cluster)
 ```
 
-`append`...FIXME
+`append` increments [appendsInProgress](#appendsInProgress).
+
+`append` [setPartition](#setPartition) with the given `AppendCallbacks`.
+
+`append` finds an in-progress batch (among the deque of [ProducerBatch](ProducerBatch.md)s).
+
+`append` [tryAppend](#tryAppend).
+
+`append`...FIXME (_there is so much more magic going on yet it doesn't seem as important_).
+
+---
 
 `append` is used when:
 
 * `KafkaProducer` is requested to [send a record](KafkaProducer.md#send) (and [doSend](KafkaProducer.md#doSend))
 
-### <span id="tryAppend"> tryAppend
+### tryAppend { #tryAppend }
 
 ```java
 RecordAppendResult tryAppend(
@@ -393,3 +405,15 @@ void registerMetrics(
 `registerMetrics` is used when:
 
 * `RecordAccumulator` is [created](#creating-instance)
+
+## Logging
+
+Enable `ALL` logging level for `org.apache.kafka.clients.producer.internals.RecordAccumulator` logger to see what happens inside.
+
+Add the following line to `log4j.properties`:
+
+```text
+log4j.logger.org.apache.kafka.clients.producer.internals.RecordAccumulator=ALL
+```
+
+Refer to [Logging](../../logging.md).
