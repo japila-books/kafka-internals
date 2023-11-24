@@ -13,7 +13,7 @@
 
 `TopicConfigHandler` is created when:
 
-* `BrokerServer` is requested to [startup](../raft/BrokerServer.md#startup) (and create [dynamicConfigHandlers](../raft/BrokerServer.md#dynamicConfigHandlers))
+* `BrokerServer` is requested to [startup](../kraft/BrokerServer.md#startup) (and create [dynamicConfigHandlers](../kraft/BrokerServer.md#dynamicConfigHandlers))
 * `KafkaServer` is requested to [startup](../broker/KafkaServer.md#startup) (and create [dynamicConfigHandlers](../broker/KafkaServer.md#dynamicConfigHandlers))
 
 ## <span id="processConfigChanges"> processConfigChanges

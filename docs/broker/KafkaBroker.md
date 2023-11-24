@@ -36,5 +36,5 @@ Used when:
 
 ## Implementations
 
-* [BrokerServer](../raft/BrokerServer.md) (for [KRaft mode](../raft/index.md))
+* [BrokerServer](../kraft/BrokerServer.md) (for [KRaft mode](../kraft/index.md))
 * [KafkaServer](KafkaServer.md)

@@ -27,13 +27,13 @@ With a `KafkaZkClient` specified ([KafkaServer](../broker/KafkaServer.md#startup
     ```
 
 !!! note
-    `KafkaZkClient` is specified for [KafkaServer](../broker/KafkaServer.md#startup) (unlike [BrokerServer](../raft/BrokerServer.md#startup) that makes sense since `BrokerServer` is for Zookeeper-less Kafka deployment).
+    `KafkaZkClient` is specified for [KafkaServer](../broker/KafkaServer.md#startup) (unlike [BrokerServer](../kraft/BrokerServer.md#startup) that makes sense since `BrokerServer` is for Zookeeper-less Kafka deployment).
 
 ---
 
 `initialize` is used when:
 
-* `BrokerServer` is requested to [start up](../raft/BrokerServer.md#startup)
+* `BrokerServer` is requested to [start up](../kraft/BrokerServer.md#startup)
 * `KafkaServer` is requested to [start up](../broker/KafkaServer.md#startup)
 
 ## <span id="addReconfigurables"> addReconfigurables
@@ -49,7 +49,7 @@ addReconfigurables(
 
 `addReconfigurables` is used when:
 
-* `BrokerServer` is requested to [start up](../raft/BrokerServer.md#startup)
+* `BrokerServer` is requested to [start up](../kraft/BrokerServer.md#startup)
 * `KafkaServer` is requested to [start up](../broker/KafkaServer.md#startup)
 
 ## <span id="addBrokerReconfigurable"> addBrokerReconfigurable

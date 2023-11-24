@@ -93,8 +93,8 @@ Returns futures that can be used to wait until metadata for authorizing requests
 
 Used when:
 
-* `BrokerServer` is requested to [start up](../raft/BrokerServer.md#startup)
-* `ControllerServer` is requested to [start up](../raft/ControllerServer.md#startup)
+* `BrokerServer` is requested to [start up](../kraft/BrokerServer.md#startup)
+* `ControllerServer` is requested to [start up](../kraft/ControllerServer.md#startup)
 * `KafkaServer` is requested to [start up](../broker/KafkaServer.md#startup)
 
 ## Implementations

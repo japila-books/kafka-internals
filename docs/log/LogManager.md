@@ -51,7 +51,7 @@ In the end, `apply` creates a [LogManager](#creating-instance) based on some [co
 
 `apply` is used when:
 
-* `BrokerServer` is requested to [start up](../raft/BrokerServer.md#logManager)
+* `BrokerServer` is requested to [start up](../kraft/BrokerServer.md#logManager)
 * `KafkaServer` is requested to [start up](../broker/KafkaServer.md#logManager)
 
 ## <span id="KafkaMetricsGroup"> KafkaMetricsGroup

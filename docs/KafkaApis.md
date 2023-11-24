@@ -32,14 +32,14 @@ Some requests are meant for the [controller broker](controller/index.md) and sim
 
 `KafkaApis` is created when:
 
-* `BrokerServer` is requested to [start up](raft/BrokerServer.md#startup) (for the [dataPlaneRequestProcessor](raft/BrokerServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](raft/BrokerServer.md#controlPlaneRequestProcessor))
+* `BrokerServer` is requested to [start up](kraft/BrokerServer.md#startup) (for the [dataPlaneRequestProcessor](kraft/BrokerServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](kraft/BrokerServer.md#controlPlaneRequestProcessor))
 * `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup) (for the [dataPlaneRequestProcessor](broker/KafkaServer.md#dataPlaneRequestProcessor) and the [controlPlaneRequestProcessor](broker/KafkaServer.md#controlPlaneRequestProcessor))
 
 ## <span id="authorizer"> Authorizer
 
 `KafkaApis` can be given an [Authorizer](authorization/Authorizer.md) when [created](#creating-instance). The `Authorizer` instance is given right from the creator (based on [authorizer.class.name](KafkaConfig.md#authorizer.class.name) configuration property):
 
-* [BrokerServer](raft/BrokerServer.md#authorizer)
+* [BrokerServer](kraft/BrokerServer.md#authorizer)
 * [KafkaServer](broker/KafkaServer.md#authorizer)
 
 The `Authorizer` is used only to create the following:

@@ -25,8 +25,8 @@ Use `KafkaConfig.authorizerClassName` to access the current value.
 
 Used when:
 
-* `BrokerServer` is requested to [start up](raft/BrokerServer.md#startup)
-* `ControllerServer` is requested to [start up](raft/ControllerServer.md#startup)
+* `BrokerServer` is requested to [start up](kraft/BrokerServer.md#startup)
+* `ControllerServer` is requested to [start up](kraft/ControllerServer.md#startup)
 * `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup)
 
 ## <span id="brokerId"><span id="BrokerIdProp"><span id="broker.id"> broker.id
@@ -115,7 +115,7 @@ Used when:
 
 ## <span id="metadata.log.dir"><span id="MetadataLogDirProp"> metadata.log.dir { #metadataLogDir }
 
-The directory of the metadata log of a Kafka cluster in [KRaft mode](raft/index.md).
+The directory of the metadata log of a Kafka cluster in [KRaft mode](kraft/index.md).
 
 Unless specified, the metadata log is placed in the [first log directory from log.dirs](#metadataLogDir).
 
@@ -148,7 +148,7 @@ Used when:
 
 ## <span id="QuorumVotersProp"><span id="quorumVoters"> controller.quorum.voters { #controller.quorum.voters }
 
-[controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
+[controller.quorum.voters](kraft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
 
 ## <span id="ProcessRolesProp"><span id="parseProcessRoles"><span id="processRoles"><span id="usesSelfManagedQuorum"> process.roles { #process.roles }
 
@@ -163,11 +163,11 @@ Supported values:
 Default: (empty)
 
 1. When empty, the process requires Zookeeper (runs with Zookeeper).
-1. Only applicable for clusters in [KRaft (Kafka Raft) mode](raft/index.md)
-1. If used, [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG) must contain a parseable set of voters
+1. Only applicable for clusters in [KRaft (Kafka Raft) mode](kraft/index.md)
+1. If used, [controller.quorum.voters](kraft/RaftConfig.md#QUORUM_VOTERS_CONFIG) must contain a parseable set of voters
 1. [advertised.listeners](#AdvertisedListenersProp) config must not contain KRaft controller listeners from [controller.listener.names](#ControllerListenerNamesProp) when `process.roles` contains `broker` role because Kafka clients that send requests via advertised listeners do not send requests to KRaft controllers -- they only send requests to KRaft brokers
-1. If `process.roles` contains `controller` role, the [node.id](KafkaConfig.md#NodeIdProp) must be included in the set of voters [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
-1. If `process.roles` contains just the `broker` role, the [node.id](KafkaConfig.md#NodeIdProp) must not be included in the set of voters [controller.quorum.voters](raft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
+1. If `process.roles` contains `controller` role, the [node.id](KafkaConfig.md#NodeIdProp) must be included in the set of voters [controller.quorum.voters](kraft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
+1. If `process.roles` contains just the `broker` role, the [node.id](KafkaConfig.md#NodeIdProp) must not be included in the set of voters [controller.quorum.voters](kraft/RaftConfig.md#QUORUM_VOTERS_CONFIG)
 1. If [controller.listener.names](#ControllerListenerNamesProp) has multiple entries; only the first will be used when `process.roles` is `broker`
 1. The advertised listeners ([advertised.listeners](#AdvertisedListenersProp) or [listeners](#ListenersProp)) config must only contain KRaft controller listeners from [controller.listener.names](#ControllerListenerNamesProp) when `process.roles` is `controller`
 
@@ -323,6 +323,6 @@ metadataLogDir: String
 
 `metadataLogDir` is used when:
 
-* `KafkaRaftManager` is [created](raft/KafkaRaftManager.md#dataDirLock) and requested to [createDataDir](raft/KafkaRaftManager.md#createDataDir)
-* `KafkaRaftServer` is requested to [initializeLogDirs](raft/KafkaRaftServer.md#initializeLogDirs)
+* `KafkaRaftManager` is [created](kraft/KafkaRaftManager.md#dataDirLock) and requested to [createDataDir](kraft/KafkaRaftManager.md#createDataDir)
+* `KafkaRaftServer` is requested to [initializeLogDirs](kraft/KafkaRaftServer.md#initializeLogDirs)
 * `StorageTool` is requested to [configToLogDirectories](tools/kafka-storage/StorageTool.md#configToLogDirectories)

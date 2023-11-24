@@ -16,7 +16,7 @@
 `DefaultAutoTopicCreationManager` is created when:
 
 * `AutoTopicCreationManager` utility is used to [create an AutoTopicCreationManager](AutoTopicCreationManager.md#apply)
-* `BrokerServer` is requested to [startup](raft/BrokerServer.md#autoTopicCreationManager)
+* `BrokerServer` is requested to [startup](kraft/BrokerServer.md#autoTopicCreationManager)
 
 ## <span id="txnCoordinator"> TransactionCoordinator
 

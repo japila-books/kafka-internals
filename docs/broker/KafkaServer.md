@@ -1,6 +1,6 @@
 # KafkaServer
 
-`KafkaServer` is a [Server](../Server.md) for Zookeeper mode (non-[KRaft mode](../raft/index.md)).
+`KafkaServer` is a [Server](../Server.md) for Zookeeper mode (non-[KRaft mode](../kraft/index.md)).
 
 ## Creating Instance
 

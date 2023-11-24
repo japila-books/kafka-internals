@@ -1,6 +1,6 @@
 # kafka-storage Utility
 
-`kafka-storage` script is used to...FIXME...when setting up a Kafka cluster in [KRaft mode](../../raft/index.md).
+`kafka-storage` script is used to...FIXME...when setting up a Kafka cluster in [KRaft mode](../../kraft/index.md).
 
 ```shell
 $ ./bin/kafka-storage.sh -h

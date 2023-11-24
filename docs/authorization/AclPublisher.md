@@ -13,5 +13,5 @@
 
 `AclPublisher` is created when:
 
-* `BrokerServer` is requested to [start up](../raft/BrokerServer.md#startup) (to create a [BrokerMetadataPublisher](../raft/BrokerServer.md#brokerMetadataPublisher))
-* `ControllerServer` is requested to [start up](../raft/ControllerServer.md#startup)
+* `BrokerServer` is requested to [start up](../kraft/BrokerServer.md#startup) (to create a [BrokerMetadataPublisher](../kraft/BrokerServer.md#brokerMetadataPublisher))
+* `ControllerServer` is requested to [start up](../kraft/ControllerServer.md#startup)

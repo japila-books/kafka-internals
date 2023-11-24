@@ -23,4 +23,4 @@ buildServer(
 `buildServer` creates a [Server](Server.md) based on [process.roles](KafkaConfig.md#requiresZookeeper) configuration property:
 
 * [KafkaServer](broker/KafkaServer.md) if [empty](KafkaConfig.md#requiresZookeeper)
-* [KafkaRaftServer](raft/KafkaRaftServer.md), otherwise
+* [KafkaRaftServer](kraft/KafkaRaftServer.md), otherwise

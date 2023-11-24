@@ -71,7 +71,7 @@ In the end, `apply` creates a [GroupCoordinator](GroupCoordinator.md).
 
 `apply` is used when:
 
-* `BrokerServer` is requested to [start up](../raft/BrokerServer.md#groupCoordinator)
+* `BrokerServer` is requested to [start up](../kraft/BrokerServer.md#groupCoordinator)
 * `KafkaServer` is requested to [start up](../broker/KafkaServer.md#groupCoordinator)
 
 ### <span id="offsetConfig"><span id="offsetConfig-KafkaConfig"> Creating OffsetConfig

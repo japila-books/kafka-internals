@@ -2,4 +2,4 @@
 
 ## KafkaRaftManager { #raftManager }
 
-`MetadataShell` is given a [KafkaRaftManager](../../raft/KafkaRaftManager.md) when created.
+`MetadataShell` is given a [KafkaRaftManager](../../kraft/KafkaRaftManager.md) when created.

@@ -42,5 +42,5 @@ Used when:
 
 ## Implementations
 
-* [KafkaRaftServer](raft/KafkaRaftServer.md)
+* [KafkaRaftServer](kraft/KafkaRaftServer.md)
 * [KafkaServer](broker/KafkaServer.md)

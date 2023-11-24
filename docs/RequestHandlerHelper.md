@@ -28,6 +28,6 @@ onLeadershipChange(
 
 `onLeadershipChange` is used when:
 
-* `BrokerServer` is requested to [start up](raft/BrokerServer.md#startup)
+* `BrokerServer` is requested to [start up](kraft/BrokerServer.md#startup)
 * `KafkaApis` is requested to [handleLeaderAndIsrRequest](KafkaApis.md#handleLeaderAndIsrRequest)
 * `BrokerMetadataListener` is requested to `handleCommits` and `execCommits`

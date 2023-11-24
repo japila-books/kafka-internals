@@ -139,7 +139,7 @@ nav:
       - TopicConfigHandler: dynamic-broker-configuration/TopicConfigHandler.md
       - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
       - ZkNodeChangeNotificationListener: dynamic-broker-configuration/ZkNodeChangeNotificationListener.md
-    - ... | raft/**.md
+    - ... | kraft/**.md
     - Log Cleanup:
       - log-cleanup/index.md
     - ... | metadata/**.md

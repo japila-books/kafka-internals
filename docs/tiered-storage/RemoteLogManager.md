@@ -15,5 +15,5 @@
 
 `RemoteLogManager` is created when:
 
-* `BrokerServer` is requested to [create a RemoteLogManager](../raft/BrokerServer.md#createRemoteLogManager)
+* `BrokerServer` is requested to [create a RemoteLogManager](../kraft/BrokerServer.md#createRemoteLogManager)
 * `KafkaServer` is requested to [create a RemoteLogManager](../broker/KafkaServer.md#createRemoteLogManager)
