@@ -20,7 +20,7 @@ From Wikipedia's [Access-control list](https://en.wikipedia.org/wiki/Access-cont
 
 ## Contract
 
-### <span id="acls"> ACL Bindings
+### ACL Bindings { #acls }
 
 ```java
 Iterable<AclBinding> acls(
@@ -100,7 +100,7 @@ Used when:
 ## Implementations
 
 * [AclAuthorizer](AclAuthorizer.md)
-* `ClusterMetadataAuthorizer`
+* [ClusterMetadataAuthorizer](ClusterMetadataAuthorizer.md)
 
 ## <span id="Configurable"> Configurable
 
