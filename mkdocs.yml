@@ -277,8 +277,12 @@ nav:
     - kafka-configs:
       - tools/kafka-configs/index.md
       - ConfigCommand: tools/kafka-configs/ConfigCommand.md
+    - kafka-cluster:
+      - tools/kafka-cluster/index.md
     - kafka-console-consumer:
       - ConsoleConsumer: tools/ConsoleConsumer.md
+    - kafka-dump-log:
+      - tools/kafka-dump-log/index.md
     - kafka-get-offsets:
       - tools/kafka-get-offsets/index.md
       - GetOffsetShell: tools/kafka-get-offsets/GetOffsetShell.md

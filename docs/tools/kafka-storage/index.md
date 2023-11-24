@@ -22,7 +22,7 @@ optional arguments:
 
 ## format
 
-[format](StorageTool.md#format) command is used to format the Kafka log directories of a node.
+[format](StorageTool.md#format) command is used to format the Kafka storage directories of a node (brokers and controllers).
 
 ```shell
 $ ./bin/kafka-storage.sh format -h
@@ -52,6 +52,8 @@ Formatting /tmp/kraft-combined-logs with metadata.version 3.6-IV2.
 
 ## info
 
+The `info` command gives information about the configured storage directories.
+
 ```shell
 $ ./bin/kafka-storage.sh info -h
 usage: kafka-storage info [-h] --config CONFIG
@@ -77,7 +79,7 @@ $ tree /tmp/kraft-combined-logs
 
 ## random-uuid
 
-[random-uuid](StorageTool.md#random-uuid) command is used to generate a pseudo randomly generated UUID for a cluster UUID.
+[random-uuid](StorageTool.md#random-uuid) command prints out a pseudo randomly-generated UUID of a cluster to stdout.
 
 ```shell
 $ ./bin/kafka-storage.sh random-uuid
