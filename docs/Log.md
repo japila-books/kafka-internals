@@ -49,7 +49,7 @@ apply(
 * `LogManager` is requested to `loadLog` and `getOrCreateLog`
 * `KafkaMetadataLog` is requested to `apply`
 
-## <span id="read"> Reading Messages
+## Reading Messages { #read }
 
 ```scala
 read(
@@ -67,9 +67,11 @@ Reading maximum [maxLength] bytes at offset [startOffset] from log with total le
 
 `read`...FIXME
 
-`read` requests the `LogSegment` to [read messages](LogSegment.md#read).
+`read` requests the `LogSegment` to [read messages](log/LogSegment.md#read).
 
 `read`...FIXME
+
+---
 
 `read` is used when:
 

@@ -178,9 +178,11 @@ nav:
         - log/CleanerConfig.md
         - log/CleanerThread.md
       - LogConfig: log/LogConfig.md
+      - LocalLog: log/LocalLog.md
+      - LogLoader: log/LogLoader.md
       - LogManager: log/LogManager.md
+      - LogSegment: log/LogSegment.md
       - UnifiedLog: log/UnifiedLog.md
-    - LogSegment: LogSegment.md
     - Partition: Partition.md
     - PartitionData: PartitionData.md
     - RequestHandlerHelper: RequestHandlerHelper.md

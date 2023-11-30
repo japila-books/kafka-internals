@@ -15,7 +15,7 @@
 
 `LogSegment` is created using [open](#open) utility.
 
-## <span id="open"> Opening LogSegment
+## Opening LogSegment { #open }
 
 ```scala
 open(
@@ -31,13 +31,14 @@ open(
 
 `open`...FIXME
 
+---
+
 `open` is used when:
 
-* `Log` is requested to [roll a log segment](Log.md#roll) and [truncateFullyAndStartAt](Log.md#truncateFullyAndStartAt)
-* `LogCleaner` is requested to `createNewCleanedSegment`
-* `LogLoader` is requested to `load`, `loadSegmentFiles` and `recoverLog`
+* `LocalLog` is requested to [createAndDeleteSegment](LocalLog.md#createAndDeleteSegment), [roll](LocalLog.md#roll), [createNewCleanedSegment](LocalLog.md#createNewCleanedSegment)
+* `LogLoader` is requested to [load](LogLoader.md#load), [loadSegmentFiles](LogLoader.md#loadSegmentFiles), [recoverLog](LogLoader.md#recoverLog)
 
-## <span id="read"> Reading Messages
+## Reading Messages { #read }
 
 ```scala
 read(
@@ -49,7 +50,9 @@ read(
 
 `read`...FIXME
 
+---
+
 `read` is used when:
 
-* `Log` is requested to [read](Log.md#read)
+* `Log` is requested to [read](../Log.md#read)
 * `LogSegment` is requested to [readNextOffset](#readNextOffset)

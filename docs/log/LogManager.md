@@ -95,7 +95,7 @@ With the input `isFuture` enabled, `getLog` uses the [futureLogs](#futureLogs) r
 * `LogManager` is requested to [maybeUpdatePreferredLogDir](#maybeUpdatePreferredLogDir), [getOrCreateLog](#getOrCreateLog), [asyncDelete](#asyncDelete)
 * `ReplicaManager` is requested to [getLog](../ReplicaManager.md#getLog), [maybeAddLogDirFetchers](../ReplicaManager.md#maybeAddLogDirFetchers)
 
-## <span id="getOrCreateLog"> getOrCreateLog
+## getOrCreateLog { #getOrCreateLog }
 
 ```scala
 getOrCreateLog(
@@ -112,6 +112,57 @@ getOrCreateLog(
 `getOrCreateLog` is used when:
 
 * `Partition` is requested to [createLog](../Partition.md#createLog)
+
+## startup { #startup }
+
+```scala
+startup(
+  topicNames: Set[String]): Unit
+```
+
+`startup` [startupWithConfigOverrides](#startupWithConfigOverrides) with the [currentDefaultConfig](#currentDefaultConfig) and [fetchTopicConfigOverrides](#fetchTopicConfigOverrides).
+
+---
+
+`startup` is used when:
+
+* `KafkaServer` is requested to [startup](../broker/KafkaServer.md#startup)
+* `BrokerMetadataPublisher` is requested to [initializeManagers](../metadata/BrokerMetadataPublisher.md#initializeManagers)
+
+### startupWithConfigOverrides { #startupWithConfigOverrides }
+
+```scala
+startupWithConfigOverrides(
+  defaultConfig: LogConfig,
+  topicConfigOverrides: Map[String, LogConfig]): Unit
+```
+
+`startupWithConfigOverrides`...FIXME
+
+### loadLogs { #loadLogs }
+
+```scala
+loadLogs(
+  defaultConfig: LogConfig,
+  topicConfigOverrides: Map[String, LogConfig]): Unit
+```
+
+`loadLogs`...FIXME
+
+### loadLog { #loadLog }
+
+```scala
+loadLog(
+  logDir: File,
+  hadCleanShutdown: Boolean,
+  recoveryPoints: Map[TopicPartition, Long],
+  logStartOffsets: Map[TopicPartition, Long],
+  defaultConfig: LogConfig,
+  topicConfigOverrides: Map[String, LogConfig],
+  numRemainingSegments: ConcurrentMap[String, Int]): UnifiedLog
+```
+
+`loadLog`...FIXME
 
 ## Logging
 
