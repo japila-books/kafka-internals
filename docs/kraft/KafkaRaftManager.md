@@ -2,6 +2,8 @@
 
 `KafkaRaftManager` is a [RaftManager](RaftManager.md).
 
+`KafkaRaftManager` is [created](#creating-instance) and immediately [started](#startup) when `SharedServer` is [started](SharedServer.md#start).
+
 ## Creating Instance
 
 `KafkaRaftManager` takes the following to be created:
@@ -42,3 +44,22 @@ createDataDir(): File
 `createDataDir` [creates the name of the log directory](../log/UnifiedLog.md#logDirName) of the [TopicPartition](#topicPartition).
 
 `createDataDir` [creates the directory](#createLogDirectory) in the [metadataLogDir](../KafkaConfig.md#metadataLogDir).
+
+## Starting Up { #startup }
+
+```scala
+startup(): Unit
+```
+
+??? warning "Procedure"
+    `startup` is a procedure (returns `Unit`) so _what happens inside stays inside_ (paraphrasing the [former advertising slogan of Las Vegas, Nevada](https://idioms.thefreedictionary.com/what+happens+in+Vegas+stays+in+Vegas)).
+
+`startup`...FIXME
+
+---
+
+`startup` is used when:
+
+* `KafkaServer` is requested to [startup](../broker/KafkaServer.md#startup)
+* `SharedServer` is requested to [start](SharedServer.md#start)
+* `MetadataShell` is requested to [initializeWithRaftManager](../tools/kafka-metadata-shell/MetadataShell.md#initializeWithRaftManager) (upon [run](../tools/kafka-metadata-shell/MetadataShell.md#run))
