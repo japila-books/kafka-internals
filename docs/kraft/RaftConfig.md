@@ -20,9 +20,15 @@
 
 ## <span id="QUORUM_VOTERS_CONFIG"> controller.quorum.voters { #controller.quorum.voters }
 
-A comma-separated list of `{id}@{host}:{port}` with ids and endpoints of quorum voters (e.g., `1@localhost:9092,2@localhost:9093,3@localhost:9094`)
+A comma-separated list of `{id}@{host}:{port}` with the node IDs and the endpoints of all the controllers (_quorum voters_) in a Kafka cluster in a KRaft mode (e.g., `1@localhost:9092,2@localhost:9093,3@localhost:9094`)
 
 Default: (empty)
+
+Importance: High
+
+For [ProcessRolesProp](../KafkaConfig.md#ProcessRolesProp) with `controller` role, the [node id](../KafkaConfig.md#nodeId) must also be included in `controller.quorum.voters`.
+
+For [ProcessRolesProp](../KafkaConfig.md#ProcessRolesProp) with `broker` role only, the [node id](../KafkaConfig.md#nodeId) must not be included in `controller.quorum.voters`.
 
 Available as [KafkaConfig.quorumVoters](../KafkaConfig.md#quorumVoters)
 
