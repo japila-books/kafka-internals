@@ -9,7 +9,7 @@
 * <span id="metaProperties"> [MetaProperties](MetaProperties.md)
 * <span id="config"> [KafkaConfig](../KafkaConfig.md)
 * <span id="recordSerde"> `RecordSerde[T]`
-* [TopicPartition](#topicPartition)
+* [Partition 0 of __cluster_metadata](#topicPartition)
 * <span id="topicId"> Topic ID (UUID)
 * <span id="time"> `Time`
 * <span id="metrics"> [Metrics](../metrics/Metrics.md)
