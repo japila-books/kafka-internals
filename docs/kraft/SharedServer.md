@@ -11,6 +11,4 @@
 * <span id="controllerQuorumVotersFuture"> Controller Quorum Voters (`CompletableFuture[util.Map[Integer, AddressSpec]]`)
 * <span id="faultHandlerFactory"> `FaultHandlerFactory`
 
-`SharedServer` is created when:
-
-* `KafkaRaftServer` is [created](KafkaRaftServer.md#sharedServer)
+`SharedServer` is created alongside [KafkaRaftServer](KafkaRaftServer.md#sharedServer).

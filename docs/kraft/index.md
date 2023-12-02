@@ -2,13 +2,21 @@
 
 **Kafka Raft (KRaft)** is a [Raft](https://en.wikipedia.org/wiki/Raft_(algorithm))-based distributed consensus algorithm in Apache Kafka to manage cluster metadata.
 
+There are two types of servers in KRaft mode:
+
+* [broker](#brokers)
+* [controller](#controllers)
+
+A single Kafka server can be one or both (`broker,controller`) at the same time based on [process.roles](../KafkaConfig.md#process.roles) configuration property.
+
+A Kafka server is [KafkaRaftServer](KafkaRaftServer.md) in [KRaft mode](index.md).
+When created, [KafkaRaftServer](KafkaRaftServer.md) creates a [SharedServer](SharedServer.md) that is then used to create a [BrokerServer](BrokerServer.md) or a [ControllerServer](ControllerServer.md) or both (based on [process.roles](../KafkaConfig.md#process.roles) configuration property).
+
 In KRaft mode, [controllers](#controllers) store cluster metadata in the internal [__cluster_metadata](#metadata-topic) topic.
 
 KRaft allows running a Kafka cluster without Apache ZooKeeper in so-called **Kafka Raft metadata mode** (_KRaft mode_).
 
 With KRaft, a Kafka cluster uses its own Kafka infrastructure for metadata (with no need for a separate system, e.g. Zookeeper).
-
-In KRaft, a server can be a [broker](#brokers), [controller](#controllers) or both (`broker,controller`) based on [process.roles](../KafkaConfig.md#process.roles) configuration property.
 
 In KRaft mode, the storage log directories on a node must be formatted using [kafka-storage](../tools/kafka-storage/index.md) utility.
 This requirement prevents system administrators from accidentally enabling KRaft mode by simply making a configuration change.
@@ -59,12 +67,14 @@ System administrators will be able to choose whether to run separate controller 
 Kafka supports running a controller in the same JVM as a broker, in order to save memory and enable single-process test deployments.
 
 The addresses and ports of the controller nodes must be configured on each broker, so that the broker can contact the controller quorum when starting up.
-as long as at least one of the provided controller addresses is valid, the broker will be able to learn about the current metadata quorum and start up.
+As long as at least one of the provided controller addresses is valid, the broker will be able to learn about the current metadata quorum and start up.
 
 Controllers listen on a separate endpoint from brokers.
 The endpoints should be firewalled off from clients to prevent clients from disrupting the cluster by flooding the controller ports with requests.
 
 Controllers do not appear in the MetadataResponses given to clients.
+
+Controllers do not host topics.
 
 ## Brokers
 

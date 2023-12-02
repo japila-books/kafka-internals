@@ -26,7 +26,7 @@
 
 `startup`...FIXME
 
-## <span id="initializeLogDirs"> initializeLogDirs
+## initializeLogDirs { #initializeLogDirs }
 
 ```scala
 initializeLogDirs(
@@ -52,7 +52,7 @@ initializeLogDirs(
 
 * `KafkaRaftServer` is [created](#creating-instance) (and initializes [metaProps](#metaProps) and [offlineDirs](#offlineDirs))
 
-## <span id="offlineDirs"> offlineDirs
+## offlineDirs { #offlineDirs }
 
 ```scala
 offlineDirs: Seq[String]
@@ -64,7 +64,7 @@ offlineDirs: Seq[String]
 
 * `KafkaRaftServer` is requested for the [broker](#broker) (to create a [BrokerServer](BrokerServer.md))
 
-## <span id="metaProps"> metaProps
+## metaProps { #metaProps }
 
 ```scala
 metaProps: MetaProperties
@@ -99,7 +99,7 @@ The lifecycle of `BrokerServer` is tied up to `KafkaRaftServer`:
 controller: Option[ControllerServer]
 ```
 
-`KafkaRaftServer` creates a [ControllerServer](ControllerServer.md) when [created](#creating-instance) with [ControllerRole](../KafkaConfig.md#processRoles).
+`KafkaRaftServer` creates a [ControllerServer](ControllerServer.md) when [created](#creating-instance) with `controller` in [process.roles](../KafkaConfig.md#process.roles).
 
 The lifecycle of `ControllerServer` is tied up to `KafkaRaftServer`:
 
