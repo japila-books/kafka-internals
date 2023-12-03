@@ -29,6 +29,21 @@ Used when:
 * `ControllerServer` is requested to [start up](kraft/ControllerServer.md#startup)
 * `KafkaServer` is requested to [start up](broker/KafkaServer.md#startup)
 
+## <span id="AutoLeaderRebalanceEnableProp"><span id="autoLeaderRebalanceEnable"> auto.leader.rebalance.enable { #auto.leader.rebalance.enable }
+
+Enables auto partition leader balancing.
+A background thread checks the distribution of partition leaders at regular intervals ([leader.imbalance.check.interval.seconds](#leader.imbalance.check.interval.seconds)).
+If the leader imbalance exceeds [leader.imbalance.per.broker.percentage](#leader.imbalance.per.broker.percentage), leader rebalance to the preferred leader for partitions is triggered.
+
+Default: `true`
+
+Importance: High
+
+Used when:
+
+* `KafkaController` is requested to [onControllerFailover](controller/KafkaController.md#onControllerFailover)
+* `ControllerServer` is requested to [startup](kraft/ControllerServer.md#startup)
+
 ## <span id="brokerId"><span id="BrokerIdProp"><span id="broker.id"> broker.id
 
 The broker ID of this Kafka server.
