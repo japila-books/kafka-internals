@@ -35,4 +35,4 @@ Used when:
 * `KRaftMigrationDriver`
 * [MetadataShellPublisher](../tools/kafka-metadata-shell/MetadataShellPublisher.md)
 * `ScramPublisher`
-* `SnapshotGenerator`
+* [SnapshotGenerator](SnapshotGenerator.md)

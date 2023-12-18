@@ -1,0 +1,3 @@
+# LoaderManifest
+
+`LoaderManifest` is...FIXME

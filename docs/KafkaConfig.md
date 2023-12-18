@@ -138,6 +138,48 @@ Default: (unspecified)
 
 Available as [metadataLogDir](#metadataLogDir)
 
+## <span id="metadata.log.max.record.bytes.between.snapshots"><span id="MetadataSnapshotMaxNewRecordBytesProp"> metadata.log.max.record.bytes.between.snapshots { #metadataSnapshotMaxNewRecordBytes }
+
+The maximum number of bytes in the log between the latest snapshot and the high-watermark needed before generating a new snapshot.
+
+To generate snapshots based on the time elapsed use [metadata.log.max.snapshot.interval.ms](#metadata.log.max.snapshot.interval.ms) configuration.
+
+The Kafka node will generate a snapshot when either the maximum time interval is reached or the maximum bytes limit is reached.
+
+Default: `20 * 1024 * 1024`
+
+At least `1`
+
+Priority: `HIGH`
+
+Available as `KafkaConfig.metadataSnapshotMaxNewRecordBytes`
+
+Used when:
+
+* `SharedServer` is requested to [start](kraft/SharedServer.md#snapshotGenerator)
+
+## <span id="metadata.log.max.snapshot.interval.ms"><span id="MetadataSnapshotMaxIntervalMsProp"> metadata.log.max.snapshot.interval.ms { #metadataSnapshotMaxIntervalMs }
+
+The maximum number of milliseconds to wait to generate a snapshot if there are committed records in the log that are not included in the latest snapshot.
+
+A value of zero disables time-based snapshot generation.
+
+To generate snapshots based on the number of metadata bytes use [metadata.log.max.record.bytes.between.snapshots](#metadata.log.max.record.bytes.between.snapshots) configuration.
+
+The Kafka node will generate a snapshot when either the maximum time interval is reached or the maximum bytes limit is reached.
+
+Default: `1` hour
+
+At least `0`
+
+Priority: `HIGH`
+
+Available as `KafkaConfig.metadataSnapshotMaxIntervalMs`
+
+Used when:
+
+* `SharedServer` is requested to [start](kraft/SharedServer.md#snapshotGenerator)
+
 ## <span id="numPartitions"><span id="NumPartitionsProp"><span id="num.partitions"> num.partitions
 
 ## <span id="offsetsTopicPartitions"><span id="OffsetsTopicPartitionsProp"><span id="offsets.topic.num.partitions"> offsets.topic.num.partitions

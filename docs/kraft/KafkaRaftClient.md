@@ -31,3 +31,34 @@
 `KafkaRaftClient` is given a [QuorumStateStore](QuorumStateStore.md) when [created](#creating-instance).
 
 The `QuorumStateStore` is a [FileBasedStateStore](FileBasedStateStore.md) with the `quorum-state` state file in the [dataDir](KafkaRaftManager.md#dataDir).
+
+## poll { #poll }
+
+```java
+void poll()
+```
+
+`poll`...FIXME
+
+---
+
+`poll` is used when:
+
+* `RaftIoThread` is requested to [doWork](RaftIoThread.md#doWork)
+
+### pollListeners { #pollListeners }
+
+```java
+void pollListeners()
+```
+
+`pollListeners`...FIXME
+
+### processRegistration { #processRegistration }
+
+```java
+void processRegistration(
+  Registration<T> registration)
+```
+
+`processRegistration`...FIXME
