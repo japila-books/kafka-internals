@@ -4,9 +4,13 @@
 
 `kafka-metadata-shell.sh` can read the metadata from a metadata snapshot on disk.
 
-Every now and then, Kafka Controller writes snapshots to cluster [metadata topic](../../kraft/index.md)'s log directory (using `SnapshotEmitter`).
+!!! note "KafkaRaftManager Not Supported Yet"
+    There is no support to specify a [KafkaRaftManager](../../kraft/KafkaRaftManager.md) on command line yet.
+
+Based on [metadata.log.max.snapshot.interval.ms](../../KafkaConfig.md#metadata.log.max.snapshot.interval.ms) and [metadata.log.max.record.bytes.between.snapshots](../../KafkaConfig.md#metadata.log.max.record.bytes.between.snapshots), KRaft controllers write metadata snapshots to cluster [metadata topic](../../kraft/index.md)'s log directory (using [SnapshotGenerator](../../metadata/SnapshotGenerator.md) and `SnapshotEmitter`).
 
 ```text
+INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000061020-0000000002 because we have waited at least 60 minute(s).
 INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000061020-0000000002
 ```
 
