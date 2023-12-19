@@ -94,8 +94,8 @@ extra:
   java:
     api: https://docs.oracle.com/en/java/javase/17/docs/api/java.base
   kafka:
-    version: 3.6.0
-    github: https://github.com/apache/kafka/tree/3.6.0
+    version: 3.6.1
+    github: https://github.com/apache/kafka/tree/3.6.1
     jira: https://issues.apache.org/jira/browse
     wiki: https://cwiki.apache.org/confluence/display/KAFKA
   scala:
