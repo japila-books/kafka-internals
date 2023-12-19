@@ -128,17 +128,7 @@ nav:
       - consumer-groups/GroupMetadataManager.md
       - consumer-groups/OffsetConfig.md
     - Controller Election: controller/controller-election.md
-    - Dynamic Broker Configuration:
-      - dynamic-broker-configuration/index.md
-      - dynamic-broker-configuration/BrokerConfigHandler.md
-      - dynamic-broker-configuration/BrokerReconfigurable.md
-      - ConfigHandler: dynamic-broker-configuration/ConfigHandler.md
-      - dynamic-broker-configuration/DynamicBrokerConfig.md
-      - DynamicLogConfig: dynamic-broker-configuration/DynamicLogConfig.md
-      - dynamic-broker-configuration/DynamicThreadPool.md
-      - TopicConfigHandler: dynamic-broker-configuration/TopicConfigHandler.md
-      - ZkConfigManager: dynamic-broker-configuration/ZkConfigManager.md
-      - ZkNodeChangeNotificationListener: dynamic-broker-configuration/ZkNodeChangeNotificationListener.md
+    - ... | dynamic-broker-configuration/**.md
     - ... | kraft/**.md
     - Log Cleanup:
       - log-cleanup/index.md
