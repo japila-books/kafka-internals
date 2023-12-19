@@ -1,6 +1,6 @@
 # MetricsReporter
 
-`MetricsReporter` is an [extension](#contract) of the `Reconfigurable` abstraction for [metrics reporters](#implementations).
+`MetricsReporter` is an [extension](#contract) of the [Reconfigurable](../dynamic-configuration/Reconfigurable.md) abstraction for [reconfigurable metrics reporters](#implementations).
 
 ## Contract (Subset)
 

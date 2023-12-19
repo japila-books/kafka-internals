@@ -129,10 +129,12 @@ nav:
       - consumer-groups/OffsetConfig.md
     - Controller Election: controller/controller-election.md
     - ... | dynamic-broker-configuration/**.md
+    - ... | dynamic-configuration/**.md
     - ... | kraft/**.md
     - Log Cleanup:
       - log-cleanup/index.md
     - ... | metadata/**.md
+    - ... | metrics/**.md
     - Partition Leader Election:
       - partition-leader-election/index.md
     - Security:
@@ -296,7 +298,6 @@ nav:
     - kafka-storage:
       - tools/kafka-storage/index.md
       - tools/kafka-storage/StorageTool.md
-  - ... | metrics/**.md
   - Misc:
     - Building from Sources: building-from-sources.md
     - Logging: logging.md
