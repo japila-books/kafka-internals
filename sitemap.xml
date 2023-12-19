@@ -636,6 +636,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://books.japila.pl/kafka-internals/dynamic-configuration/</loc>
+         <lastmod>2023-12-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://books.japila.pl/kafka-internals/dynamic-configuration/Reconfigurable/</loc>
+         <lastmod>2023-12-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://books.japila.pl/kafka-internals/features/</loc>
          <lastmod>2023-12-19</lastmod>
          <changefreq>daily</changefreq>
